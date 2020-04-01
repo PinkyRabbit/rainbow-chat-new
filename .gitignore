@@ -1,0 +1,5 @@
+deploy.sh
+**/node_modules/
+**/images/
+**/dist/
+**/build/
