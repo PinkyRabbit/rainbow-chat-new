@@ -9,4 +9,4 @@ jobs:
       - checkout
       - run:
           name: deploy
-          command: ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_PASSWORD "/var/www/$PROJECT_FOLDER/deploy.sh"
+          command: ssh -o StrictHostKeyChecking=no $VPS_USER@$VPS_IP "/var/www/$PROJECT_FOLDER/deploy.sh"
