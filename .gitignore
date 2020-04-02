@@ -3,3 +3,5 @@ deploy.sh
 **/images/
 **/dist/
 **/build/
+client/
+server/
