@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  background: url("/assets/beg-crop-1200.jpg") bottom left/contain;
+  color: #cccccc;
+}
+:host #stars {
+  background: url("/assets/star-1200.png") bottom center/90% auto no-repeat;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
