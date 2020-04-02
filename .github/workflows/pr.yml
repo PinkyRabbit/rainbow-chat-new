@@ -17,4 +17,4 @@ jobs:
           username: ${{ secrets.REG_USER }}
           password: ${{ secrets.REG_PASSWORD }}
           port: ${{ secrets.REG_PORT }}
-          script: /var/www/${{ secrets.REG_FOLDER }}/deploy.sh
+          script: sh /var/www/${{ secrets.REG_FOLDER }}/deploy.sh
