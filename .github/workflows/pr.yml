@@ -20,4 +20,13 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: echo Hello, world!
+        run: echo Deploy to dev
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REG_IP }}
+          username: ${{ secrets.REG_USER }}
+          password: ${{ secrets.REG_PASSWORD }}
+          port: ${{ secrets.REG_PORT }}
+          script: /var/www/${{ secrets.REG_FOLDER }}/deploy.sh
