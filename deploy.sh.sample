@@ -1,0 +1,10 @@
+#!/bin/bash	
+
+echo "Start deploy"	
+cd /path/to/app
+git pull	
+cd /path/to/app/src-client	
+ng build --prod=true	
+rm -rf /path/to/app/client	
+mv /path/to/app/src-client/dist /path/to/app/client	
+echo "Deploy end"
