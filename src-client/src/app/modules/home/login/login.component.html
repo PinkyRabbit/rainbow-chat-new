@@ -1,11 +1,94 @@
-<div
+<section
   id="login-component"
+  class="section"
   (window:resize)="onResize($event)"
   [style.height]="windowHeight + 'px'"
   [style.boxShadow]="boxShadow"
 >
-  <div>
-    <h1>Login component</h1>
+  <div class="container">
+    <div class="columns is-multiline">
+      <div class="column is-one-third">
+        <figure class="image" id="main-logo">
+          <img src="/assets/logo.png" alt="logo" />
+        </figure>
+
+        <div id="main-login" class="has-text-centered">
+          <form action="">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="Логин" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="Пароль" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" />
+                Запомнить меня
+              </label>
+            </div>
+            <a class="button is-fullwidth is-success" id="login-btn">Войти</a>
+          </form>
+          <a href="#" class="underlined muted">Правила</a>
+          <a href="#" class="underlined muted">Подсмотреть</a>
+          <a href="#" class="underlined">Регистрация</a>
+        </div>
+      </div>
+
+      <div class="column is-one-third" id="main-challenge">
+        <a href="#" class="is-size-4 has-text-centered">
+          <figure class="image is-square bricked-bord" id="chall-img">
+            <img src="/assets/1.jpg" alt="logo" />
+            <div class="imgdesc">
+              <p>Hello</p>
+            </div>
+          </figure>
+        </a>
+      </div>
+
+      <div class="column is-one-third">
+        <div class="new-game">
+          <a href="#">
+            <p>Павел ждёт оппонента в игре Шахматы</p>
+            <p>Присоединиться...</p>
+          </a>
+        </div>
+        <div class="new-game">
+          <a href="#">
+            <p>Павел ждёт оппонента в игре Шахматы</p>
+            <p>Присоединиться...</p>
+          </a>
+        </div>
+        <div class="new-game">
+          <a href="#">
+            <p>Павел ждёт оппонента в игре Шахматы</p>
+            <p>Присоединиться...</p>
+          </a>
+        </div>
+        <div class="new-game">
+          <a href="#">
+            <p>Павел ждёт оппонента в игре Шахматы</p>
+            <p>Присоединиться...</p>
+          </a>
+        </div>
+        <div class="new-game">
+          <a href="#">
+            <p>Павел ждёт оппонента в игре Шахматы</p>
+            <p>Присоединиться...</p>
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
-  <div id="stars" [style.height]="windowHeight + 'px'"></div>
-</div>
+
+  <div class="columns" id="stars">
+    <div class="column">
+      <figure class="image">
+        <img src="/assets/star-1200.png" alt="stars" />
+      </figure>
+    </div>
+  </div>
+</section>

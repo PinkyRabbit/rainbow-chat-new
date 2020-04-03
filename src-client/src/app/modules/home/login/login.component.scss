@@ -1,12 +1,17 @@
 :host {
   display: block;
-  background: url("/assets/beg-crop-1200.jpg") bottom left/contain;
-  color: #cccccc;
+  background: url("/assets/beg-crop-1200.jpg") top left / 100% auto repeat-y;
+  color: #a0afde;
+  padding-bottom: 0;
 }
 :host #stars {
-  background: url("/assets/star-1200.png") bottom center/90% auto no-repeat;
+  padding-bottom: 0px;
+  padding-top: 130px;
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  bottom: 0px;
+  left: 0px;
+  z-index: 9;
+}
+:host .bricked-bord {
+  border: 5px solid #333468;
 }
