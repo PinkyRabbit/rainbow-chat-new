@@ -9,6 +9,7 @@ import swagger from './util/swagger';
 
 const isSwaggerEnabled =
   process.env.IS_SWAGGER_ENABLED && process.env.IS_SWAGGER_ENABLED === 'true';
+const appPort = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -17,6 +18,6 @@ async function bootstrap() {
     swagger(app);
   }
   app.useGlobalFilters(new AllExceptionsFilter());
-  await app.listen(3000);
+  await app.listen(appPort);
 }
 bootstrap();
