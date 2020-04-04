@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginComponent } from './login/login.component';
+// import { LoginComponent } from './login/login.component';
 // import { ActivatedRoute, Router } from '@angular/router';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // import { first } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { LoginComponent } from './login/login.component';
 @Component({
   selector: 'home-component',
   templateUrl: './home.component.html',
-  styleUrls: ['home.component.scss']
+  styleUrls: ['home.component.scss'],
 })
 export class HomeComponent implements OnInit {
   // login: LoginComponent;

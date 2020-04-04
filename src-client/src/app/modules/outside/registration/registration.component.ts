@@ -4,11 +4,11 @@ import { Component, OnInit } from '@angular/core';
 // import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'login-component',
-  templateUrl: './login.component.html',
-  styleUrls: ['login.component.scss']
+  selector: 'registration-component',
+  templateUrl: './registration.component.html',
+  styleUrls: ['registration.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class RegistrationComponent implements OnInit {
   windowHeight = 0;
   boxShadow = 'none';
 
