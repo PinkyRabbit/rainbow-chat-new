@@ -15,6 +15,7 @@ npm i
 nest build
 mv /path/to/app/src-server/dist /path/to/app/server
 mkdir -p /path/to/app/server/public
+cp /path/to/app/src-server/.env /path/to/app/server/.env
 cp /path/to/app/src-server/pm2-config.json /path/to/app/server/pm2-config.json
 cp /path/to/app/src-server/package.json /path/to/app/server/package.json
 cp /path/to/app/src-server/package-lock.json /path/to/app/server/package-lock.json
