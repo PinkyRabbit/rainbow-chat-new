@@ -2,7 +2,7 @@
   "apps": [
     {
       "name": "rainbow chat",
-      "script": "./dist/main.js",
+      "script": "./main.js",
       "log_date_format": "YYYY-MM-DD HH:mm Z",
       "exec_mode": "cluster",
       "instances": "max",
