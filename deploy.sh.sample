@@ -1,12 +1,19 @@
-#!/bin/bash	
+#!/bin/bash
 
-echo "Start deploy"	
+echo "Start deploy"
+rm -rf /path/to/app/client
+rm -rf /path/to/app/server
 cd /path/to/app
 git checkout -f master
 git pull
 cd /path/to/app/src-client
 npm i
-ng build --prod=true	
-rm -rf /path/to/app/client	
-mv /path/to/app/src-client/dist /path/to/app/client	
+ng build --prod=true
+mv /path/to/app/src-client/dist /path/to/app/client
+cd /path/to/app/src-server
+nest build
+mv /path/to/app/src-server/dist /path/to/app/server
+cp /path/to/app/src-server/pm2-config.json /path/to/app/server/pm2-config.json
+cd /path/to/app/server
+pm2 startOrRestart pm2-config.json
 echo "Deploy end"
