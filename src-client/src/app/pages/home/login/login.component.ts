@@ -1,18 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { first } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'registration-component',
-  templateUrl: './registration.component.html',
-  styleUrls: ['registration.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['login.component.scss'],
 })
-export class RegistrationComponent implements OnInit {
+export class LoginComponent implements OnInit {
   windowHeight = 0;
   boxShadow = 'none';
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   private getWindowHeigh() {
     return (
@@ -27,7 +25,7 @@ export class RegistrationComponent implements OnInit {
       window.innerWidth ||
       document.documentElement.clientWidth ||
       document.body.clientWidth;
-    var shadowWidth = windowWidth / 3;
+    let shadowWidth = windowWidth / 3;
     return 'inset 0 0 ' + shadowWidth + 'px rgba(0, 0, 0, 0.5)';
   }
 

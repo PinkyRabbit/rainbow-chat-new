@@ -3,12 +3,13 @@ import { RouterModule } from '@angular/router';
 
 import { HomeComponent } from './home.component';
 import { LoginComponent } from './login/login.component';
-// import { CommonModule } from '@angular/common';
+
+import { OutsideLogoComponent } from 'app/components/outside/logo/outside.logo.component';
 
 @NgModule({
   imports: [RouterModule],
-  declarations: [HomeComponent, LoginComponent],
-  providers: [LoginComponent],
-  bootstrap: [HomeComponent],
+  declarations: [HomeComponent, LoginComponent, OutsideLogoComponent],
+  providers: [],
+  bootstrap: [HomeComponent]
 })
 export class HomeModule {}
