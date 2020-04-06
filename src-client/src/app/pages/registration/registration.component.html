@@ -2,15 +2,15 @@
   id="login-component"
   class="section"
   (window:resize)="onResize($event)"
-  [style.height]="windowHeight + 'px'"
   [style.boxShadow]="boxShadow"
 >
   <div class="container">
     <div class="columns is-multiline">
-      <div class="column is-one-third">
-        <app-outside-logo>Loading app-outside-logo...</app-outside-logo>
-        <h1>Registration component</h1>
-      </div>
+      <header app-outside-page-header [title]="pageTitle">
+        Loading app-outside-page-header...
+      </header>
+      <main app-registration-form>Loading app-registration-form...</main>
+      <div app-outside-stars>Loading app-outside-stars...</div>
     </div>
   </div>
 </section>

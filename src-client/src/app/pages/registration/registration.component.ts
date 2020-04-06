@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-// import { ActivatedRoute, Router } from '@angular/router';
-// import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-// import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registration',
@@ -9,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
-  windowHeight = 0;
+  readonly pageTitle: string = 'Регистрация';
   boxShadow = 'none';
 
   constructor() {}
@@ -32,12 +29,10 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.windowHeight = this.getWindowHeigh();
     this.boxShadow = this.getBoxShadow();
   }
 
   onResize(event) {
-    this.windowHeight = this.getWindowHeigh();
     this.boxShadow = this.getBoxShadow();
   }
 

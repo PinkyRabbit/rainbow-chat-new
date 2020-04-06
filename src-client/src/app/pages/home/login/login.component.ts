@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       window.innerWidth ||
       document.documentElement.clientWidth ||
       document.body.clientWidth;
-    let shadowWidth = windowWidth / 3;
+    const shadowWidth = windowWidth / 3;
     return 'inset 0 0 ' + shadowWidth + 'px rgba(0, 0, 0, 0.5)';
   }
 
