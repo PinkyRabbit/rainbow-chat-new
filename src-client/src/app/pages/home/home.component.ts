@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
 // import { first } from 'rxjs/operators';
 
 @Component({
-  selector: 'home-component',
+  selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['home.component.scss'],
 })
