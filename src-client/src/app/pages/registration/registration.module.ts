@@ -3,11 +3,11 @@ import { RouterModule } from '@angular/router';
 
 import { RegistrationComponent } from './registration.component';
 
-import { OutsideLogoComponent } from 'app/components/outside/logo/outside.logo.component';
+import { OutsideModule } from 'app/modules/outside/outside.module';
 
 @NgModule({
-  imports: [RouterModule],
-  declarations: [RegistrationComponent, OutsideLogoComponent],
+  imports: [RouterModule, OutsideModule],
+  declarations: [RegistrationComponent],
   providers: [],
   bootstrap: [RegistrationComponent],
 })
