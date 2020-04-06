@@ -6,4 +6,5 @@ deploy.sh
 client/
 server/
 **/.env
-**/environments/
+.env
+environments/

@@ -6,11 +6,15 @@
 }
 :host #stars {
   padding-bottom: 0px;
-  padding-top: 130px;
   position: absolute;
-  bottom: 0px;
   left: 0px;
+  bottom: -11px;
+  width: 100%;
   z-index: 9;
+}
+:host #stars .column {
+  width: 80%;
+  margin: 0 auto;
 }
 :host .bricked-bord {
   border: 5px solid #333468;
