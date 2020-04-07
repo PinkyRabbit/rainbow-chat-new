@@ -19,11 +19,14 @@ const UserSchema = new mongoose.Schema(
     },
     firstName: String,
     lastName: String,
-    age: {
+    gender: {
+      type: String,
+      enum: ['male', 'female'],
+      default: 'male'
+    },
+    year: {
       type: Number,
       required: false,
-      min: [12, 'Too little for this service'],
-      max: [99, 'Too old for this service'],
     },
     country: String,
     city: String,

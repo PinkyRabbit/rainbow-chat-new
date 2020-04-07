@@ -5,7 +5,8 @@ export interface UserModel extends Document {
   readonly password: string;
   readonly firstName: string;
   readonly lastName: string;
-  readonly age: number;
+  readonly gender: number;
+  readonly year: number;
   readonly country: string;
   readonly city: string;
   readonly phone: string;
