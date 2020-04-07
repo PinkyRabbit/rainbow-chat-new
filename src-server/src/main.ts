@@ -6,13 +6,16 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './util/exception-filter';
 import swagger from './util/swagger';
+import { origin } from './config/cors';
 
 const isSwaggerEnabled =
   process.env.IS_SWAGGER_ENABLED && process.env.IS_SWAGGER_ENABLED === 'true';
 const appPort = process.env.PORT || 3000;
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: { origin, credentials: true },
+  });
   app.setGlobalPrefix('api/v1');
   if (isSwaggerEnabled) {
     swagger(app);
