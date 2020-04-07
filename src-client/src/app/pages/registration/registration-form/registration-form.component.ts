@@ -21,7 +21,12 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit() {
-    this.http.post(this.createUserUrl, this.user).subscribe(
+    const { rulesAccepted, ...newUser } = this.user;
+    if (!rulesAccepted) {
+      alert('Вы должны принять правила пользования сервисом!');
+    }
+
+    this.http.post(this.createUserUrl, newUser).subscribe(
       (res) => console.log(res),
       (err) => console.log(err)
     );
