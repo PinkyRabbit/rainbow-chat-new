@@ -12,7 +12,7 @@ if (process.env.FRONT_END_BASE_DOMAIN) {
   allowedOrigins.push(frontEndRegex);
 }
 
-if (allowedOrigins.length) {
+if (!allowedOrigins.length) {
   console.log('No allowed origins setted');
   process.exit(1);
 }
