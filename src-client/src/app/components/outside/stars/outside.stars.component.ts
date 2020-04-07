@@ -10,5 +10,6 @@ export class OutsideStartsComponent implements OnInit {
   constructor(private router: Router) {}
 
   @HostBinding('class.column')
+  @HostBinding('class.is-full')
   ngOnInit() {}
 }

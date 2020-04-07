@@ -1,4 +1,11 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostBinding,
+  Output,
+  EventEmitter,
+  Input,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
@@ -17,6 +24,10 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(private router: Router, private http: HttpClient) {}
 
+  // @Input() isLoaderDisabled: boolean;
+  @Output() loaderOn: EventEmitter<any> = new EventEmitter();
+  @Output() loaderOff: EventEmitter<any> = new EventEmitter();
+
   @HostBinding('class.columns')
   ngOnInit() {}
 
@@ -26,9 +37,32 @@ export class RegistrationFormComponent implements OnInit {
       alert('Вы должны принять правила пользования сервисом!');
     }
 
-    this.http.post(this.createUserUrl, newUser).subscribe(
-      (res) => console.log(res),
-      (err) => console.log(err)
-    );
+    this.loaderOn.emit('Сохраняем нового пользователя...');
+
+    setTimeout(() => {
+      this.http
+        .post(this.createUserUrl, newUser, { responseType: 'text' })
+        .subscribe(
+          this.onSuccessUserCreation,
+          (err) => console.log(err),
+          () => this.loaderOff.emit()
+        );
+    }, 3000);
   }
+
+  onSuccessUserCreation(res) {
+    console.log(this);
+    if (res === 'user.created') {
+      // this.loaderOn.emit('Перенаправляем вас в чат...');
+    }
+    console.log(res);
+  }
+
+  // onSuccessUserCreation() {
+  // console.log('onSuccessUserCreation');
+  // this.loaderOn.emit('Перенаправляем вас в чат...');
+  // setTimeout(() => {
+  //   this.loaderOff.emit();
+  // }, 3000);
+  // }
 }

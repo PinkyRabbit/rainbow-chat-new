@@ -5,6 +5,7 @@ import { OutsideLogoComponent } from 'app/components/outside/logo/outside.logo.c
 import { OutsideFooterComponent } from 'app/components/outside/footer/outside.footer.component';
 import { OutsidePageHeaderComponent } from 'app/components/outside/page-header/outside.page-header.component';
 import { OutsideStartsComponent } from 'app/components/outside/stars/outside.stars.component';
+import { OutsideLoaderLigthComponent } from 'app/components/outside/loader-light/outside.loader-light.component';
 
 @NgModule({
   imports: [CommonModule],
@@ -13,12 +14,14 @@ import { OutsideStartsComponent } from 'app/components/outside/stars/outside.sta
     OutsideFooterComponent,
     OutsidePageHeaderComponent,
     OutsideStartsComponent,
+    OutsideLoaderLigthComponent,
   ],
   exports: [
     OutsideLogoComponent,
     OutsideFooterComponent,
     OutsidePageHeaderComponent,
     OutsideStartsComponent,
+    OutsideLoaderLigthComponent,
   ],
 })
 export class OutsideModule {}

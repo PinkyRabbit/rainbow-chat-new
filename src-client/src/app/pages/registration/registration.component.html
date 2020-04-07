@@ -9,7 +9,23 @@
       <header app-outside-page-header [title]="pageTitle">
         Loading app-outside-page-header...
       </header>
-      <main app-registration-form>Loading app-registration-form...</main>
+      <main
+        app-registration-form
+        id="registration-form"
+        (loaderOn)="loaderOn($event)"
+        (loaderOff)="loaderOff()"
+        *ngIf="isLoaderDisabled"
+      >
+        Loading app-registration-form...
+      </main>
+      <div
+        app-outside-loader-light
+        *ngIf="!isLoaderDisabled"
+        [text]="loaderText"
+        [loaderHeight]="loaderHeight"
+      >
+        Loading app-outside-loader-light...
+      </div>
       <div app-outside-stars>Loading app-outside-stars...</div>
     </div>
   </div>

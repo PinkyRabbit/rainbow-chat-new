@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-registration',
+  selector: '#registration',
   templateUrl: './registration.component.html',
   styleUrls: ['registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
   readonly pageTitle: string = 'Регистрация';
+  isLoaderDisabled = true;
+  loaderText = 'Сохраняем нового пользователя...';
+  loaderHeight = 100;
   boxShadow = 'none';
 
   constructor() {}
@@ -28,5 +31,17 @@ export class RegistrationComponent implements OnInit {
     this.boxShadow = this.getBoxShadow();
   }
 
-  onSubmit() {}
+  loaderOn(text) {
+    this.isLoaderDisabled = false;
+    this.loaderText = text;
+    console.log(`this.loaderText = ${this.loaderText}`);
+    this.loaderHeight = document.getElementById(
+      'registration-form'
+    ).offsetHeight;
+  }
+
+  loaderOff() {
+    this.isLoaderDisabled = true;
+    console.log('loaderOff');
+  }
 }

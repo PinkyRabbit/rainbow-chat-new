@@ -11,6 +11,8 @@ export class OutsidePageHeaderComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  @HostBinding('class.columns.is-multiline')
+  @HostBinding('class.column')
+  @HostBinding('class.is-full')
+  @HostBinding('class.columns')
   ngOnInit() {}
 }
