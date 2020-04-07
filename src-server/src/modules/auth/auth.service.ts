@@ -12,13 +12,20 @@ export class AuthService {
     private userModel: Model<UserModel>,
   ) {}
 
-  async signUpNewUser(newUser) {
+  async signUpNewUser(userObject) {
+    const { passwordConfirmation, ...newUser } = userObject;
+
+    if (newUser.password !== passwordConfirmation) {
+      throw new BadRequestException('user.passwordConfirmation');
+    }
+
     const existedUser = await this.userModel.findOne({ email: newUser.email });
     if (existedUser) {
       throw new BadRequestException('user.alreadyExists');
     }
-    console.log(newUser);
-    return await this.userModel.create(newUser);
+
+    await this.userModel.create(newUser);
+    return 'user.created';
   }
 
   // async validateUser(username: string, pass: string): Promise<any> {
