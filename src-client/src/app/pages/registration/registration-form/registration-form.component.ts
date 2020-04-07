@@ -11,7 +11,7 @@ import { environment } from 'environments/environment';
   styleUrls: ['registration-form.component.scss'],
 })
 export class RegistrationFormComponent implements OnInit {
-  private readonly createUserUrl = `${environment.apiUrl}/sign-up`;
+  private readonly createUserUrl = `${environment.apiUrl}/auth/sign-up`;
   user = new NewUser();
   sexValues = ['Мальчик', 'Девочка'];
 

@@ -46,7 +46,7 @@ export class AuthRegisterDTO {
   @IsNumber()
   @IsInt()
   @Min(1950)
-  @ApiPropertyOptional({ type: Number, example: 22 })
+  @ApiPropertyOptional({ type: Number, example: 1990 })
   readonly year: number;
 
   @Transform(transformGender)
