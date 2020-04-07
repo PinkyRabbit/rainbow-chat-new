@@ -11,14 +11,6 @@ export class RegistrationComponent implements OnInit {
 
   constructor() {}
 
-  private getWindowHeigh() {
-    return (
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    );
-  }
-
   private getBoxShadow() {
     const windowWidth =
       window.innerWidth ||
