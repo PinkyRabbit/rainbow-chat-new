@@ -22,11 +22,13 @@ export class RegistrationFormComponent implements OnInit {
   user = new NewUser();
   sexValues = ['Мальчик', 'Девочка'];
 
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(private router: Router, private http: HttpClient) {
+    this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
+    this.onError = this.onError.bind(this);
+  }
 
-  // @Input() isLoaderDisabled: boolean;
-  @Output() loaderOn: EventEmitter<any> = new EventEmitter();
-  @Output() loaderOff: EventEmitter<any> = new EventEmitter();
+  @Output() loaderOn: EventEmitter<any> = new EventEmitter<any>();
+  @Output() loaderOff: EventEmitter<any> = new EventEmitter<any>();
 
   @HostBinding('class.columns')
   ngOnInit() {}
@@ -39,30 +41,33 @@ export class RegistrationFormComponent implements OnInit {
 
     this.loaderOn.emit('Сохраняем нового пользователя...');
 
+    const res = this.http.post(this.createUserUrl, newUser, {
+      responseType: 'text',
+    });
+
     setTimeout(() => {
       this.http
         .post(this.createUserUrl, newUser, { responseType: 'text' })
-        .subscribe(
-          this.onSuccessUserCreation,
-          (err) => console.log(err),
-          () => this.loaderOff.emit()
-        );
+        .subscribe(this.onSuccessUserCreation, this.onError);
     }, 3000);
   }
 
-  onSuccessUserCreation(res) {
-    console.log(this);
+  private onSuccessUserCreation(res) {
+    this.loaderOff.emit(null);
     if (res === 'user.created') {
-      // this.loaderOn.emit('Перенаправляем вас в чат...');
+      this.loaderOn.emit('Перенаправляем вас в чат...');
     }
     console.log(res);
   }
 
-  // onSuccessUserCreation() {
-  // console.log('onSuccessUserCreation');
-  // this.loaderOn.emit('Перенаправляем вас в чат...');
-  // setTimeout(() => {
-  //   this.loaderOff.emit();
-  // }, 3000);
-  // }
+  private onError(err) {
+    this.loaderOff.emit(null);
+    if (typeof err === 'string') {
+      err = JSON.parse(err);
+    }
+    const { error } = err;
+    console.log(error);
+    console.log(typeof error);
+    alert(error.message || JSON.stringify(error));
+  }
 }

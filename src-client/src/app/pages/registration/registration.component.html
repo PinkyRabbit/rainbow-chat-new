@@ -13,14 +13,14 @@
         app-registration-form
         id="registration-form"
         (loaderOn)="loaderOn($event)"
-        (loaderOff)="loaderOff()"
-        *ngIf="isLoaderDisabled"
+        (loaderOff)="loaderOff($event)"
+        [hidden]="!isLoading"
       >
         Loading app-registration-form...
       </main>
       <div
         app-outside-loader-light
-        *ngIf="!isLoaderDisabled"
+        [hidden]="isLoading"
         [text]="loaderText"
         [loaderHeight]="loaderHeight"
       >

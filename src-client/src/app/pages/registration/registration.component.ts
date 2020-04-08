@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
   readonly pageTitle: string = 'Регистрация';
-  isLoaderDisabled = true;
+  isLoading = true;
   loaderText = 'Сохраняем нового пользователя...';
   loaderHeight = 100;
   boxShadow = 'none';
@@ -32,16 +32,14 @@ export class RegistrationComponent implements OnInit {
   }
 
   loaderOn(text) {
-    this.isLoaderDisabled = false;
+    this.isLoading = false;
     this.loaderText = text;
-    console.log(`this.loaderText = ${this.loaderText}`);
     this.loaderHeight = document.getElementById(
       'registration-form'
     ).offsetHeight;
   }
 
-  loaderOff() {
-    this.isLoaderDisabled = true;
-    console.log('loaderOff');
+  loaderOff(a) {
+    this.isLoading = true;
   }
 }
