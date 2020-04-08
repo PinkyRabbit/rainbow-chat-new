@@ -10,19 +10,18 @@
         Loading app-outside-page-header...
       </header>
       <main
-        app-registration-form
         id="registration-form"
         (loaderOn)="loaderOn($event)"
         (loaderOff)="loaderOff($event)"
-        [hidden]="!isLoading"
+        [hidden]="!loader"
       >
         Loading app-registration-form...
       </main>
       <div
         app-outside-loader-light
-        [hidden]="isLoading"
         [text]="loaderText"
         [loaderHeight]="loaderHeight"
+        [hidden]="loader"
       >
         Loading app-outside-loader-light...
       </div>

@@ -1,4 +1,8 @@
-<div class="column is-two-third-tablet">
+<div
+  class="column is-two-third-tablet"
+  (window:resize)="onResize($event)"
+  [style.paddingBottom]="paddingBottom + 'px'"
+>
   <form #registrationFrom="ngForm" (ngSubmit)="onSubmit()">
     <div class="columns">
       <div class="column is-one-halft">

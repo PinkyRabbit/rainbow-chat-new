@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrationComponent implements OnInit {
   readonly pageTitle: string = 'Регистрация';
-  isLoading = true;
+  loader = true;
   loaderText = 'Сохраняем нового пользователя...';
   loaderHeight = 100;
   boxShadow = 'none';
@@ -24,15 +24,15 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.boxShadow = this.getBoxShadow();
+    this.onInitAndOnResize();
   }
 
   onResize(event) {
-    this.boxShadow = this.getBoxShadow();
+    this.onInitAndOnResize();
   }
 
   loaderOn(text) {
-    this.isLoading = false;
+    this.loader = false;
     this.loaderText = text;
     this.loaderHeight = document.getElementById(
       'registration-form'
@@ -40,6 +40,26 @@ export class RegistrationComponent implements OnInit {
   }
 
   loaderOff(a) {
-    this.isLoading = true;
+    this.loader = true;
+  }
+
+  private onInitAndOnResize() {
+    this.boxShadow = this.getBoxShadow();
+    // setInterval(() => {
+    //   this.paddingBottom += 20;
+    //   console.log(
+    //     `rootElement = ${document.getElementById('root').offsetHeight}`
+    //   );
+    // }, 1000);
+    // this.paddingBottom = 0;
+    // const rootElement = document.getElementById('root');
+    // const windowHeight = this.getWindowHeigh();
+    // while (
+    //   rootElement.offsetHeight < windowHeight &&
+    //   this.paddingBottom < 10000
+    // ) {
+    //   console.log(`rootElement = ${rootElement.offsetHeight}`);
+    //   this.paddingBottom += 1;
+    // }
   }
 }

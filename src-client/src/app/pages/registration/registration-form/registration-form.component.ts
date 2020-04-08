@@ -13,14 +13,16 @@ import { NewUser } from 'app/models/new-user';
 import { environment } from 'environments/environment';
 
 @Component({
-  selector: '[app-registration-form]',
+  selector: '#registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['registration-form.component.scss'],
 })
 export class RegistrationFormComponent implements OnInit {
+  // export class RegistrationFormComponent implements OnInit {
   private readonly createUserUrl = `${environment.apiUrl}/auth/sign-up`;
   user = new NewUser();
   sexValues = ['Мальчик', 'Девочка'];
+  paddingBottom = 0;
 
   constructor(private router: Router, private http: HttpClient) {
     this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
@@ -31,7 +33,13 @@ export class RegistrationFormComponent implements OnInit {
   @Output() loaderOff: EventEmitter<any> = new EventEmitter<any>();
 
   @HostBinding('class.columns')
-  ngOnInit() {}
+  ngOnInit() {
+    this.onInitAndOnResize();
+  }
+
+  onResize(event) {
+    this.onInitAndOnResize();
+  }
 
   onSubmit() {
     const { rulesAccepted, ...newUser } = this.user;
@@ -40,10 +48,6 @@ export class RegistrationFormComponent implements OnInit {
     }
 
     this.loaderOn.emit('Сохраняем нового пользователя...');
-
-    const res = this.http.post(this.createUserUrl, newUser, {
-      responseType: 'text',
-    });
 
     setTimeout(() => {
       this.http
@@ -69,5 +73,24 @@ export class RegistrationFormComponent implements OnInit {
     console.log(error);
     console.log(typeof error);
     alert(error.message || JSON.stringify(error));
+  }
+
+  private getWindowHeigh() {
+    return (
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight
+    );
+  }
+
+  private onInitAndOnResize() {
+    this.paddingBottom = 0;
+    setTimeout(() => {
+      const rootElementHeight = document.getElementById('root').offsetHeight;
+      const windowHeight = this.getWindowHeigh();
+      if (rootElementHeight < windowHeight) {
+        this.paddingBottom = windowHeight - rootElementHeight;
+      }
+    }, 500);
   }
 }
