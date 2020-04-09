@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-registration',
+  selector: '#registration',
   templateUrl: './registration.component.html',
   styleUrls: ['registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
   readonly pageTitle: string = 'Регистрация';
+  loader = true;
+  loaderText = 'Сохраняем нового пользователя...';
+  loaderHeight = 100;
   boxShadow = 'none';
 
   constructor() {}
@@ -21,12 +24,42 @@ export class RegistrationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.boxShadow = this.getBoxShadow();
+    this.onInitAndOnResize();
   }
 
   onResize(event) {
-    this.boxShadow = this.getBoxShadow();
+    this.onInitAndOnResize();
   }
 
-  onSubmit() {}
+  loaderOn(text) {
+    this.loader = false;
+    this.loaderText = text;
+    this.loaderHeight = document.getElementById(
+      'registration-form'
+    ).offsetHeight;
+  }
+
+  loaderOff(a) {
+    this.loader = true;
+  }
+
+  private onInitAndOnResize() {
+    this.boxShadow = this.getBoxShadow();
+    // setInterval(() => {
+    //   this.paddingBottom += 20;
+    //   console.log(
+    //     `rootElement = ${document.getElementById('root').offsetHeight}`
+    //   );
+    // }, 1000);
+    // this.paddingBottom = 0;
+    // const rootElement = document.getElementById('root');
+    // const windowHeight = this.getWindowHeigh();
+    // while (
+    //   rootElement.offsetHeight < windowHeight &&
+    //   this.paddingBottom < 10000
+    // ) {
+    //   console.log(`rootElement = ${rootElement.offsetHeight}`);
+    //   this.paddingBottom += 1;
+    // }
+  }
 }

@@ -9,7 +9,22 @@
       <header app-outside-page-header [title]="pageTitle">
         Loading app-outside-page-header...
       </header>
-      <main app-registration-form>Loading app-registration-form...</main>
+      <main
+        id="registration-form"
+        (loaderOn)="loaderOn($event)"
+        (loaderOff)="loaderOff($event)"
+        [hidden]="!loader"
+      >
+        Loading app-registration-form...
+      </main>
+      <div
+        app-outside-loader-light
+        [text]="loaderText"
+        [loaderHeight]="loaderHeight"
+        [hidden]="loader"
+      >
+        Loading app-outside-loader-light...
+      </div>
       <div app-outside-stars>Loading app-outside-stars...</div>
     </div>
   </div>

@@ -1,17 +1,129 @@
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
-const options = new DocumentBuilder()
+const swaggerBaseConfig = new DocumentBuilder()
   .setTitle('Rainbow Chat API')
-  .setDescription(
-    // eslint-disable-next-line max-len
-    'API for chat',
-  )
-  .setBasePath('api/v1')
-  .setVersion('0.0.1')
+  .setDescription('API for chat')
+  .setVersion('0.0.2')
   .addTag('Authorization')
+  .addBearerAuth()
   .build();
 
 export default app => {
-  const document = SwaggerModule.createDocument(app, options);
+  const document = SwaggerModule.createDocument(app, swaggerBaseConfig);
   SwaggerModule.setup('api', app, document);
 };
+
+/* https://github.com/scottie1984/swagger-ui-express/issues/44
+
+import { INestApplication } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as swaggerUi from 'swagger-ui-express';
+
+function useSwaggerUIAuthStoragePlugin() {
+  // prettier-ignore
+  const afterLoad = function(ui) {
+    // NOTE: Code inside this afterLoad function will run in the browser!
+    //
+    // **Therefore, you cannot use an closure variables in here!**
+    // Also you should follow ES5 coding style.
+    //
+    // See: https://github.com/scottie1984/swagger-ui-express/blob/master/index.js#L239
+    //
+    // Other Notes:
+    // See https://github.com/scottie1984/swagger-ui-express/issues/44
+    // See https://github.com/swagger-api/swagger-ui/blob/master/src/core/system.js#L344
+    // See https://github.com/swagger-api/swagger-ui/issues/2915#issuecomment-297405865
+
+    var AUTH_SCHEME = "AuthJWT";
+    // var swaggerOptions = this;
+    var currentAuthToken = undefined;
+
+    setTimeout(function() {
+      // Restore auth token from localStorage, if any.
+      var token = localStorage.getItem(AUTH_SCHEME);
+      if (token) {
+        setAuthToken(token);
+        console.log("Restored " + AUTH_SCHEME + " token from localStorage.");
+      }
+      // Start polling ui.getState() to see if the user changed tokens.
+      setTimeout(checkForNewLogin, 3000);
+    }, 1000);
+
+    function checkForNewLogin() {
+      var stateToken = getAuthTokenFromState();
+      if (stateToken !== currentAuthToken) {
+        console.log("Saved " + AUTH_SCHEME + " token to localStorage.");
+        if (stateToken) {
+          localStorage.setItem(AUTH_SCHEME, stateToken);
+        } else {
+          localStorage.removeItem(AUTH_SCHEME);
+        }
+        currentAuthToken = stateToken;
+      }
+      // Continue checking every second...
+      setTimeout(checkForNewLogin, 1000);
+    }
+
+    function getAuthTokenFromState() {
+      var state = ui.getState();
+      console.log('getAuthTokenFromState');
+      // console.log(state);
+      console.log(getUIStateEntry(state, 'auth'));
+      console.log(`----`);
+      // Get token from state "auth.authorized[AUTH_SCHEME].value"
+      return getUIStateEntry(
+        getUIStateEntry(
+          getUIStateEntry(getUIStateEntry(state, "auth"), "authorized"),
+          AUTH_SCHEME
+        ),
+        "value"
+      );
+    }
+
+    function getUIStateEntry(state, name) {
+      if (state && state._root && Array.isArray(state._root.entries)) {
+        var entry = state._root.entries.find(e => e && e[0] === name);
+        return entry ? entry[1] : undefined;
+      }
+      return undefined;
+    }
+
+    function setAuthToken(token) {
+      var authorization = {};
+      authorization[AUTH_SCHEME] = {
+        name: AUTH_SCHEME,
+        schema: {
+          type: "apiKey",
+          in: "header",
+          name: "Authorization",
+          description: "",
+        },
+        value: token,
+      };
+      var result = ui.authActions.authorize(authorization);
+      currentAuthToken = token;
+      return result;
+    }
+  };
+  return {
+    afterLoad,
+  };
+}
+
+const options1 = {
+  swaggerOptions: {
+    docExpansion: 'none',
+    plugins: [useSwaggerUIAuthStoragePlugin()],
+  },
+};
+
+export function attach<T extends INestApplication & NestExpressApplication>(
+  app: T,
+) {
+  const document = SwaggerModule.createDocument(app, swaggerBaseConfig);
+
+  app.use('/api/docs/swagger.json', (req, res) => res.json(document));
+  app.use('/api/docs', swaggerUi.serve);
+  app.use('/api/docs', swaggerUi.setup(document, options1));
+}
+*/
