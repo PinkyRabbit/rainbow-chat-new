@@ -2,6 +2,8 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { isEmail } from 'validator';
 
+import { comparePasswordFunction } from './user.types';
+
 const UserSchema = new mongoose.Schema(
   {
     email: {
@@ -11,6 +13,12 @@ const UserSchema = new mongoose.Schema(
       lowercase: true,
       trim: true,
       validate: [isEmail, 'Invalid email'],
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      trim: true,
     },
     password: {
       type: String,
@@ -22,7 +30,7 @@ const UserSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ['male', 'female'],
-      default: 'male'
+      default: 'male',
     },
     year: {
       type: Number,
@@ -68,13 +76,10 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-UserSchema.methods.comparePassword = function(candidatePassword, callback) {
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
-    if (err) {
-      return callback(err);
-    }
-    callback(null, isMatch);
-  });
+const comparePassword: comparePasswordFunction = function(candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
 };
+
+UserSchema.methods.comparePassword = comparePassword;
 
 export default UserSchema;
