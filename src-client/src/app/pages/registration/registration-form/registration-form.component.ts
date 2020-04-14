@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { NewUser } from 'app/models/new-user';
-import { environment } from 'environments/environment';
-// import { AuthenticationService } from 'app/services/authentication.service';
+import { environment } from 'app/environments-sample/environment';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @Component({
   selector: '#registration-form',
@@ -20,12 +20,14 @@ import { environment } from 'environments/environment';
 export class RegistrationFormComponent implements OnInit {
   constructor(
     private router: Router,
-    private http: HttpClient // private readonly authenticationService: AuthenticationService
+    private http: HttpClient,
+    private readonly authService: AuthService
   ) {
     this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
     this.onError = this.onError.bind(this);
   }
-  // export class RegistrationFormComponent implements OnInit {
+
+  private error = '';
   private readonly createUserUrl = `${environment.apiUrl}/auth/sign-up`;
   user = new NewUser();
   sexValues = ['Мальчик', 'Девочка'];
@@ -33,7 +35,6 @@ export class RegistrationFormComponent implements OnInit {
 
   @Output() loaderOn: EventEmitter<any> = new EventEmitter<any>();
   @Output() loaderOff: EventEmitter<any> = new EventEmitter<any>();
-
   @HostBinding('class.columns')
   ngOnInit() {
     this.onInitAndOnResize();
@@ -63,6 +64,16 @@ export class RegistrationFormComponent implements OnInit {
     if (res === 'user.created') {
       this.loaderOn.emit('Перенаправляем вас в чат...');
       setTimeout(() => {
+        this.authService
+          .login(this.user.username, this.user.password)
+          .subscribe(
+            (_) => {
+              this.router.navigate(['/chat/asdhfkajsdf']);
+            },
+            (error: HttpErrorResponse) => {
+              this.error = error.error.detail;
+            }
+          );
         // this.authenticationService
         //   .login(this.user.username, this.user.password)
         //   .subscribe((result) => {
