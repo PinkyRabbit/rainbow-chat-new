@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  background: url("/assets/beg-crop-1200.jpg") top left / 100% auto repeat-y;
+  color: #a0afde;
+  padding-bottom: 0;
+}
+:host #stars {
+  padding-bottom: 0px;
+  position: absolute;
+  left: 0px;
+  bottom: -11px;
+  width: 100%;
+  z-index: 9;
+}
+:host #stars .column {
+  width: 80%;
+  margin: 0 auto;
+}
+:host .bricked-bord {
+  border: 5px solid #333468;
+}

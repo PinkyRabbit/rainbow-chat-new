@@ -1,0 +1,49 @@
+<section
+  id="login-component"
+  class="section"
+  (window:resize)="onResize($event)"
+  [style.height]="windowHeight + 'px'"
+  [style.boxShadow]="boxShadow"
+>
+  <div class="container">
+    <div class="columns is-multiline">
+      <div class="column is-one-third">
+        <app-outside-logo>Loading app-outside-logo...</app-outside-logo>
+
+        <div id="main-login" class="has-text-centered">
+          <form action="">
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="Логин" />
+              </div>
+            </div>
+            <div class="field">
+              <div class="control">
+                <input class="input" type="text" placeholder="Пароль" />
+              </div>
+            </div>
+            <div class="field">
+              <label class="checkbox">
+                <input type="checkbox" />
+                Запомнить меня
+              </label>
+            </div>
+            <a class="button is-fullwidth is-success" id="login-btn">Войти</a>
+          </form>
+          <a href="#" class="underlined muted">Правила</a>
+          <a href="#" class="underlined muted">Подсмотреть</a>
+          <a routerLink="/sign-in" class="underlined">Регистрация</a>
+        </div>
+      </div>
+
+      <div class="column is-one-third" id="main-challenge">
+        Последние новости...
+      </div>
+
+      <div class="column is-one-third">Последние события...</div>
+    </div>
+  </div>
+  <div id="stars">
+    <div app-outside-stars>Loading app-outside-stars...</div>
+  </div>
+</section>
