@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { User } from 'app/models/user';
 
 @Component({
-  selector: '[user-in-message]',
+  selector: 'span[user-in-message]',
   template: `{{ user.username }}`,
   styleUrls: ['user-in-message.component.scss'],
 })

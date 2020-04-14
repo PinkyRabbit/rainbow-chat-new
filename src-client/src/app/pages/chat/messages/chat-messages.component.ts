@@ -36,22 +36,22 @@ export class ChatMessagesComponent implements OnInit {
 
   ngOnInit() {
     this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.fakeChatMessaging();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.addRandomJoke();
+    this.fakeChatMessaging();
   }
 
   private randomSeconds() {

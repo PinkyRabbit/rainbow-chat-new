@@ -15,7 +15,7 @@ import { ChunkInMessageDirective } from './messages/message/text-in-message/chun
 import { TextNodeComponent } from './messages/message/text-in-message/text-node';
 
 @NgModule({
-  imports: [CommonModule, RouterModule, InsideModule, NavbarModule],
+  imports: [RouterModule, InsideModule, NavbarModule, CommonModule],
   declarations: [
     ChatComponent,
     ChatMessagesComponent,

@@ -15,49 +15,23 @@ import { TextNodeComponent } from './text-node';
 
 @Component({
   selector: '[text-in-message]',
-  // templateUrl: './text-in-message.component.html',
-  template: `
-    <div>
-      <ng-template chunk></ng-template>
-    </div>
-  `,
-  styleUrls: ['text-in-message.component.scss'],
+  template: `<ng-template chunk></ng-template>`,
+  styles: [':host{display: "inlilne"}'],
 })
 export class TextInMessageComponent implements OnInit {
   @Input() message: string;
   @Input() users: User[];
-  // @ViewChild(ChunkInMessageDirective)
-  // chunkOfMessage: ChunkInMessageDirective;
   @ViewChild(ChunkInMessageDirective, { static: true })
-  appHost: ChunkInMessageDirective;
+  chunkOfMessage: ChunkInMessageDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
-
-  // @ViewChild(ChunkInMessageDirective, { static: true, read: ViewContainerRef })
 
   ngOnInit() {
     this.loadStringByChunks();
   }
 
   loadStringByChunks() {
-    const [user] = this.users;
-
-    const userInMessageFactory = this.componentFactoryResolver.resolveComponentFactory(
-      UserInMessageComponent
-    );
-
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
-      TextNodeComponent
-    );
-    const viewContainerRef = this.appHost.viewContainerRef;
-
-    // const viewContainerRef = this.chunkOfMessage.viewContainerRef;
-    // viewContainerRef.clear();
-
-    console.log(viewContainerRef);
-
-    /*
-    const message = this.message;
+    let message = this.message;
 
     const users = this.users
       .sort((a, b) => b.username.length - a.username.length)
@@ -69,6 +43,9 @@ export class TextInMessageComponent implements OnInit {
         return recepient;
       });
 
+    const { viewContainerRef } = this.chunkOfMessage;
+    viewContainerRef.clear();
+
     const searchUsernameRegexp = /%%s\d+%%/;
     let antiInfinityLoopCounter = 0;
     while (message.length && antiInfinityLoopCounter < 50) {
@@ -79,30 +56,20 @@ export class TextInMessageComponent implements OnInit {
         const extractedUser = /%%s(\d+)%%/.exec(message);
         const [toDeletion, userIndex] = extractedUser;
         message = message.replace(toDeletion, '');
-        console.log('toDeletion');
-        console.log(toDeletion);
-        console.log(message);
 
         const userInMessageFactory = this.componentFactoryResolver.resolveComponentFactory(
           UserInMessageComponent
         );
-
-        const { viewContainerRef } = this.chunkOfMessage;
-        viewContainerRef.clear();
-
         const userInMessageComponentRef: any = viewContainerRef.createComponent(
           userInMessageFactory
         );
-        console.log(this.users[userIndex]);
-        (userInMessageComponentRef.instance as UserInMessageComponent).user = this.users[
-          userIndex
-        ];
+        (userInMessageComponentRef.instance as UserInMessageComponent).user =
+          users[userIndex];
 
         antiInfinityLoopCounter += 1;
         continue;
       }
 
-      /*
       let text = message;
       if (nextUsernameIndex !== -1) {
         text = message.slice(0, nextUsernameIndex);
@@ -117,11 +84,9 @@ export class TextInMessageComponent implements OnInit {
       );
       (textNodeComponentRef.instance as TextNodeComponent).text = text;
 
-
-
+      message = message.replace(text, '');
       antiInfinityLoopCounter += 1;
     }
-          */
   }
 
   private escapeRegExp(str) {
