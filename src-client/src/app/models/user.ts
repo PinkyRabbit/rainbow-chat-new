@@ -1,8 +1,9 @@
 export class User {
-  id: number;
+  // tslint:disable-next-line: variable-name
+  _id: string;
   username: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  token?: string;
+  nameColor: string;
+  nameFont: string;
+  textColor: string;
+  textFont: string;
 }

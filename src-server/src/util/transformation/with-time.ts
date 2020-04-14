@@ -10,4 +10,4 @@ export const transformYear = value => {
 
   const currentYear = parseInt(moment().format('YYYY'), 10);
   return currentYear - value > 12 ? value : 0;
-}
+};

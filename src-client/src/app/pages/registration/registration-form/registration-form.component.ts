@@ -4,13 +4,13 @@ import {
   HostBinding,
   Output,
   EventEmitter,
-  Input,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { NewUser } from 'app/models/new-user';
 import { environment } from 'environments/environment';
+// import { AuthenticationService } from 'app/services/authentication.service';
 
 @Component({
   selector: '#registration-form',
@@ -18,16 +18,18 @@ import { environment } from 'environments/environment';
   styleUrls: ['registration-form.component.scss'],
 })
 export class RegistrationFormComponent implements OnInit {
+  constructor(
+    private router: Router,
+    private http: HttpClient // private readonly authenticationService: AuthenticationService
+  ) {
+    this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
+    this.onError = this.onError.bind(this);
+  }
   // export class RegistrationFormComponent implements OnInit {
   private readonly createUserUrl = `${environment.apiUrl}/auth/sign-up`;
   user = new NewUser();
   sexValues = ['Мальчик', 'Девочка'];
   paddingBottom = 0;
-
-  constructor(private router: Router, private http: HttpClient) {
-    this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
-    this.onError = this.onError.bind(this);
-  }
 
   @Output() loaderOn: EventEmitter<any> = new EventEmitter<any>();
   @Output() loaderOff: EventEmitter<any> = new EventEmitter<any>();
@@ -60,8 +62,23 @@ export class RegistrationFormComponent implements OnInit {
     this.loaderOff.emit(null);
     if (res === 'user.created') {
       this.loaderOn.emit('Перенаправляем вас в чат...');
+      setTimeout(() => {
+        // this.authenticationService
+        //   .login(this.user.username, this.user.password)
+        //   .subscribe((result) => {
+        //     this.router.navigate(['/chat', result.room.slug]);
+        //   },
+        //     (err: HttpErrorResponse) => {
+        //       console.log(err);
+        //       if (err.error instanceof Error) {
+        //         this.errorMessage = `Error while trying to login user ${this.user.username}: ${err.error.message}`;
+        //       } else {
+        //         this.errorMessage = `Error ${err.status} while trying to login user ${this.user.username}: ${err.error}`;
+        //       }
+        //     }
+        //   );
+      }, 3000);
     }
-    console.log(res);
   }
 
   private onError(err) {
