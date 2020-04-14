@@ -74,20 +74,6 @@ export class RegistrationFormComponent implements OnInit {
               this.error = error.error.detail;
             }
           );
-        // this.authenticationService
-        //   .login(this.user.username, this.user.password)
-        //   .subscribe((result) => {
-        //     this.router.navigate(['/chat', result.room.slug]);
-        //   },
-        //     (err: HttpErrorResponse) => {
-        //       console.log(err);
-        //       if (err.error instanceof Error) {
-        //         this.errorMessage = `Error while trying to login user ${this.user.username}: ${err.error.message}`;
-        //       } else {
-        //         this.errorMessage = `Error ${err.status} while trying to login user ${this.user.username}: ${err.error}`;
-        //       }
-        //     }
-        //   );
       }, 3000);
     }
   }

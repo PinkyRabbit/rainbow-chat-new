@@ -1,6 +1,16 @@
 :host {
   text-align: center;
 
+  .content {
+    margin: 0 auto;
+    width: 60%;
+  }
+
+  h3 {
+    color: #7079af;
+    margin-top: 0;
+  }
+
   .glow {
     color: #fff;
     text-align: center;
