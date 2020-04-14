@@ -39,5 +39,17 @@ export class LoginComponent implements OnInit {
     this.boxShadow = this.getBoxShadow();
   }
 
-  onSubmit() {}
+  // login() {
+  //   this.error = '';
+  //   const username = this.form.value.username;
+  //   const password = this.form.value.password;
+  //   this.authService.login(username, password).subscribe(
+  //     (_) => {
+  //       this.router.navigate(['/']);
+  //     },
+  //     (error: HttpErrorResponse) => {
+  //       this.error = error.error.detail;
+  //     }
+  //   );
+  // }
 }

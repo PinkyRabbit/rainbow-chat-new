@@ -8,6 +8,7 @@ import { RegistrationComponent } from './registration.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 import { OutsideModule } from 'app/modules/outside/outside.module';
+import { AuthService } from 'app/services/auth/auth.service';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { OutsideModule } from 'app/modules/outside/outside.module';
     OutsideModule,
   ],
   declarations: [RegistrationComponent, RegistrationFormComponent],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [RegistrationComponent],
 })
 export class RegistrationModule {}
