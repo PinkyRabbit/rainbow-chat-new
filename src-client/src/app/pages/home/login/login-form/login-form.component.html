@@ -1,0 +1,37 @@
+<form #registrationFrom="ngForm" (ngSubmit)="onSubmit()">
+  <div class="field">
+    <label class="label" for="username">Ваш псевдоним (логин)</label>
+    <div class="control">
+      <input
+        [(ngModel)]="user.username"
+        name="username"
+        class="input"
+        type="text"
+        placeholder="Логин"
+        autocomplete="off"
+        required
+        autofocus
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label" for="password">Ваш пароль</label>
+    <div class="control">
+      <input
+        [(ngModel)]="user.password"
+        name="password"
+        class="input"
+        placeholder="Пароль"
+        type="password"
+        required
+      />
+    </div>
+  </div>
+  <div class="field">
+    <label class="checkbox">
+      <input type="checkbox" />
+      Запомнить меня
+    </label>
+  </div>
+  <a class="button is-fullwidth is-success" type="submit">Войти</a>
+</form>
