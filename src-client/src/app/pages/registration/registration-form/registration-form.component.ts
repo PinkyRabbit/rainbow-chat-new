@@ -9,8 +9,8 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { NewUser } from 'app/models/new-user';
-import { environment } from 'app/environments-sample/environment';
 import { AuthService } from 'app/services/auth/auth.service';
+import { environment } from 'environments/environment';
 
 @Component({
   selector: '#registration-form',
