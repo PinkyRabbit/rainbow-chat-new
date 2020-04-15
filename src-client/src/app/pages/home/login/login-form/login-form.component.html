@@ -1,6 +1,5 @@
 <form #registrationFrom="ngForm" (ngSubmit)="onSubmit()">
   <div class="field">
-    <label class="label" for="username">Ваш псевдоним (логин)</label>
     <div class="control">
       <input
         [(ngModel)]="user.username"
@@ -15,7 +14,6 @@
     </div>
   </div>
   <div class="field">
-    <label class="label" for="password">Ваш пароль</label>
     <div class="control">
       <input
         [(ngModel)]="user.password"
