@@ -16,9 +16,8 @@ const isSwaggerEnabled = hParseBoolean(process.env.IS_SWAGGER_ENABLED);
 const appPort = process.env.PORT || 3000;
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: { origin },
-  });
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors({ origin });
   app.setGlobalPrefix('api/v1');
   if (isSwaggerEnabled) {
     // swagger.attach(app);

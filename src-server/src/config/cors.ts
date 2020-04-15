@@ -16,8 +16,7 @@ if (process.env.FRONT_END_BASE_DOMAIN) {
 }
 
 if (!allowedOrigins.length) {
-  console.log('No allowed origins setted');
-  process.exit(1);
+  allowedOrigins.push('*');
 }
 
 export const origin = allowedOrigins;
