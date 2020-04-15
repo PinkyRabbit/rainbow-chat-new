@@ -4,6 +4,7 @@ import UserSchema from './schemas/user/user.schema';
 
 const connectionUrl = process.env.MONGODB_CONNECTION_STRING;
 const connectionOptions = {
+  useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
 };
