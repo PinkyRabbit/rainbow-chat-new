@@ -17,7 +17,7 @@ const appPort = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
-    cors: { origin, credentials: true },
+    cors: { origin },
   });
   app.setGlobalPrefix('api/v1');
   if (isSwaggerEnabled) {
