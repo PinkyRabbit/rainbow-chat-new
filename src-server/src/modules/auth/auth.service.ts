@@ -29,15 +29,17 @@ export class AuthService {
     return 'user.created';
   }
 
-  private comparePasswordInPromise(user, password) {
-    new Promise((resolve, reject) => {
-      user.comparePassword(password, (err, isMatch) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(isMatch);
-      });
-    });
+  private generateToken(payload: any): string {
+    return this.jwtService.sign(payload);
+  }
+
+  private generateRefreshToken(
+    userId: string,
+    rememberThisUser = false,
+  ): string {
+    const jwtRefreshToken = { _id: userId };
+    const expiresIn = rememberThisUser ? '1y' : '24h';
+    return this.jwtService.sign(jwtRefreshToken, { expiresIn });
   }
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -62,14 +64,16 @@ export class AuthService {
     return result;
   }
 
-  async signIn(user: any) {
+  async signIn(user: any, rememberThisUser = false) {
     const payload = {
       username: user.username,
       sub: user._id.toString(),
     };
     return {
       // eslint-disable-next-line
-      access_token: this.jwtService.sign(payload),
+      access_token: this.generateToken(payload),
+      // eslint-disable-next-line
+      refresh_token: this.generateRefreshToken(payload.sub, rememberThisUser),
     };
   }
 }

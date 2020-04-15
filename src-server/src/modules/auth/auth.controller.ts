@@ -45,7 +45,8 @@ export class AuthController {
     @Body(AuthRegisterValidationPipe) loginDto: AuthLoginDTO,
     @Request() req,
   ) {
-    return await this.authService.signIn(req.user);
+    const { rememberMe } = loginDto;
+    return await this.authService.signIn(req.user, rememberMe);
   }
 
   @Get('me')

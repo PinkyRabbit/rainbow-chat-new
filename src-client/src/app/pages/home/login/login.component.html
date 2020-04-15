@@ -14,6 +14,7 @@
           <app-login-form [user]="auth" (submitForm)="submitForm($event)"
             >Loading app-form-login...</app-login-form
           >
+          <div class="error" [hidden]="!loginError">{{ loginError }}</div>
           <div id="app-login-links">Loading app-login-links...</div>
         </div>
       </div>

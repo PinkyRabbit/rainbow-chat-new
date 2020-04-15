@@ -19,6 +19,10 @@
 :host .bricked-bord {
   border: 5px solid #333468;
 }
+:host .error {
+  color: #ffafea;
+  padding-top: 10px;
+}
 [hidden] {
   display: none !important;
 }
