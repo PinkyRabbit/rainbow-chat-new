@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap, map } from 'rxjs/operators';
 
-import { environment } from 'app/environments/environment';
+import { environment } from 'environments/environment';
 import { AuthSuccessResponse, AuthSuccess } from 'app/models';
 
 import { JwtService } from './jwt.service';
