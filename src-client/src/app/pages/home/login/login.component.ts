@@ -18,7 +18,9 @@ export class LoginComponent implements OnInit {
   auth = {
     username: '',
     password: '',
+    rememberMe: false,
   };
+  loginError = '';
 
   constructor(
     private router: Router,
@@ -54,12 +56,10 @@ export class LoginComponent implements OnInit {
 
   loaderOn(text) {
     this.loader = false;
-    this.loaderHeight = document.getElementById(
-      'registration-form'
-    ).offsetHeight;
+    this.loaderHeight = document.getElementById('login-component').offsetHeight;
   }
 
-  loaderOff(a) {
+  loaderOff() {
     this.loader = true;
   }
 
@@ -71,12 +71,20 @@ export class LoginComponent implements OnInit {
 
     this.authService.login(username, password).subscribe(
       (_) => {
+        this.loaderOn(this.loaderText);
         setTimeout(() => {
+          // this.loaderOff();
           this.router.navigate(['/chat/asdhfkajsdf']);
         }, 5000);
       },
       (error: HttpErrorResponse) => {
-        console.log(error);
+        this.loginError = '';
+        this.auth.password = '';
+        if (error.status === 401) {
+          this.loginError = 'Ошибка в логине или пароле';
+          return false;
+        }
+        this.loginError = 'Ошибка сервера. Попробуйте зайти позже.';
       }
     );
   }

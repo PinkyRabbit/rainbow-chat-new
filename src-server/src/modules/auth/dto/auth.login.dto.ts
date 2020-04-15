@@ -1,5 +1,5 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, Length } from 'class-validator';
+import { IsString, Length, IsBoolean, IsOptional } from 'class-validator';
 
 export class AuthLoginDTO {
   @IsString()
@@ -11,4 +11,9 @@ export class AuthLoginDTO {
   @Length(6, 30)
   @ApiProperty({ type: String, example: 'asdqwe' })
   readonly password: string;
+
+  @IsOptional()
+  @IsBoolean()
+  @ApiPropertyOptional({ type: Boolean, example: false })
+  readonly rememberMe: boolean;
 }

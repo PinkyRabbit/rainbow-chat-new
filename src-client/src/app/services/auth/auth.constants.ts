@@ -1,4 +1,4 @@
 export const AuthConstants = {
-  authTokenKey: 'auth_token',
+  authTokenKey: 'access_token',
   refreshTokenKey: 'refresh_token',
 };

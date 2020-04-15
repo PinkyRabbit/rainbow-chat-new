@@ -10,7 +10,7 @@ export class AuthSuccess implements AuthBase {
   message: string;
 
   constructor(data: AuthSuccessResponse) {
-    this.access = data.access;
-    this.refresh = data.refresh;
+    this.access = data.access_token;
+    this.refresh = data.refresh_token;
   }
 }
