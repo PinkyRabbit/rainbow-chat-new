@@ -1,71 +1,122 @@
-<div class="navbar-brand">
+<div class="navbar-brand" (window:resize)="onResize($event)">
   <a class="navbar-item" href="/">
     <img src="/assets/logo-nav.png" alt="Logo" width="112" height="28" />
   </a>
   <a
     role="button"
     class="navbar-burger"
-    aria-label="menu"
-    aria-expanded="false"
+    [hidden]="!isOnTablet"
+    (click)="onClickMenuButton($event, 'notifications')"
   >
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
+    <svg-icon
+      [src]="
+        hasUpdatesIn.notifications
+          ? '/assets/svg/notification.svg'
+          : '/assets/svg/notification-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.notifications && !buttons.notifications,
+        'active-svg': !hasUpdatesIn.notifications && buttons.notifications
+      }"
+      [svgStyle]="{
+        'width.px': 30,
+        'height.px': 30
+      }"
+    ></svg-icon>
+  </a>
+  <a
+    role="button"
+    class="navbar-burger"
+    (click)="onClickMenuButton($event, 'chats')"
+    [hidden]="!isOnTablet"
+  >
+    <svg-icon
+      [src]="
+        hasUpdatesIn.chats ? '/assets/svg/chat.svg' : '/assets/svg/chat-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.chats && !buttons.chats,
+        'active-svg': !hasUpdatesIn.chats && buttons.chats
+      }"
+      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+    ></svg-icon>
+  </a>
+  <a
+    role="button"
+    class="navbar-burger"
+    (click)="onClickMenuButton($event, 'settings')"
+    [hidden]="!isOnTablet"
+  >
+    <svg-icon
+      [src]="
+        buttons.settings
+          ? '/assets/svg/settings-b.svg'
+          : '/assets/svg/settings.svg'
+      "
+      [ngClass]="{ 'not-active-svg': !buttons.settings }"
+      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+    ></svg-icon>
+  </a>
+  <a
+    role="button"
+    class="navbar-burger"
+    (click)="onClickMenuButton($event, 'users')"
+    [hidden]="!isOnTablet"
+  >
+    <svg-icon
+      [src]="
+        hasUpdatesIn.users
+          ? '/assets/svg/speaking.svg'
+          : '/assets/svg/speaking-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.users && !buttons.users,
+        'active-svg': !hasUpdatesIn.users && buttons.users
+      }"
+      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+    ></svg-icon>
   </a>
 </div>
-<div class="navbar-menu is-active">
-  <!-- navbar-left -->
+<div class="navbar-menu" [ngClass]="{ 'is-active': isMenuActive }">
   <div class="navbar-start">
-    <div class="navbar-item">
-      <a href="#">
-        <i class="far fa-bell"></i>
-      </a>
-    </div>
-    <div class="navbar-item">
-      <a href="#" class="has-text-black-bis">
-        <i class="fas fa-briefcase"></i>
-      </a>
-    </div>
-    <div class="navbar-item">
-      <a href="#">
-        <i class="fas fa-bullhorn"></i>
-      </a>
-    </div>
-    <div class="navbar-item">
-      <a href="#">
-        <i class="fas fa-chess"></i>
-      </a>
+    <div
+      navbar-chats
+      [hidden]="isOnTablet && !buttons.chats"
+      [isOnTablet]="isOnTablet"
+      [src]="
+        hasUpdatesIn.chats ? '/assets/svg/chat.svg' : '/assets/svg/chat-b.svg'
+      "
+      [isSvgActive]="!hasUpdatesIn.chats && buttons.chats"
+      [isSvgNotActive]="!hasUpdatesIn.chats && !buttons.chats"
+      (mouseenter)="onHover($event, 'chats')"
+      (mouseleave)="onHover($event, 'chats')"
+    >
+      Loading navbar-chats...
     </div>
   </div>
-  <!-- navbar-right -->
   <div class="navbar-end">
-    <div class="navbar-item">
-      <p style="font-style: italic; color: #7eb78e; font-size: 0.8rem;">
-        Какой-то демо текст
-      </p>
+    <div
+      navbar-notifications
+      [hidden]="isOnTablet && !buttons.notifications"
+      [isOnTablet]="isOnTablet"
+      [src]="
+        hasUpdatesIn.notifications
+          ? '/assets/svg/notification.svg'
+          : '/assets/svg/notification-b.svg'
+      "
+      [isSvgActive]="!hasUpdatesIn.notifications && buttons.notifications"
+      [isSvgNotActive]="!hasUpdatesIn.notifications && !buttons.notifications"
+      (mouseenter)="onHover($event, 'notifications')"
+      (mouseleave)="onHover($event, 'notifications')"
+    >
+      Loading navbar-notifications...
     </div>
-    <div class="navbar-item has-dropdown is-hoverable">
-      <a class="navbar-link">
-        <figure class="image is-32x32px">
-          <img src="https://picsum.photos/32" />
-        </figure>
-        usesa
-      </a>
-      <div class="navbar-dropdown is-right">
-        <a class="navbar-item">
-          Overview
-        </a>
-        <a class="navbar-item">
-          Elements
-        </a>
-        <a class="navbar-item">
-          Components
-        </a>
-        <hr class="navbar-divider" />
-        <a href="/user/logout" class="navbar-item">
-          Log out
-        </a>
-      </div>
+    <div
+      navbar-settings
+      [hidden]="isOnTablet && !buttons.settings"
+      [isOnTablet]="isOnTablet"
+    >
+      Loading navbar-settings...
     </div>
   </div>
 </div>

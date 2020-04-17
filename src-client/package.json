@@ -21,6 +21,7 @@
     "@angular/platform-browser-dynamic": "~9.1.1",
     "@angular/router": "~9.1.1",
     "@wizishop/ng-wizi-bulma": "^9.0.6",
+    "angular-svg-icon": "^9.2.0",
     "bulma": "^0.8.1",
     "bulma-extensions": "^6.2.7",
     "normalize.css": "^8.0.1",

@@ -14,6 +14,10 @@ export class ChatComponent implements OnInit {
     this.onInitAndOnResize(null);
   }
 
+  ngOnResize() {
+    this.onInitAndOnResize(null);
+  }
+
   private getWindowHeigh() {
     return (
       window.innerHeight ||

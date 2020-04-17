@@ -1,0 +1,18 @@
+<a class="navbar-link is-arrowless" [hidden]="isOnTablet">
+  <svg-icon
+    [src]="src"
+    [svgStyle]="{ 'width.px': 30 }"
+    [ngClass]="{
+      'not-active-svg': isSvgNotActive,
+      'active-svg': isSvgActive
+    }"
+  ></svg-icon>
+</a>
+<div class="navbar-dropdown">
+  <a class="navbar-item">Какой-то чат</a>
+  <a class="navbar-item">Какой-то чат</a>
+  <a class="navbar-item">Какой-то чат</a>
+  <a class="navbar-item">Какой-то чат</a>
+  <a class="navbar-item">Какой-то чат</a>
+  <a class="navbar-item">Какой-то чат</a>
+</div>
