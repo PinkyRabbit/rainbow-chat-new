@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { RootComponent } from './modules/root/root.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +17,8 @@ import { ChatModule } from './pages/chat/chat.module';
     HomeModule,
     RegistrationModule,
     ChatModule,
+    HttpClientModule,
+    AngularSvgIconModule.forRoot(),
   ],
   declarations: [RootComponent],
   bootstrap: [RootComponent],

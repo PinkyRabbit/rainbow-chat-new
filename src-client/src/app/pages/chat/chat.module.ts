@@ -13,6 +13,7 @@ import { UserInMessageComponent } from './messages/message/user-in-message/user-
 import { TextInMessageComponent } from './messages/message/text-in-message/text-in-message.component';
 import { ChunkInMessageDirective } from './messages/message/text-in-message/chunk-in-message.directive';
 import { TextNodeComponent } from './messages/message/text-in-message/text-node';
+import { TextInputComponent } from './text-input/text-input.component';
 
 @NgModule({
   imports: [RouterModule, InsideModule, NavbarModule, CommonModule],
@@ -25,6 +26,7 @@ import { TextNodeComponent } from './messages/message/text-in-message/text-node'
     TextInMessageComponent,
     TextNodeComponent,
     ChunkInMessageDirective,
+    TextInputComponent,
   ],
   providers: [],
   bootstrap: [ChatComponent],

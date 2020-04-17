@@ -50,7 +50,6 @@ export class TextInMessageComponent implements OnInit {
     let antiInfinityLoopCounter = 0;
     while (message.length && antiInfinityLoopCounter < 50) {
       const nextUsernameIndex = message.search(searchUsernameRegexp);
-      console.log(`nextUsernameIndex = ${nextUsernameIndex}`);
 
       if (nextUsernameIndex === 0) {
         const extractedUser = /%%s(\d+)%%/.exec(message);
@@ -93,25 +92,3 @@ export class TextInMessageComponent implements OnInit {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 }
-
-/*
-
-
-
-    .forEach((recepient, index) => {
-      const searchString = `%%s${index}%%`;
-      const regexp = new RegExp(searchString, 'g');
-
-      const userInMessageFactory = this.componentFactoryResolver.resolveComponentFactory(
-        UserInMessageComponent
-      );
-      const userInMessageComponentRef: any = this.userInMessage.viewContainerRef.createComponent(
-        userInMessageFactory
-      );
-      (userInMessageComponentRef.instance as UserInMessageComponent).user = recepient;
-
-      message = message.replace(regexp, userInMessageComponentRef);
-    });
-    console.log(textNodes);
-    this.message = message;
-*/

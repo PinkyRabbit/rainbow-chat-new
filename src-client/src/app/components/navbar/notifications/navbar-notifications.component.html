@@ -1,0 +1,20 @@
+<a class="navbar-link is-arrowless" [hidden]="isOnTablet">
+  <svg-icon
+    [src]="src"
+    [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+    [ngClass]="{
+      'not-active-svg': isSvgNotActive,
+      'active-svg': isSvgActive
+    }"
+  ></svg-icon>
+</a>
+<div class="navbar-dropdown">
+  <a class="navbar-item">Смотреть все события</a>
+  <span class="navbar-divider"></span>
+  <span class="navbar-item">Какая-то нотификация</span>
+  <span class="navbar-item">Какая-то нотификация</span>
+  <span class="navbar-item">Какая-то нотификация</span>
+  <span class="navbar-item">Какая-то нотификация</span>
+  <span class="navbar-item">Какая-то нотификация</span>
+  <span class="navbar-item">Какая-то нотификация</span>
+</div>

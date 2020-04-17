@@ -46,7 +46,6 @@ export class UserInMessageComponent implements OnInit {
   // https://github.com/angular/components/issues/5007#issuecomment-315645280
 
   ngOnInit() {
-    console.log(this.user);
     this.color = this.pickHlsColor(this.user.nameColor);
     for (let i = 1; i < 9; i += 1) {
       const propname = `isFont{i}`;

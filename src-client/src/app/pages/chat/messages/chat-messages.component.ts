@@ -46,12 +46,12 @@ export class ChatMessagesComponent implements OnInit {
     this.addRandomJoke();
     this.addRandomJoke();
     this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.fakeChatMessaging();
+    // this.addRandomJoke();
+    // this.addRandomJoke();
+    // this.addRandomJoke();
+    // this.addRandomJoke();
+    // this.addRandomJoke();
+    // this.fakeChatMessaging();
   }
 
   private randomSeconds() {

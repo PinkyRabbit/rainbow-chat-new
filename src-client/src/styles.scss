@@ -1,4 +1,34 @@
+@import "styles-overwrite-bulma.scss";
 @import "~bulma";
 @import "~bulma-extensions/bulma-switch/src/sass/index";
 @import "~bulma-extensions/bulma-tooltip/src/sass/index";
 @import "~bulma-extensions/bulma-calendar/src/sass/index";
+
+html,
+body {
+  background-color: #272a35;
+}
+.navbar-dropdown a {
+  color: #e5e5ff;
+}
+.navbar-dropdown span {
+  color: greenyellow;
+}
+.not-active-svg svg path {
+  fill: #5f6d96 !important;
+}
+.not-active-svg svg text {
+  fill: #5f6d96 !important;
+}
+
+.active-svg svg path {
+  fill: #ffeca1 !important;
+}
+.active-svg svg text {
+  fill: #ffeca1 !important;
+}
+@media (max-width: 1024px) {
+  .navbar-menu.is-active {
+    background: #1c202b;
+  }
+}
