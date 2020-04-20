@@ -4,6 +4,8 @@ import {
   Input,
   HostBinding,
   HostListener,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -16,6 +18,7 @@ import { User } from 'app/models/user';
 })
 export class UserInMessageComponent implements OnInit {
   @Input() user: User;
+  @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router) {}
 
@@ -63,7 +66,7 @@ export class UserInMessageComponent implements OnInit {
   }
 
   onClick(e) {
-    alert(this.user.username);
+    this.leftClickOnUsername.emit(this.user.username);
   }
 
   onRightClick(e) {

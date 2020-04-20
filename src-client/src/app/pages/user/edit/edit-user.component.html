@@ -1,0 +1,12 @@
+<nav id="navbar">Navbar loading...</nav>
+<main
+  class="columns is-gapless is-paddingless"
+  [ngStyle]="getStyles()"
+  (window:resize)="onInitAndOnResize($event)"
+>
+  <div class="column is-one-fifth" images-column>Loading images-column...</div>
+  <div class="column" [style.min-height.px]="minHeight" communication-column>
+    Loading communication-column...
+  </div>
+</main>
+<footer app-inner-footer>Loading app-inner-footer...</footer>

@@ -1,8 +1,9 @@
-<div id="output" [style.height]="maxHeight + 'px'">
+<div id="chat-wrapper" [ngStyle]="baseStyles">
   <p
     *ngFor="let message of messages; let i = index"
     class="chat-message"
     [msg]="message"
+    (clickOnUserInsideMessage)="clickOnUserInsideMessage($event)"
   >
     Chat message is loading...
   </p>
