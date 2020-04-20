@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ChatMessage } from 'app/models/chat-message';
@@ -10,6 +10,9 @@ import { User } from 'app/models/user';
   styleUrls: ['chat-messages.component.scss'],
 })
 export class ChatMessagesComponent implements OnInit {
+  @Input() baseStyles: any;
+  @Output() addUsernameToMessage: EventEmitter<any> = new EventEmitter<any>();
+
   private chuckNorris: User = {
     _id: '1',
     username: 'Chuck Norris',
@@ -29,8 +32,6 @@ export class ChatMessagesComponent implements OnInit {
   private itsChuksTurn = true;
 
   messages: ChatMessage[] = [];
-
-  @Input() maxHeight: number;
 
   constructor(private router: Router, private http: HttpClient) {}
 
@@ -93,5 +94,9 @@ export class ChatMessagesComponent implements OnInit {
       },
       (error) => console.log(error)
     );
+  }
+
+  clickOnUserInsideMessage(username) {
+    this.addUsernameToMessage.emit(username);
   }
 }

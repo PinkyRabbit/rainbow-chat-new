@@ -1,4 +1,18 @@
-<h1>Chat users component...</h1>
+<div id="hide-users-button" [hidden]="!isUserOnTablet"></div>
+<div
+  id="users-wrapper"
+  [ngStyle]="baseStyles"
+  (window:resize)="onInitAndOnResize($event)"
+>
+  <div
+    *ngFor="let user of chatUsers; let i = index"
+    [user]="user"
+    (selectUserForInput)="selectUserForInput($event)"
+    chat-user-box
+  >
+    Loading chat-user-box...
+  </div>
+</div>
 
 <!-- 1 user -->
 <!--

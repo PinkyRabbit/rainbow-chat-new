@@ -1,5 +1,8 @@
 <i class="fas fa-comment-dots"></i>
-<span user-in-message [user]="msg.from"
+<span
+  user-in-message
+  [user]="msg.from"
+  (leftClickOnUsername)="leftClickOnUsername($event)"
   >Loadin user-in-message componen...</span
 >
 <span
@@ -8,5 +11,6 @@
   [users]="msg.to"
   [className]="msg.from.textFont"
   [style.color]="pickHlsColor(msg.from.textColor)"
+  (leftClickOnUsername)="leftClickOnUsername($event)"
   >Loading text-in-message component...</span
 >

@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { HomeModule } from './pages/home/home.module';
 import { RegistrationModule } from './pages/registration/registration.module';
 import { ChatModule } from './pages/chat/chat.module';
+import { EditUserModule } from './pages/user/edit/edit-user.module';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { ChatModule } from './pages/chat/chat.module';
     HomeModule,
     RegistrationModule,
     ChatModule,
+    EditUserModule,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
   ],

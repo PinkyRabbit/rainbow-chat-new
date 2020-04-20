@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { InsideModule } from 'app/modules/inside/inside.module';
 
@@ -13,10 +14,17 @@ import { UserInMessageComponent } from './messages/message/user-in-message/user-
 import { TextInMessageComponent } from './messages/message/text-in-message/text-in-message.component';
 import { ChunkInMessageDirective } from './messages/message/text-in-message/chunk-in-message.directive';
 import { TextNodeComponent } from './messages/message/text-in-message/text-node';
-import { TextInputComponent } from './text-input/text-input.component';
+import { ChatInputComponent } from './chat-input/chat-input.component';
+import { ChatUserBoxComponent } from './users/chat-user-box/chat-user-box.component';
 
 @NgModule({
-  imports: [RouterModule, InsideModule, NavbarModule, CommonModule],
+  imports: [
+    RouterModule,
+    InsideModule,
+    NavbarModule,
+    CommonModule,
+    AngularSvgIconModule,
+  ],
   declarations: [
     ChatComponent,
     ChatMessagesComponent,
@@ -26,7 +34,8 @@ import { TextInputComponent } from './text-input/text-input.component';
     TextInMessageComponent,
     TextNodeComponent,
     ChunkInMessageDirective,
-    TextInputComponent,
+    ChatInputComponent,
+    ChatUserBoxComponent,
   ],
   providers: [],
   bootstrap: [ChatComponent],

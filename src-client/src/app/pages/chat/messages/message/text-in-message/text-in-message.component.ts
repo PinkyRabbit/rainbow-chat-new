@@ -5,6 +5,8 @@ import {
   ViewChild,
   ViewContainerRef,
   ComponentFactoryResolver,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 
 import { User } from 'app/models/user';
@@ -21,10 +23,13 @@ import { TextNodeComponent } from './text-node';
 export class TextInMessageComponent implements OnInit {
   @Input() message: string;
   @Input() users: User[];
+  @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(ChunkInMessageDirective, { static: true })
   chunkOfMessage: ChunkInMessageDirective;
 
-  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {
+    this.clickOnUsernameInMessage = this.clickOnUsernameInMessage.bind(this);
+  }
 
   ngOnInit() {
     this.loadStringByChunks();
@@ -64,6 +69,16 @@ export class TextInMessageComponent implements OnInit {
         );
         (userInMessageComponentRef.instance as UserInMessageComponent).user =
           users[userIndex];
+        (userInMessageComponentRef.instance as UserInMessageComponent).leftClickOnUsername.subscribe(
+          this.clickOnUsernameInMessage
+        );
+        // component.instance.onRemove.subscribe(this.onRemove);
+
+        // const factory = this.resolver.resolveComponentFactory<TestQuestionInSliderComponent>(TestQuestionInSliderComponent);
+        // const component = this.container.createComponent(factory);
+        // component.instance.questionTest = this.questionTest;
+        // component.instance.onRemove.subscribe(this.onRemove); // this connects the component event to the directive event
+        // component.instance.ref = component;
 
         antiInfinityLoopCounter += 1;
         continue;
@@ -90,5 +105,9 @@ export class TextInMessageComponent implements OnInit {
 
   private escapeRegExp(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  }
+
+  clickOnUsernameInMessage(username) {
+    this.leftClickOnUsername.emit(username);
   }
 }

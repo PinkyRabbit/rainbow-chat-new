@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ChatMessage } from 'app/models/chat-message';
 
@@ -9,6 +9,9 @@ import { ChatMessage } from 'app/models/chat-message';
 })
 export class ChatSingleMessageComponent implements OnInit {
   @Input() msg: ChatMessage;
+  @Output() clickOnUserInsideMessage: EventEmitter<any> = new EventEmitter<
+    any
+  >();
 
   constructor() {}
 
@@ -17,5 +20,9 @@ export class ChatSingleMessageComponent implements OnInit {
   pickHlsColor(value) {
     const n = value.split(',');
     return `hsl(${n[0]}, ${n[1]}%, ${n[2]}%)`;
+  }
+
+  leftClickOnUsername(username) {
+    this.clickOnUserInsideMessage.emit(username);
   }
 }
