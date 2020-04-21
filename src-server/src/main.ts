@@ -11,6 +11,7 @@ import { hParseBoolean } from './util/helpers/env';
 // import * as swagger from './util/swagger';
 import swagger from './util/swagger';
 import { origin } from './config/cors';
+import { setupBodyparser } from './config/uploads';
 
 const isSwaggerEnabled = hParseBoolean(process.env.IS_SWAGGER_ENABLED);
 const appPort = process.env.PORT || 3000;
@@ -18,6 +19,7 @@ const appPort = process.env.PORT || 3000;
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.enableCors({ origin });
+  setupBodyparser(app);
   app.setGlobalPrefix('api/v1');
   if (isSwaggerEnabled) {
     // swagger.attach(app);
