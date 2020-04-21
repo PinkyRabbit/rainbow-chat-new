@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'div[images-column]',
@@ -6,15 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['images-column.component.scss'],
 })
 export class ImagesColumnComponent implements OnInit {
-  files: any[];
+  @Output() setImageForAvatarModal: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor() {
-    this.files = [];
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  onSelect() {}
-
-  onRemove() {}
+  avatarDropped(image) {
+    this.setImageForAvatarModal.emit(image);
+  }
 }

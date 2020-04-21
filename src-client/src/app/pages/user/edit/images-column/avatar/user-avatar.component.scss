@@ -1,0 +1,22 @@
+:host {
+  figure {
+    button {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 2;
+    }
+    button:focus,
+    button:hover {
+      background: none;
+      outline: 0;
+    }
+
+    #avatar-dropzone {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 1;
+    }
+  }
+}

@@ -4,9 +4,26 @@
   [ngStyle]="getStyles()"
   (window:resize)="onInitAndOnResize($event)"
 >
-  <div class="column is-one-fifth" images-column>Loading images-column...</div>
+  <div
+    class="column is-one-fifth"
+    (setImageForAvatarModal)="setImageForAvatarModal($event)"
+    images-column
+  >
+    Loading images-column...
+  </div>
   <div class="column" [style.min-height.px]="minHeight" communication-column>
     Loading communication-column...
   </div>
 </main>
 <footer app-inner-footer>Loading app-inner-footer...</footer>
+<div
+  [@openCloseAvatarUploadModal]="
+    showUploadAvatarModal() ? 'openAvatarModal' : 'closeAvatarModal'
+  "
+  *ngIf="showUploadAvatarModal()"
+  [file]="selectedAvatar"
+  (disableFile)="setImageForAvatarModal($event)"
+  modal-avatar
+>
+  Loading modal-avatar...
+</div>

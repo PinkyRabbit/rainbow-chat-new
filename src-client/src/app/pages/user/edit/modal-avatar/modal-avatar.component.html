@@ -1,0 +1,40 @@
+<div class="modal-background" (click)="stopAvatarEdit()"></div>
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Настройте изображение</p>
+    <button
+      class="delete"
+      aria-label="close"
+      (click)="stopAvatarEdit()"
+    ></button>
+  </header>
+  <section class="modal-card-body">
+    <image-cropper
+      [imageFile]="file"
+      [maintainAspectRatio]="true"
+      [aspectRatio]="1 / 1"
+      format="png"
+      (imageCropped)="imageCropped($event)"
+      (imageLoaded)="imageLoaded()"
+      (cropperReady)="cropperReady()"
+      (loadImageFailed)="loadImageFailed()"
+    ></image-cropper>
+    <div></div>
+    <br />
+    <div [user]="getUserboxUser()" avatar-chat-user-box>
+      Loading avatar-chat-user-box...
+    </div>
+    <br />
+  </section>
+  <footer class="modal-card-foot">
+    <button class="button is-success is-outlined">
+      Сохранить и продолжить
+    </button>
+    <button
+      class="button is-primary is-inverted is-outlined"
+      (click)="stopAvatarEdit()"
+    >
+      Отмена
+    </button>
+  </footer>
+</div>
