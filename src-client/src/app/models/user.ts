@@ -6,4 +6,5 @@ export class User {
   nameFont: string;
   textColor: string;
   textFont: string;
+  avatarSmall: string;
 }

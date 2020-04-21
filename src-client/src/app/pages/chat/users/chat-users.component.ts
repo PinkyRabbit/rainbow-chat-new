@@ -29,6 +29,7 @@ export class ChatUsersComponent implements OnInit {
     nameFont: 'font-1',
     textColor: '160,100,75',
     textFont: 'font-2',
+    avatarSmall: '',
   };
   private hisFriend: User = {
     _id: '2',
@@ -37,6 +38,7 @@ export class ChatUsersComponent implements OnInit {
     nameFont: 'font-1',
     textColor: '351,100,86',
     textFont: 'font-2',
+    avatarSmall: '',
   };
 
   constructor(private router: Router) {

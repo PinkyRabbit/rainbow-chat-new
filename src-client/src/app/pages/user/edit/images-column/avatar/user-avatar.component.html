@@ -1,0 +1,25 @@
+<figure
+  class="image is-square"
+  id="avatar-image"
+  (window:resize)="onInitAndOnResize($event)"
+>
+  <img [src]="image.src" [alt]="image.alt" />
+  <div
+    id="avatar-dropzone"
+    [ngStyle]="getAvatarDropzoneStyles()"
+    *ngIf="isDropsoneActive"
+  >
+    <ngx-dropzone (change)="onImageDrop($event)" [ngStyle]="dropzoneStyles">
+      <ngx-dropzone-label [ngStyle]="{ 'font-size.em': '2' }"
+        >Перетащи сюда фото или нажми!</ngx-dropzone-label
+      >
+    </ngx-dropzone>
+  </div>
+  <button class="button is-text" (click)="activateDropzone()">
+    <svg-icon
+      class="active-svg"
+      [src]="getIconSrc()"
+      [svgStyle]="getSvgStyle()"
+    ></svg-icon>
+  </button>
+</figure>

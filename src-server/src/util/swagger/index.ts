@@ -3,8 +3,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 const swaggerBaseConfig = new DocumentBuilder()
   .setTitle('Rainbow Chat API')
   .setDescription('API for chat')
-  .setVersion('0.0.2')
+  .setVersion('0.0.3')
   .addTag('Authorization')
+  .addTag('User Files')
   .addBearerAuth()
   .build();
 
