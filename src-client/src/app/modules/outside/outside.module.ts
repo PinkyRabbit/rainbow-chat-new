@@ -6,9 +6,11 @@ import { OutsideFooterComponent } from 'app/components/outside/footer/outside.fo
 import { OutsidePageHeaderComponent } from 'app/components/outside/page-header/outside.page-header.component';
 import { OutsideStartsComponent } from 'app/components/outside/stars/outside.stars.component';
 import { OutsideLoaderLigthComponent } from 'app/components/outside/loader-light/outside.loader-light.component';
+import { NavbarModule } from 'app/components/navbar/navbar.module';
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarModule],
+  providers: [NavbarModule],
   declarations: [
     OutsideLogoComponent,
     OutsideFooterComponent,

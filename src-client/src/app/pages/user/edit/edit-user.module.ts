@@ -7,7 +7,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { InsideModule } from 'app/modules/inside/inside.module';
-import { NavbarModule } from 'app/components/navbar/navbar.module';
 import { InnerFooterComponent } from 'app/components/inner/footer/inner.footer.component';
 
 import { EditUserComponent } from './edit-user.component';
@@ -21,7 +20,6 @@ import { AvatarChatUserBoxComponent } from './modal-avatar/chat-user-box/chat-us
   imports: [
     RouterModule,
     InsideModule,
-    NavbarModule,
     CommonModule,
     BrowserAnimationsModule,
     AngularSvgIconModule,
