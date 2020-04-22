@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: '[app-outside-page-header]',
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
 export class OutsidePageHeaderComponent implements OnInit {
   @Input() title: string;
 
-  constructor(private router: Router) {}
+  constructor() {}
 
   @HostBinding('class.column')
   @HostBinding('class.is-full')

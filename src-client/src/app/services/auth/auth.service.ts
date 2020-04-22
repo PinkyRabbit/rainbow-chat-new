@@ -1,59 +1,17 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { tap, map } from 'rxjs/operators';
-
-import { environment } from 'environments/environment';
-import { AuthSuccessResponse, AuthSuccess } from 'app/models';
-
-import { JwtService } from './jwt.service';
-
-@Injectable()
-export class AuthService {
-  // The url of your login route on the server
-  private apiUrl = environment.apiUrl;
-
-  constructor(
-    private httpClient: HttpClient,
-    private readonly jwtService: JwtService
-  ) {}
-
-  public login(username: string, password: string) {
-    // this.logout();
-    const loginUrl = `${this.apiUrl}/auth/sign-in`;
-
-    return this.httpClient
-      .post<AuthSuccessResponse>(loginUrl, {
-        username,
-        password,
-      })
-      .pipe(
-        map((response) => new AuthSuccess(response)),
-        tap((auth) => this.jwtService.setAuthToken(auth.access)),
-        tap((auth) => this.jwtService.setRefreshToken(auth.refresh))
-      );
-  }
-
-  public logout(): void {
-    this.jwtService.deleteTokens();
-  }
-}
-
-/*
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
-// import { apiRoutes } from 'src/constants';
+import { environment } from 'environments/environment';
+import {
+  AuthSuccess,
+  AuthSuccessResponse,
+  AuthRefreshToken,
+  AuthTokenDecoded,
+  AuthUser,
+} from 'app/models';
 
-import { environment } from 'app/environments-sample/environment';
-// import {
-//   AuthSuccess,
-//   AuthSuccessResponse,
-//   DecodedAuthToken,
-//   RefreshTokenResponse,
-//   User,
-// } from '../models';
 import { JwtService } from './jwt.service';
 
 @Injectable({
@@ -61,19 +19,19 @@ import { JwtService } from './jwt.service';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl;
-  // private userSource$ = new BehaviorSubject<User>(
-  //   this.generateUser(this.jwtService.getDecodedAuthToken())
-  // );
+  private userSource$ = new BehaviorSubject<AuthUser>(
+    this.generateUser(this.jwtService.getDecodedAuthToken())
+  );
 
-  // user$ = this.userSource$.asObservable();
+  user$ = this.userSource$.asObservable();
 
-  // get user(): User {
-  //   return this.userSource$.value;
-  // }
+  get user(): AuthUser {
+    return this.userSource$.value;
+  }
 
-  // set user(value: User) {
-  //   this.userSource$.next(value);
-  // }
+  set user(value: AuthUser) {
+    this.userSource$.next(value);
+  }
 
   constructor(
     private readonly httpClient: HttpClient,
@@ -102,32 +60,31 @@ export class AuthService {
   logout(): void {
     this.jwtService.deleteTokens();
   }
-  /*
 
   refresh(): Observable<string> {
-    const refreshUrl = `${this.apiUrl}/${apiRoutes.token.base}/${apiRoutes.token.refresh}/`;
+    const refreshUrl = `${this.apiUrl}/auth/refresh`;
     const refresh = this.jwtService.getRefreshToken();
 
     return this.httpClient
-      .post<RefreshTokenResponse>(refreshUrl, { refresh })
+      .post<AuthRefreshToken>(refreshUrl, { refresh })
       .pipe(
-        tap((auth) => this.jwtService.setAuthToken(auth.access)),
-        map((auth) => auth.access)
+        tap((auth) => this.jwtService.setAuthToken(auth.access_token)),
+        map((auth) => auth.access_token)
       );
   }
 
   isAuthorized(): boolean {
-    return !!this.jwtService.getAuthToken();
+    return (
+      !!this.jwtService.getAuthToken() && !!this.jwtService.getRefreshToken()
+    );
   }
 
-  private generateUser(decodedToken: DecodedAuthToken): User | null {
+  private generateUser(decodedToken: AuthTokenDecoded): AuthUser | null {
     return !!decodedToken
-      ? new User({
+      ? new AuthUser({
           username: decodedToken.username,
-          firstName: decodedToken.first_name,
-          lastName: decodedToken.last_name,
+          _id: decodedToken.sub,
         })
       : null;
   }
 }
- */

@@ -1,18 +1,17 @@
-/*
-
-import { AuthService, JwtService } from '../services';
+import { Injectable } from '@angular/core';
 import {
-  HttpErrorResponse,
-  HttpEvent,
-  HttpHandler,
-  HttpHeaders,
   HttpInterceptor,
   HttpRequest,
+  HttpHandler,
+  HttpEvent,
+  HttpHeaders,
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { map, switchMap, catchError } from 'rxjs/operators';
 
-import { Injectable } from '@angular/core';
+import { JwtService } from './jwt.service';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -71,4 +70,3 @@ export class AuthInterceptor implements HttpInterceptor {
     return throwError(resp);
   }
 }
-*/
