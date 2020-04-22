@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 
 import { OutsideModule } from 'app/modules/outside/outside.module';
 
@@ -18,6 +19,7 @@ import { LoginLinksComponent } from './login/login-links/login-links-component';
     LoginFromComponent,
     LoginLinksComponent,
   ],
+  providers: [Title],
   bootstrap: [HomeComponent],
 })
 export class HomeModule {}

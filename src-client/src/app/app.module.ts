@@ -10,6 +10,7 @@ import { HomeModule } from './pages/home/home.module';
 import { RegistrationModule } from './pages/registration/registration.module';
 import { ChatModule } from './pages/chat/chat.module';
 import { EditUserModule } from './pages/user/edit/edit-user.module';
+import { Error404Module } from './pages/error404/error404.module';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { EditUserModule } from './pages/user/edit/edit-user.module';
     RegistrationModule,
     ChatModule,
     EditUserModule,
+    Error404Module,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
   ],

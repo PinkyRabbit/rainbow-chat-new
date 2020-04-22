@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 // import { LoginComponent } from './login/login.component';
 // import { ActivatedRoute, Router } from '@angular/router';
 // import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -12,9 +13,10 @@ import { Component, OnInit } from '@angular/core';
 export class HomeComponent implements OnInit {
   // login: LoginComponent;
 
-  constructor() {}
+  constructor(private titleService: Title) {}
 
   ngOnInit() {
+    this.titleService.setTitle('Главная ✔ Rainbow chat');
     // this.loginForm = this.formBuilder.group({
     //   username: ['', Validators.required],
     //   password: ['', Validators.required]
