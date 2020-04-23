@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: '#navbar',
+  selector: 'nav[#navbar]',
   templateUrl: './navbar.component.html',
   styleUrls: ['navbar.component.scss'],
 })

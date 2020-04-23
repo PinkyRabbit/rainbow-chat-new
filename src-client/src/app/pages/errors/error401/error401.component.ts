@@ -1,11 +1,11 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'div[app-error401-component]',
   templateUrl: './error401.component.html',
   styleUrls: ['error401.component.scss'],
 })
-export class Error401Component implements OnInit, AfterViewInit {
+export class Error401Component implements OnInit {
   mainMinHeight = 0;
   loaderHeight = 100;
   boxShadow = 'none';
@@ -13,9 +13,7 @@ export class Error401Component implements OnInit, AfterViewInit {
 
   constructor() {}
 
-  ngOnInit() {}
-
-  ngAfterViewInit() {
+  ngOnInit() {
     this.onInitAndOnResize(null);
   }
 
