@@ -8,14 +8,9 @@
   <div class="container" [hidden]="!loader">
     <div class="columns is-multiline">
       <div class="column is-one-third">
-        <app-outside-logo>Loading app-outside-logo...</app-outside-logo>
-
-        <div id="main-login" class="has-text-centered">
-          <app-login-form [user]="auth" (submitForm)="submitForm($event)"
-            >Loading app-form-login...</app-login-form
-          >
-          <div class="error" [hidden]="!loginError">{{ loginError }}</div>
-          <div id="app-login-links">Loading app-login-links...</div>
+        <div app-outside-logo>Loading app-outside-logo...</div>
+        <div app-login-form (isLoaderEnabled)="isLoaderEnabled($event)">
+          Loading app-login-form...
         </div>
       </div>
 
@@ -29,7 +24,7 @@
 
   <div
     app-outside-loader-light
-    [text]="loaderText"
+    [text]="'С возвращением! Входим в чатик...'"
     [loaderHeight]="loaderHeight"
     [hidden]="loader"
   >
