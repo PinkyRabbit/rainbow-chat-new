@@ -1,14 +1,53 @@
-<section class="section">
-  <div class="container">
-    <!-- <div class="columns is-multiline"> -->
+<section
+  class="section"
+  [style.boxShadow]="boxShadow"
+  (window:resize)="onInitAndOnResize($event)"
+>
+  <div
+    class="container"
+    id="unauthorized-component"
+    [style.minHeight.px]="mainMinHeight"
+  >
     <header app-outside-page-header [title]="'Войдите на сайт'">
       Loading app-outside-page-header...
     </header>
-    <main class="content">
-      <h2>Эта страница ещё не сделана. Но её нужно будет сделать</h2>
+    <main class="columns is-multiline">
+      <div class="column is-two-thirds">
+        <div class="notification is-info content">
+          <h2>Нужно перезайти на сайт</h2>
+          <p>Дорогой пользователь!</p>
+          <p>
+            К сожалению мы не можем определить кто ты. Возможно, ты
+            <strong>просто не поставил галочку, когда входил прошлый раз</strong
+            >. Или ты просто <strong>заходишь с нового места</strong>. В любом
+            случае - не расстраивайся. Заходи и погружайся в игру слов!
+          </p>
+        </div>
+        <div app-login-form (isLoaderEnabled)="isLoaderEnabled($event)">
+          Loading app-login-form...
+        </div>
+      </div>
+      <div class="column is-hidden-mobile">
+        <figure class="image is-square" id="avatar-image">
+          <img src="/assets/unknown-user.png" alt="Unknown user" />
+        </figure>
+      </div>
     </main>
-    <!-- </div> -->
+  </div>
+
+  <div
+    app-outside-loader-light
+    [text]="'С возвращением! Входим в чатик...'"
+    [loaderHeight]="loaderHeight"
+    [hidden]="loaderDisabled"
+  >
+    Loading app-outside-loader-light...
+  </div>
+
+  <div class="container" id="stars">
+    <div class="columns">
+      <div app-outside-stars>Loading app-outside-stars...</div>
+    </div>
   </div>
 </section>
-
-<app-outside-footer>Loading app-outside-footer...</app-outside-footer>
+<footer app-outside-footer>Loading app-outside-footer...</footer>

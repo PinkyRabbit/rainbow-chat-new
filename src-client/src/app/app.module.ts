@@ -17,8 +17,8 @@ import { Error404Module } from './pages/errors/error404/error404.module';
 
 @NgModule({
   imports: [
-    BrowserModule,
     AppRoutingModule,
+    BrowserModule,
     HomeModule,
     RegistrationModule,
     ChatModule,

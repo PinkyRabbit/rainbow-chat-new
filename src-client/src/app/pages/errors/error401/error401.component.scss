@@ -1,6 +1,17 @@
 :host {
   section {
+    color: #a5aefd;
     display: block;
     background: url("/assets/beg-crop-1200.jpg") top left / 100% auto repeat-y;
+    padding-bottom: 0;
+
+    .notification.is-info {
+      background-color: #212859;
+      color: #fff;
+    }
   }
+}
+
+[hidden] {
+  display: none !important;
 }

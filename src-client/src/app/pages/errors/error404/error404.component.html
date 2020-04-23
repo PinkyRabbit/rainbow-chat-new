@@ -1,16 +1,53 @@
-<nav id="navbar">Navbar loading...</nav>
+<!-- <nav id="navbar">Navbar loading...</nav> -->
 
-<section class="section">
-  <div class="container">
-    <!-- <div class="columns is-multiline"> -->
+<section
+  class="section"
+  [style.boxShadow]="boxShadow"
+  [style.marginTop.px]="sectionMarginTop"
+  (window:resize)="onInitAndOnResize($event)"
+>
+  <div class="container" [style.minHeight.px]="mainMinHeight">
     <header app-outside-page-header [title]="'Страницы не существует'">
       Loading app-outside-page-header...
     </header>
-    <main class="content">
-      <h2>Эта страница ещё не сделана. Но её нужно будет сделать</h2>
+
+    <main class="columns is-multiline">
+      <div class="column is-two-thirds">
+        <div class="notification is-info content">
+          <h2>Дорогой пользователь!</h2>
+          <p>
+            Ты попал на несуществующую страницу сайта. Давай разберёмся в
+            возможных причинах
+          </p>
+          <ul>
+            <li>Страница была удалена или перенесена</li>
+            <li>Страница была скрыта из общего просмотра</li>
+            <li>У вас сохранилась старая ссылка</li>
+            <li>
+              В поиске осталась ссылка на старую страницу (тогда вам стоит
+              поискать сё на сайте)
+            </li>
+          </ul>
+          <p>
+            В любом случае - не стоит переживать. Если не знаешь что делать
+            дальше -
+            <a routerLink="/" alt="Переход на главную">перейди на главную</a>.
+          </p>
+        </div>
+      </div>
+      <div class="column is-hidden-mobile">
+        <figure class="image is-square" id="avatar-image">
+          <img src="/assets/unknown-user.png" alt="Unknown user" />
+        </figure>
+      </div>
     </main>
-    <!-- </div> -->
+  </div>
+
+  <div class="container" id="stars">
+    <div class="columns">
+      <div app-outside-stars>Loading app-outside-stars...</div>
+    </div>
   </div>
 </section>
 
-<app-outside-footer>Loading app-outside-footer...</app-outside-footer>
+<footer app-outside-footer>Loading app-outside-footer...</footer>

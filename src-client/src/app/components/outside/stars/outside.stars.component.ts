@@ -2,7 +2,7 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: '[app-outside-stars]',
+  selector: 'div[app-outside-stars]',
   templateUrl: './outside.stars.component.html',
   styleUrls: ['outside.stars.component.scss'],
 })
@@ -11,5 +11,6 @@ export class OutsideStartsComponent implements OnInit {
 
   @HostBinding('class.column')
   @HostBinding('class.is-full')
+  @HostBinding('class.is-marginless')
   ngOnInit() {}
 }

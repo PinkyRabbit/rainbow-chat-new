@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 import { OutsideLogoComponent } from 'app/components/outside/logo/outside.logo.component';
 import { OutsideFooterComponent } from 'app/components/outside/footer/outside.footer.component';
@@ -7,10 +8,11 @@ import { OutsidePageHeaderComponent } from 'app/components/outside/page-header/o
 import { OutsideStartsComponent } from 'app/components/outside/stars/outside.stars.component';
 import { OutsideLoaderLigthComponent } from 'app/components/outside/loader-light/outside.loader-light.component';
 import { NavbarModule } from 'app/components/navbar/navbar.module';
+import { NavbarComponent } from 'app/components/navbar/navbar.component';
 
 @NgModule({
-  imports: [CommonModule, NavbarModule],
-  providers: [NavbarModule],
+  imports: [RouterModule, CommonModule, NavbarModule],
+  providers: [],
   declarations: [
     OutsideLogoComponent,
     OutsideFooterComponent,
@@ -24,6 +26,7 @@ import { NavbarModule } from 'app/components/navbar/navbar.module';
     OutsidePageHeaderComponent,
     OutsideStartsComponent,
     OutsideLoaderLigthComponent,
+    NavbarComponent,
   ],
 })
 export class OutsideModule {}

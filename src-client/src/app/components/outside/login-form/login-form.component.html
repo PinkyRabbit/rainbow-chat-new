@@ -37,3 +37,11 @@
   </div>
   <button class="button is-fullwidth is-success" type="submit">Войти</button>
 </form>
+
+<div class="error" [hidden]="!loginError">{{ loginError }}</div>
+
+<div id="app-login-links">
+  <a href="#">Правила</a>
+  <a href="#">Подсмотреть</a>
+  <a routerLink="/sign-in" class="reg-link">Регистрация</a>
+</div>
