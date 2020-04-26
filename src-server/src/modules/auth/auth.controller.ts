@@ -5,59 +5,92 @@ import {
   UseGuards,
   Request,
   Get,
+  UsePipes,
+  Query,
+  Param,
 } from '@nestjs/common';
 import {
   ApiTags,
   ApiOkResponse,
   ApiOperation,
   ApiBearerAuth,
+  ApiQuery,
+  ApiParam,
 } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 
 import { JwtAuthGuard } from 'guards/jwt-auth.guard';
 
 import { AuthService } from './auth.service';
-import { AuthRegisterDTO } from './dto/auth.register.dto';
 import { AuthRegisterValidationPipe } from './pipes/auth.register.validation.pipe';
 import { AuthLoginDTO } from './dto/auth.login.dto';
+import { IdValidationPipe } from 'pipes/id-validation.pipe';
+import { AuthRefreshDTO } from './dto/auth.refresh.dto';
+import { AuthRefreshValidationPipe } from './pipes/auth.refresh.validation.pipe';
+import { swQrememberMe } from 'util/swagger/constants.query';
+import { swPuserId } from 'util/swagger/constants.params';
+import { TokenResponse } from 'models';
+import { AuthTokenResponseDTO } from './dto/auth.token-response.dto';
+import { AuthRegisterDTO } from './dto/auth.register.dto';
 
 @Controller('auth')
 @ApiTags('Authorization')
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('/sign-up')
-  @ApiOperation({ summary: 'User register' })
-  @ApiOkResponse({ description: 'user.created' })
-  async signUpNewUser(
-    @Body(AuthRegisterValidationPipe) newUser: AuthRegisterDTO,
-  ) {
-    console.log(newUser);
-    return await this.authService.signUpNewUser(newUser);
-  }
-
-  @Post('/sign-in')
-  @UseGuards(AuthGuard('local'))
   @ApiOperation({ summary: 'User login' })
-  // @ApiOkResponse({ description: 'user.loggedIn' })
-  // @ApiBadRequestResponse({ type: ErrorDTO })
-  async signIn(
+  @ApiOkResponse({ type: AuthTokenResponseDTO })
+  @Post('/login')
+  @UseGuards(AuthGuard('local'))
+  async login(
     @Body(AuthRegisterValidationPipe) loginDto: AuthLoginDTO,
     @Request() req,
-  ) {
+  ): Promise<TokenResponse> {
+    const { user: userId } = req;
     const { rememberMe } = loginDto;
-    return await this.authService.signIn(req.user, rememberMe);
+
+    return await this.authService.login(userId, rememberMe);
   }
 
-  @Get('me')
+  @ApiOperation({ summary: 'Refresh user`s token' })
+  @ApiQuery(swQrememberMe)
+  @ApiParam(swPuserId)
+  @ApiOkResponse({ type: AuthTokenResponseDTO })
+  @Post('/refresh/:userId')
+  @UsePipes(IdValidationPipe)
+  async refreshToken(
+    @Param() params,
+    @Query() query,
+    @Body(AuthRefreshValidationPipe) body: AuthRefreshDTO,
+  ): Promise<TokenResponse> {
+    const { userId } = params;
+    const { refreshToken } = body;
+    const rememberMe = query.rememberMe ? query.rememberMe === 'true' : false;
+    return await this.authService.refresh(refreshToken, userId, rememberMe);
+  }
+
+  @ApiOperation({ summary: 'Return own user id or unauthorized error' })
   @ApiBearerAuth()
+  @Get('/me')
   @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Return own user object or unauthorized error' })
-  // @ApiOkResponse({ type: UserWithInfoAndStationsDTO })
   getCurrentUser(@Request() req) {
-    // const { user: userId } = req;
-    console.log(req.user);
-    console.log(req.headers);
-    return true;
+    return req.user;
+  }
+
+  @ApiOperation({ summary: 'User logout' })
+  @ApiOkResponse({ description: 'user.logout' })
+  @Post('logout')
+  async logout(@Body(AuthRefreshValidationPipe) body: AuthRefreshDTO) {
+    const { refreshToken } = body;
+    await this.authService.revokeRefreshToken(refreshToken);
+    return 'user.logout';
+  }
+
+  @ApiOperation({ summary: 'User register' })
+  @ApiOkResponse({ description: 'user.created' })
+  @Post('/register')
+  async register(@Body(AuthRegisterValidationPipe) newUser: AuthRegisterDTO) {
+    await this.authService.register(newUser);
+    return 'user.created';
   }
 }

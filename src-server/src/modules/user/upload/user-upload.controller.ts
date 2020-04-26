@@ -20,7 +20,7 @@ import { fiAvatar } from 'util/interceptors';
 import { UserUploadService } from './user-upload.service';
 import { AvatarUploadDTO } from '../dto/avatar.upload.dto';
 import { UserAvatarValidationPipe } from '../pipes/user-avatar.validation.pipe';
-import { swFile, swSchema } from 'util/swagger/contants.file';
+import { swFile, swSchema } from 'util/swagger/constants.file';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import { limitMb } from 'util/interceptors/file-limits';
 
