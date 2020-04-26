@@ -1,13 +1,13 @@
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { PassportStrategy } from '@nestjs/passport';
-import { Injectable } from '@nestjs/common';
+import { Injectable, ForbiddenException } from '@nestjs/common';
 import { ObjectID } from 'mongodb';
 
 import { jwtConstants } from '../../config/jwt';
 
 type payloadJwt = {
-  username: string;
-  sub: string;
+  id: string;
+  rememberMe: boolean;
 };
 
 @Injectable()
@@ -21,8 +21,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: payloadJwt) {
-    console.log('validate');
-    console.log(payload);
-    return { _id: new ObjectID(payload.sub), username: payload.username };
+    if (!ObjectID.isValid(payload.id)) {
+      throw new ForbiddenException();
+    }
+    return new ObjectID(payload.id);
   }
 }
