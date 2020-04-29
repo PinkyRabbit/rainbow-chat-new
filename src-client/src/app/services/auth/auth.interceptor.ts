@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
@@ -38,7 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
     if (!this.jwtService.isAuthTokenExpired()) {
       return of(this.jwtService.getAuthToken());
     }
-    return this.authService.refresh();
+    // return this.authService.refresh();
   }
 
   private authorizeRequest(
@@ -70,3 +71,4 @@ export class AuthInterceptor implements HttpInterceptor {
     return throwError(resp);
   }
 }
+*/

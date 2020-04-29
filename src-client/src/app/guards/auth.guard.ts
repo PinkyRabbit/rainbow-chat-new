@@ -6,22 +6,22 @@ import {
   Router,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { AuthService } from 'app/services/auth/auth.service';
+// import { AuthService } from 'app/services/auth/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
-    private readonly router: Router,
-    private readonly authService: AuthService
-  ) {}
+    private readonly router: Router
+  ) // private readonly authService: AuthService
+  {}
 
   canActivate(_: ActivatedRouteSnapshot): Observable<boolean> | boolean {
-    if (!this.authService.isAuthorized()) {
-      this.navigateToError();
-      return false;
-    }
+    // if (!this.authService.isAuthorized()) {
+    //   this.navigateToError();
+    //   return false;
+    // }
     return true;
   }
 

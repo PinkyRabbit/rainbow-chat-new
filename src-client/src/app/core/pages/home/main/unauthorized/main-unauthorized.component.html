@@ -1,0 +1,18 @@
+<div id="login-form-with-news" class="container" [hidden]="!loader">
+  <div class="columns is-multiline">
+    <div class="column is-one-third">
+      <div app-outside-logo>Loading app-outside-logo...</div>
+      <div app-login-form (isLoaderEnabled)="isLoaderEnabled($event)">
+        Loading app-login-form...
+      </div>
+    </div>
+
+    <div class="column is-one-third" id="main-challenge">
+      <!-- Последние новости... -->
+    </div>
+
+    <div class="column is-one-third">
+      <!-- Последние события... -->
+    </div>
+  </div>
+</div>

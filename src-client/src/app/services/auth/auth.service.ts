@@ -1,7 +1,8 @@
+/*
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { BehaviorSubject, Observable, concat } from 'rxjs';
+import { map, tap, concatMap, flatMap } from 'rxjs/operators';
 
 import { environment } from 'environments/environment';
 import {
@@ -10,6 +11,7 @@ import {
   AuthRefreshToken,
   AuthTokenDecoded,
   AuthUser,
+  AuthBase,
 } from 'app/models';
 
 import { JwtService } from './jwt.service';
@@ -38,16 +40,18 @@ export class AuthService {
     private readonly jwtService: JwtService
   ) {}
 
-  login(username: string, password: string): Observable<AuthSuccess> {
-    this.logout();
-
-    const loginUrl = `${this.apiUrl}/auth/sign-in`;
-    return this.httpClient
-      .post<AuthSuccessResponse>(loginUrl, { username, password })
+  login(username: string, password: string): Observable<string> {
+    const loginUrl = `${this.apiUrl}/auth/login`;
+    const logout$ = this.logout();
+    const httpRequest$ = this.httpClient
+      .post<AuthSuccessResponse>(loginUrl, {
+        username,
+        password,
+      })
       .pipe(
         map((response) => new AuthSuccess(response)),
-        tap((auth) => this.jwtService.setAuthToken(auth.access)),
-        tap((auth) => this.jwtService.setRefreshToken(auth.refresh)),
+        tap((auth) => this.jwtService.setAuthToken(auth.token)),
+        tap((auth) => this.jwtService.setRefreshToken(auth.refreshToken)),
         tap(
           () =>
             (this.user = this.generateUser(
@@ -55,22 +59,49 @@ export class AuthService {
             ))
         )
       );
+    return logout$.pipe(flatMap(() => httpRequest$));
+    // return logout$.pipe(concatMap(() => httpRequest$()));
+    // return concat(this.logout, httpRequest).pipe(
+    //   map((response) => new AuthSuccess(response)),
+    //   tap((auth) => this.jwtService.setAuthToken(auth.token)),
+    //   tap((auth) => this.jwtService.setRefreshToken(auth.refreshToken)),
+    //   tap(
+    //     () =>
+    //       (this.user = this.generateUser(this.jwtService.getDecodedAuthToken()))
+    //   )
+    // );
+    // const loginUrl = `${this.apiUrl}/auth/login`;
+    // return this.httpClient
+    //   .post<AuthSuccessResponse>(loginUrl, { username, password })
+    //   .pipe(
+    //     map((response) => new AuthSuccess(response)),
+    //     tap((auth) => this.jwtService.setAuthToken(auth.token)),
+    //     tap((auth) => this.jwtService.setRefreshToken(auth.refreshToken)),
+    //     tap(
+    //       () =>
+    //         (this.user = this.generateUser(
+    //           this.jwtService.getDecodedAuthToken()
+    //         ))
+    //     )
+    //   );
   }
 
-  logout(): void {
-    this.jwtService.deleteTokens();
+  logout(): Observable<string> {
+    const logoutUrl = `${this.apiUrl}/auth/logout`;
+    const refreshToken = this.jwtService.getRefreshToken();
+    return this.httpClient.post<string>(logoutUrl, { refreshToken });
   }
 
-  refresh(): Observable<string> {
+  refresh() {
+    // refresh(): Observable<string> {
     const refreshUrl = `${this.apiUrl}/auth/refresh`;
     const refresh = this.jwtService.getRefreshToken();
 
-    return this.httpClient
-      .post<AuthRefreshToken>(refreshUrl, { refresh })
-      .pipe(
-        tap((auth) => this.jwtService.setAuthToken(auth.access_token)),
-        map((auth) => auth.access_token)
-      );
+    // return this.httpClient.post<AuthRefreshToken>(refreshUrl, { refresh });
+    // .pipe(
+    //   tap((auth) => this.jwtService.setAuthToken(auth.token)),
+    //   map((auth) => auth.token)
+    // );
   }
 
   isAuthorized(): boolean {
@@ -82,9 +113,10 @@ export class AuthService {
   private generateUser(decodedToken: AuthTokenDecoded): AuthUser | null {
     return !!decodedToken
       ? new AuthUser({
-          username: decodedToken.username,
-          _id: decodedToken.sub,
+          id: decodedToken.id,
+          rememberMe: decodedToken.rememberMe,
         })
       : null;
   }
 }
+*/

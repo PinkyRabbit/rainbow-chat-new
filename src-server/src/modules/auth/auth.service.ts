@@ -46,17 +46,13 @@ export class AuthService {
   }
 
   async login(id: string, rememberMe = false): Promise<TokenResponse> {
-    console.log(id);
     return {
       token: this.jwtService.sign({ id, rememberMe }),
       refreshToken: await this.createRefreshToken(id, rememberMe),
     };
   }
 
-  async createRefreshToken(
-    id: string,
-    rememberMe = false,
-  ): Promise<string> {
+  async createRefreshToken(id: string, rememberMe = false): Promise<string> {
     const refreshToken = uuid.v4();
     if (this.isNotProdMode || !rememberMe) {
       const oneHourInSeconds = 60 * 60;
@@ -79,7 +75,6 @@ export class AuthService {
           thirtyDaysInSeconds,
         );
     }
-    console.log(refreshToken);
 
     return refreshToken;
   }

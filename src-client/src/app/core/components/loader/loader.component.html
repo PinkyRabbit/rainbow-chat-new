@@ -1,0 +1,21 @@
+<div
+  class="loader-wrapper"
+  [ngStyle]="this.sliderStyles"
+  [style.visibility]="isActive ? 'visible' : 'hidden'"
+  [class.slideInLeft]="isActive"
+  [class.slideOutRight]="!isActive"
+>
+  <div class="content">
+    <div>
+      <h1 class="glow">{{ title || "akshdaskd" }}</h1>
+    </div>
+
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+    <h3>{{ tooltip }}</h3>
+  </div>
+</div>

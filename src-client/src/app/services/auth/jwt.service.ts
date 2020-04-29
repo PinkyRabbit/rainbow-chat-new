@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
+/*
 import { AuthTokenDecoded } from 'app/models/auth-token-decoded.model';
 
 import { AuthConstants } from './auth.constants';
@@ -46,3 +47,4 @@ export class JwtService {
     return this.jwtHelper.isTokenExpired(this.getAuthToken());
   }
 }
+*/
