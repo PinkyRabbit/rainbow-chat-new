@@ -7,7 +7,8 @@ import { HomeComponent } from './core/pages/home/home.component';
 // import { RegistrationComponent } from './core/pages/registration/registration.component';
 // import { ChatComponent } from './core/pages/chat/chat.component';
 // import { EditUserComponent } from './core/pages/user/edit/edit-user.component';
-import { Error401Component } from './core/pages/errors/error401/error401.component';
+// import { Error401Component } from './core/pages/errors/error401/error401.component';
+import { TermsOfUseComponent } from './core/pages/static/terms-of-use/terms-of-use.component';
 
 const routes: Routes = [
   /*
@@ -30,10 +31,15 @@ const routes: Routes = [
   },
   */
   {
-    path: 'unauthorized',
+    path: 'terms-of-use',
     pathMatch: 'full',
-    component: Error401Component,
+    component: TermsOfUseComponent,
   },
+  // {
+  //   path: 'unauthorized',
+  //   pathMatch: 'full',
+  //   component: Error401Component,
+  // },
   {
     path: '',
     pathMatch: 'full',

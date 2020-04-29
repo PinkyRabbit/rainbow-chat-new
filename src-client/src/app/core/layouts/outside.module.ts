@@ -7,8 +7,9 @@ import { OutsideFooterComponent } from '../components/outside/footer/outside.foo
 import { OutsidePageHeaderComponent } from '../components/outside/page-header/outside.page-header.component';
 import { OutsideStartsComponent } from '../components/outside/stars/outside.stars.component';
 import { OutsideLoaderLigthComponent } from '../components/outside/loader-light/outside.loader-light.component';
+import { BrickWallStylesDirective } from 'app/shared/brick-wall-styles.directive';
 
-export const COMPONENTS = [
+const COMPONENTS = [
   OutsideLogoComponent,
   OutsideFooterComponent,
   OutsidePageHeaderComponent,
@@ -16,10 +17,11 @@ export const COMPONENTS = [
   OutsideLoaderLigthComponent,
 ];
 
+const DIRECTIVES = [BrickWallStylesDirective];
+
 @NgModule({
   imports: [RouterModule, CommonModule],
-  providers: [],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
+  declarations: [...COMPONENTS, ...DIRECTIVES],
+  exports: [...COMPONENTS, ...DIRECTIVES],
 })
 export class OutsideModule {}

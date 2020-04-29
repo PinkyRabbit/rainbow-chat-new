@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
     </div>
   `,
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   route: string;
   paddingTop: number;
 
@@ -26,10 +26,12 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    const navbar = document.getElementById('navbar');
-    if (navbar) {
-      this.paddingTop = navbar.offsetHeight;
-    }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      const navbar = document.getElementById('navbar');
+      if (navbar) {
+        this.paddingTop = navbar.offsetHeight;
+      }
+    }, 300);
   }
 }
