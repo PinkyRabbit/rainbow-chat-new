@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: '#registration',
@@ -6,14 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['registration.component.scss'],
 })
 export class RegistrationComponent implements OnInit {
-  readonly pageTitle: string = 'Регистрация';
+  readonly pageTitle = 'Регистрация';
   loader = true;
   loaderText = 'Сохраняем нового пользователя...';
   loaderHeight = 100;
   boxShadow = 'none';
 
-  constructor() {}
+  constructor(private titleService: Title) {}
 
+  ngOnInit() {
+    this.titleService.setTitle(`${this.pageTitle} ✔ Rainbow chat`);
+  }
+
+  /*
   private getBoxShadow() {
     const windowWidth =
       window.innerWidth ||
@@ -62,4 +68,5 @@ export class RegistrationComponent implements OnInit {
     //   this.paddingBottom += 1;
     // }
   }
+  */
 }

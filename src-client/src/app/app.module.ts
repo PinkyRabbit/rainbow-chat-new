@@ -12,10 +12,8 @@ import { CoreModule } from './core/core.module';
 import { NavbarModule } from './core/components/navbar/navbar.module';
 import { LoaderComponent } from './core/components/loader/loader.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { TermsOfUseComponent } from './core/pages/static/terms-of-use/terms-of-use.component';
 
 const COMPONENTS = [NavbarModule];
-const PAGES_AS_COMPONENTS = [TermsOfUseComponent];
 
 @NgModule({
   imports: [

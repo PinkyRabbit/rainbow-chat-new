@@ -1,16 +1,8 @@
-<!-- <nav id="navbar">Navbar loading...</nav> -->
-
-<section
-  class="section"
-  [style.boxShadow]="boxShadow"
-  [style.marginTop.px]="sectionMarginTop"
-  (window:resize)="onInitAndOnResize($event)"
->
-  <div class="container" [style.minHeight.px]="mainMinHeight">
-    <header app-outside-page-header [title]="'Страницы не существует'">
+<section class="section bg-bricks" id="section-bricks">
+  <div class="container">
+    <header app-outside-page-header [title]="pageTitle">
       Loading app-outside-page-header...
     </header>
-
     <main class="columns is-multiline">
       <div class="column is-two-thirds">
         <div class="notification is-info content">
@@ -42,12 +34,6 @@
       </div>
     </main>
   </div>
-
-  <!-- <div class="container" id="stars">
-    <div class="columns">
-      <div app-outside-stars>Loading app-outside-stars...</div>
-    </div>
-  </div> -->
+  <div id="stars">Loading stars...</div>
 </section>
-
 <footer app-outside-footer>Loading app-outside-footer...</footer>

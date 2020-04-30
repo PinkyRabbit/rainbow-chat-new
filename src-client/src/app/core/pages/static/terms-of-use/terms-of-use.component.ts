@@ -7,9 +7,11 @@ import { Title } from '@angular/platform-browser';
   // styleUrls: ['home.component.scss'],
 })
 export class TermsOfUseComponent implements OnInit {
+  pageTitle = 'Правила';
+
   constructor(private titleService: Title) {}
 
   ngOnInit() {
-    this.titleService.setTitle('Правила ✔ Rainbow chat');
+    this.titleService.setTitle(`${this.pageTitle} ✔ Rainbow chat`);
   }
 }
