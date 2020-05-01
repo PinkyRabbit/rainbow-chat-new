@@ -8,12 +8,13 @@ import { RegistrationComponent } from './registration.component';
 import { RegistrationFormComponent } from './registration-form/registration-form.component';
 
 import { OutsideModule } from 'app/core/layouts/outside.module';
+import { HttpWithLoaderService } from 'app/services/http/with-loader.service';
 // import { AuthService } from 'app/services/auth/auth.service';
 
 @NgModule({
   imports: [CommonModule, FormsModule, HttpClientModule, OutsideModule],
   declarations: [RegistrationComponent, RegistrationFormComponent],
-  providers: [Title],
+  providers: [Title, HttpWithLoaderService],
   // providers: [AuthService],
   bootstrap: [RegistrationComponent],
 })

@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Actions, ofType, createEffect } from '@ngrx/effects';
@@ -100,3 +101,4 @@ export class AuthEffects {
             )
     );
 }
+*/

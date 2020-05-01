@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 
+/*
 import { Credentials, User } from '../../core';
 
 export const login = createAction(
@@ -33,3 +34,5 @@ export const setToken = createAction(
   '[Auth] Set Token',
   props<{ token: string }>()
 );
+
+*/

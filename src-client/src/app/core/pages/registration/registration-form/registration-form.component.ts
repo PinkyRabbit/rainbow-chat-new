@@ -12,6 +12,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 // import { AuthService } from 'app/services/auth/auth.service';
 // import { environment } from 'environments/environment';
 import { UserRegistrationModel } from 'app/shared/models';
+import { HttpWithLoaderService } from 'app/services/http/with-loader.service';
 
 @Component({
   selector: '#registration-form',
@@ -24,7 +25,7 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private http: HttpClient // private readonly authService: AuthService
+    private httpWithLoaderService: HttpWithLoaderService
   ) {
     this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
     this.onError = this.onError.bind(this);
@@ -48,10 +49,15 @@ export class RegistrationFormComponent implements OnInit {
   // }
 
   onSubmit() {
-    // const { rulesAccepted, ...newUser } = this.user;
-    // if (!rulesAccepted) {
-    //   alert('Вы должны принять правила пользования сервисом!');
-    // }
+    const { rulesAccepted, ...newUser } = this.user;
+    if (!rulesAccepted) {
+      alert('Вы должны принять правила пользования сервисом!');
+    }
+    alert('onSubmit');
+    this.httpWithLoaderService.$registration(this.user).subscribe(
+      (result) => console.log(result),
+      (error) => console.log(error)
+    );
     // this.loaderOn.emit('Сохраняем нового пользователя...');
     // setTimeout(() => {
     //   this.http

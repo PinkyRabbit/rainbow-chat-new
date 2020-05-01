@@ -25,9 +25,9 @@
 }
 
 .slideInLeft {
-  -webkit-animation-name: slideInLeft 0.5s;
-  animation-name: slideInLeft 0.5s;
-  animation: slideInLeft 0.5s;
+  -webkit-animation-name: slideInLeft 0.3s;
+  animation-name: slideInLeft 0.3s;
+  animation: slideInLeft 0.3s;
 }
 
 @-webkit-keyframes slideOutRight {
@@ -59,7 +59,7 @@
 }
 
 .slideOutRight {
-  -webkit-animation-name: slideOutRight 0.5s;
-  animation-name: slideOutRight 0.5s;
-  animation: slideOutRight 0.5s;
+  -webkit-animation-name: slideOutRight 0.3s;
+  animation-name: slideOutRight 0.3s;
+  animation: slideOutRight 0.3s;
 }

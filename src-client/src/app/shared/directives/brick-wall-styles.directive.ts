@@ -26,19 +26,24 @@ export class BrickWallStylesDirective implements AfterViewInit {
     setTimeout(() => {
       const navbar = document.getElementById('navbar');
       const starsBlock = document.getElementById('stars');
+      const windowHeight = this.getWindowHeigh();
+      const elementHeight = this.el.nativeElement.offsetHeight;
+      const navbarHeight = navbar ? navbar.offsetHeight : 0;
+      const starsHeight = starsBlock ? starsBlock.offsetHeight : 0;
 
       this.el.nativeElement.style.boxShadow = this.getBoxShadow();
 
-      let minHeight = this.getWindowHeigh();
-      if (navbar) {
-        minHeight = minHeight - navbar.offsetHeight;
+      let minHeight = windowHeight;
+      if (navbarHeight) {
+        minHeight = minHeight - navbarHeight;
       }
       this.el.nativeElement.style.minHeight = `${minHeight}px`;
 
-      if (starsBlock) {
-        this.el.nativeElement.style.paddingBottom = `${starsBlock.offsetHeight}px`;
+      if (starsBlock && elementHeight + navbarHeight < windowHeight) {
+        starsBlock.style.position = 'absolute';
+        this.el.nativeElement.style.paddingBottom = `${starsHeight}px`;
       }
-    }, 300);
+    }, 100);
   }
 
   private setDefaultStyles() {

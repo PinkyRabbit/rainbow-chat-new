@@ -1,13 +1,13 @@
 <div
   class="loader-wrapper"
   [ngStyle]="this.sliderStyles"
-  [style.visibility]="isActive ? 'visible' : 'hidden'"
   [class.slideInLeft]="isActive"
   [class.slideOutRight]="!isActive"
+  [class.is-hidden]="!isActive"
 >
   <div class="content">
     <div>
-      <h1 class="glow">{{ title || "akshdaskd" }}</h1>
+      <h1 class="glow">{{ title || "" }}</h1>
     </div>
 
     <div class="lds-ellipsis">

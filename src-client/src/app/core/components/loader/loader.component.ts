@@ -1,32 +1,61 @@
-import { Component, OnInit, Input, HostBinding } from '@angular/core';
+import { Subscription } from 'rxjs';
+import {
+  Component,
+  OnInit,
+  HostListener,
+  AfterViewInit,
+  OnChanges,
+  OnDestroy,
+} from '@angular/core';
+
+import { LoaderService } from './loader.service';
 
 @Component({
   selector: 'div[#loader]',
   templateUrl: './loader.component.html',
   styleUrls: ['loader.component.scss'],
 })
-export class LoaderComponent implements OnInit {
-  @Input() title: string;
-
+export class LoaderComponent
+  implements OnInit, AfterViewInit, OnChanges, OnDestroy {
+  title: string;
+  isActive: boolean;
   tooltip: string;
   sliderStyles = {};
-  isActive = false;
 
-  constructor() {
+  private subscription: Subscription;
+
+  constructor(private loaderService: LoaderService) {
     this.tooltip =
       'Будьте вежливыми и терпиливыми с вашими собеседниками, и узнаете много интересного и нового. Помните, каждый человек - как книга.';
   }
 
-  @HostBinding('style.display')
-  isVisible: string;
   ngOnInit() {
-    this.isVisible = 'none';
-    setTimeout(() => {
-      this.calculateLoaderStyles();
-    }, 1000);
+    this.isActive = false;
   }
 
-  calculateLoaderStyles() {
+  ngAfterViewInit() {
+    this.calculateLoaderStyles();
+  }
+
+  ngOnChanges(changes) {
+    console.log(changes);
+    // isHidden() {
+    //   if (this.isActive) {
+    //     return false;
+    //   }
+
+    //   setTimeout(() => {
+    //     return true;
+    //   }, 300);
+    // }
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
+  @HostListener('window:resize')
+  private calculateLoaderStyles() {
     this.sliderStyles = {
       'height.px': this.getPageHeight(),
       'paddingTop.px': this.getWindowHeigh() / 4,
