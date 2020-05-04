@@ -1,11 +1,11 @@
-import { User } from './user';
+import { UserModel } from './user.model';
 
-export class ChatMessage {
+export class ChatMessageModel {
   // tslint:disable-next-line: variable-name
   _id: string;
   message: string;
   date: string;
   isBanned: boolean;
-  from: User;
-  to: User[];
+  from: UserModel;
+  to: UserModel[];
 }

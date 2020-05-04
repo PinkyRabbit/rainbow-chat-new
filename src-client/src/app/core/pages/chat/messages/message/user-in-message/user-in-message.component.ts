@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from 'app/models/user';
+import { UserModel } from 'app/shared/models/user.model';
 
 @Component({
   selector: 'span[user-in-message]',
@@ -17,7 +17,7 @@ import { User } from 'app/models/user';
   styleUrls: ['user-in-message.component.scss'],
 })
 export class UserInMessageComponent implements OnInit {
-  @Input() user: User;
+  @Input() user: UserModel;
   @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router) {}

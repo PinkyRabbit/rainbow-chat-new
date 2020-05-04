@@ -1,3 +1,20 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthService {
+  constructor() {}
+
+  // generateUser(decodedToken: AuthTokenDecoded): AuthUser | null {
+  //   return !!decodedToken
+  //     ? new AuthUser({
+  //         id: decodedToken.id,
+  //         rememberMe: decodedToken.rememberMe,
+  //       })
+  //     : null;
+  // }
+}
 /*
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';

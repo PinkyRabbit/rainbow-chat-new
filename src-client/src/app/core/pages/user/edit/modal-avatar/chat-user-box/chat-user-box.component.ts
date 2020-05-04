@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from 'app/models/user';
+import { UserModel } from 'app/shared/models/user.model';
 
 @Component({
   selector: 'div[avatar-chat-user-box]',
@@ -9,7 +9,7 @@ import { User } from 'app/models/user';
   styleUrls: ['chat-user-box.component.scss'],
 })
 export class AvatarChatUserBoxComponent implements OnInit {
-  @Input() user: User;
+  @Input() user: UserModel;
 
   constructor(private router: Router) {}
 

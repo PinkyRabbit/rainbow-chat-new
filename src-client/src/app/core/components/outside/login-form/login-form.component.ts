@@ -1,12 +1,8 @@
-import {
-  Component,
-  OnInit,
-  Output,
-  EventEmitter,
-  HostBinding,
-} from '@angular/core';
+import { Component, OnInit, HostBinding } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpErrorResponse } from '@angular/common/http';
+import { Store } from '@ngrx/store';
+
+import { login as actionLogin } from 'app/shared/modules/auth/store/auth.actions';
 
 // import { AuthService } from 'app/services/auth/auth.service';
 
@@ -16,7 +12,7 @@ import { HttpErrorResponse } from '@angular/common/http';
   styleUrls: ['./login-form.component.scss'],
 })
 export class LoginFormComponent implements OnInit {
-  @Output() isLoaderEnabled: EventEmitter<any> = new EventEmitter<any>();
+  // @Output() isLoaderEnabled: EventEmitter<any> = new EventEmitter<any>();
 
   user = {
     username: '',
@@ -25,14 +21,13 @@ export class LoginFormComponent implements OnInit {
   };
   loginError = '';
 
-  // private readonly authService: AuthService
-  constructor(private router: Router) {}
+  constructor(private router: Router, private store: Store) {}
 
   @HostBinding('class.has-text-centered')
   ngOnInit(): void {}
 
   onSubmit() {
-    alert('submit!');
+    this.store.dispatch(actionLogin(this.user));
   }
 
   /*

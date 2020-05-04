@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { ImageCroppedEvent } from 'ngx-image-cropper';
 
-import { User } from 'app/models/user';
+import { UserModel } from 'app/shared/models/user.model';
 
 @Component({
   selector: 'div[modal-avatar]',
@@ -20,7 +20,7 @@ export class ModalAvatarComponent implements OnInit {
   @Output() disableFile: EventEmitter<any> = new EventEmitter<any>();
 
   croppedImage: any = '';
-  private chuckNorris: User = {
+  private chuckNorris: UserModel = {
     _id: '1',
     username: 'Chuck Norris',
     nameColor: '34,78,75',
@@ -42,7 +42,7 @@ export class ModalAvatarComponent implements OnInit {
     this.croppedImage = event.base64;
   }
 
-  getUserboxUser(): User {
+  getUserboxUser(): UserModel {
     return {
       ...this.chuckNorris,
       avatarSmall: this.croppedImage,

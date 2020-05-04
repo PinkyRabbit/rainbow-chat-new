@@ -32,6 +32,7 @@ import { swPuserId } from 'util/swagger/constants.params';
 import { TokenResponse } from 'models';
 import { AuthTokenResponseDTO } from './dto/auth.token-response.dto';
 import { AuthRegisterDTO } from './dto/auth.register.dto';
+import { stringToResponseObject } from 'util/helpers/string-to-response-object';
 
 @Controller('auth')
 @ApiTags('Authorization')
@@ -84,7 +85,7 @@ export class AuthController {
     const { refreshToken } = body;
     await this.authService.revokeRefreshToken(refreshToken);
     console.log('logout');
-    return 'user.logout';
+    return stringToResponseObject('user.logout');
   }
 
   @ApiOperation({ summary: 'User register' })
@@ -92,6 +93,6 @@ export class AuthController {
   @Post('/register')
   async register(@Body(AuthRegisterValidationPipe) newUser: AuthRegisterDTO) {
     await this.authService.register(newUser);
-    return 'user.created';
+    return stringToResponseObject('user.created');
   }
 }

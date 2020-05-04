@@ -9,7 +9,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 
-import { User } from 'app/models/user';
+import { UserModel } from 'app/shared/models/user.model';
 
 import { ChunkInMessageDirective } from './chunk-in-message.directive';
 import { UserInMessageComponent } from '../user-in-message/user-in-message.component';
@@ -22,7 +22,7 @@ import { TextNodeComponent } from './text-node';
 })
 export class TextInMessageComponent implements OnInit {
   @Input() message: string;
-  @Input() users: User[];
+  @Input() users: UserModel[];
   @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(ChunkInMessageDirective, { static: true })
   chunkOfMessage: ChunkInMessageDirective;

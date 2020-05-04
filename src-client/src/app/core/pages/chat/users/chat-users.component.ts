@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { User } from 'app/models/user';
+import { UserModel } from 'app/shared/models/user.model';
 
 @Component({
   selector: '#chat-users',
@@ -20,9 +20,9 @@ export class ChatUsersComponent implements OnInit {
   @Output() addUsernameToMessage: EventEmitter<any> = new EventEmitter<any>();
 
   isUserOnTablet = false;
-  chatUsers: User[];
+  chatUsers: UserModel[];
 
-  private chuckNorris: User = {
+  private chuckNorris: UserModel = {
     _id: '1',
     username: 'Chuck Norris',
     nameColor: '34,78,75',
@@ -31,7 +31,7 @@ export class ChatUsersComponent implements OnInit {
     textFont: 'font-2',
     avatarSmall: '',
   };
-  private hisFriend: User = {
+  private hisFriend: UserModel = {
     _id: '2',
     username: 'to',
     nameColor: '60,100,50',

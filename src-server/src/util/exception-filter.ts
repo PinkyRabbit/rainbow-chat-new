@@ -41,7 +41,10 @@ export class AllExceptionsFilter implements ExceptionFilter {
           const [message] = untypedMessage;
           errorObject.message = message.property;
         }
-        return response.status(errorObject.statusCode).json(errorObject);
+        return response.status(errorObject.statusCode).json({
+          success: false,
+          error: errorObject,
+        });
       }
       if (typeof untypedMessage !== 'string') {
         errorObject.message = 'Unknown error';
@@ -63,6 +66,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
       }
     }
 
-    return response.status(errorObject.statusCode).json(errorObject);
+    return response.status(errorObject.statusCode).json({
+      success: false,
+      error: errorObject,
+    });
   }
 }

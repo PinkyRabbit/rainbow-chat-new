@@ -4,66 +4,47 @@ import {
   HostBinding,
   Output,
   EventEmitter,
+  OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { SubSink } from 'subsink';
 
-// import { NewUser } from 'app/models/new-user';
+import { UserRegistrationModel } from 'app/shared/models/user-registration.model';
+
 // import { AuthService } from 'app/services/auth/auth.service';
 // import { environment } from 'environments/environment';
-import { UserRegistrationModel } from 'app/shared/models';
-import { HttpWithLoaderService } from 'app/services/http/with-loader.service';
 
 @Component({
   selector: '#registration-form',
   templateUrl: './registration-form.component.html',
   styleUrls: ['registration-form.component.scss'],
 })
-export class RegistrationFormComponent implements OnInit {
+export class RegistrationFormComponent implements OnInit, OnDestroy {
+  private subs = new SubSink();
   readonly sexValues = ['Мальчик', 'Девочка'];
   user = new UserRegistrationModel();
+  registrationRequest;
 
   constructor(
-    private router: Router,
-    private httpWithLoaderService: HttpWithLoaderService
+    private router: Router // private httpAuthService: HttpAuthService
   ) {
     this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
     this.onError = this.onError.bind(this);
   }
 
-  // private error = '';
-  // private readonly createUserUrl = `${environment.apiUrl}/auth/sign-up`;
-  // user = new NewUser();
-
-  // paddingBottom = 0;
-
-  // @Output() loaderOn: EventEmitter<any> = new EventEmitter<any>();
-  // @Output() loaderOff: EventEmitter<any> = new EventEmitter<any>();
   @HostBinding('class.columns')
-  ngOnInit() {
-    // this.onInitAndOnResize();
+  ngOnInit() {}
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
-  // onResize(event) {
-  //   this.onInitAndOnResize();
-  // }
-
   onSubmit() {
-    const { rulesAccepted, ...newUser } = this.user;
-    if (!rulesAccepted) {
-      alert('Вы должны принять правила пользования сервисом!');
-    }
     alert('onSubmit');
-    this.httpWithLoaderService.$registration(this.user).subscribe(
-      (result) => console.log(result),
-      (error) => console.log(error)
-    );
-    // this.loaderOn.emit('Сохраняем нового пользователя...');
-    // setTimeout(() => {
-    //   this.http
-    //     .post(this.createUserUrl, newUser, { responseType: 'text' })
-    //     .subscribe(this.onSuccessUserCreation, this.onError);
-    // }, 3000);
+    // this.subs.sink = this.httpAuthService.$registration(this.user).subscribe(
+    //   (result) => console.log(result),
+    //   (error) => console.log(error)
+    // );
   }
 
   private onSuccessUserCreation(res) {
@@ -95,23 +76,4 @@ export class RegistrationFormComponent implements OnInit {
     // console.log(typeof error);
     // alert(error.message || JSON.stringify(error));
   }
-
-  // private getWindowHeigh() {
-  //   return (
-  //     window.innerHeight ||
-  //     document.documentElement.clientHeight ||
-  //     document.body.clientHeight
-  //   );
-  // }
-
-  // private onInitAndOnResize() {
-  //   this.paddingBottom = 0;
-  //   setTimeout(() => {
-  //     const rootElementHeight = document.getElementById('root').offsetHeight;
-  //     const windowHeight = this.getWindowHeigh();
-  //     if (rootElementHeight < windowHeight) {
-  //       this.paddingBottom = windowHeight - rootElementHeight;
-  //     }
-  //   }, 500);
-  // }
 }

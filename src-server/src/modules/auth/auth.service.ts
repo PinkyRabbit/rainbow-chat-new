@@ -45,14 +45,14 @@ export class AuthService {
     return user._id.toString();
   }
 
-  async login(id: string, rememberMe = false): Promise<TokenResponse> {
+  async login(_id: string, rememberMe = false): Promise<TokenResponse> {
     return {
-      token: this.jwtService.sign({ id, rememberMe }),
-      refreshToken: await this.createRefreshToken(id, rememberMe),
+      token: this.jwtService.sign({ _id, rememberMe }),
+      refreshToken: await this.createRefreshToken(_id, rememberMe),
     };
   }
 
-  async createRefreshToken(id: string, rememberMe = false): Promise<string> {
+  async createRefreshToken(_id: string, rememberMe = false): Promise<string> {
     const refreshToken = uuid.v4();
     if (this.isNotProdMode || !rememberMe) {
       const oneHourInSeconds = 60 * 60;
@@ -60,7 +60,7 @@ export class AuthService {
         .getClient()
         .set(
           AuthService.REFRESH_TOKEN_PREFIX + refreshToken,
-          id,
+          _id,
           'EX',
           oneHourInSeconds,
         );
@@ -70,7 +70,7 @@ export class AuthService {
         .getClient()
         .set(
           AuthService.REFRESH_TOKEN_PREFIX + refreshToken,
-          id,
+          _id,
           'EX',
           thirtyDaysInSeconds,
         );

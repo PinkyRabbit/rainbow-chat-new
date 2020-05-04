@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { ChatMessage } from 'app/models/chat-message';
+import { ChatMessageModel } from 'app/shared/models/chat-message.model';
 
 @Component({
   selector: '.chat-message',
@@ -8,7 +8,7 @@ import { ChatMessage } from 'app/models/chat-message';
   styleUrls: ['chat-single-message.component.scss'],
 })
 export class ChatSingleMessageComponent implements OnInit {
-  @Input() msg: ChatMessage;
+  @Input() msg: ChatMessageModel;
   @Output() clickOnUserInsideMessage: EventEmitter<any> = new EventEmitter<
     any
   >();

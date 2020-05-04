@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { ChatMessage } from 'app/models/chat-message';
-import { User } from 'app/models/user';
+
+import { UserModel } from 'app/shared/models/user.model';
+import { ChatMessageModel } from 'app/shared/models/chat-message.model';
 
 @Component({
   selector: '#chat-messages',
@@ -13,7 +14,7 @@ export class ChatMessagesComponent implements OnInit {
   @Input() baseStyles: any;
   @Output() addUsernameToMessage: EventEmitter<any> = new EventEmitter<any>();
 
-  private chuckNorris: User = {
+  private chuckNorris: UserModel = {
     _id: '1',
     username: 'Chuck Norris',
     nameColor: '34,78,75',
@@ -22,7 +23,7 @@ export class ChatMessagesComponent implements OnInit {
     textFont: 'font-2',
     avatarSmall: '',
   };
-  private hisFriend: User = {
+  private hisFriend: UserModel = {
     _id: '2',
     username: 'to',
     nameColor: '60,100,50',
@@ -33,7 +34,7 @@ export class ChatMessagesComponent implements OnInit {
   };
   private itsChuksTurn = true;
 
-  messages: ChatMessage[] = [];
+  messages: ChatMessageModel[] = [];
 
   constructor(private router: Router, private http: HttpClient) {}
 
