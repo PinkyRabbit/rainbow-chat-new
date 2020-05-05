@@ -74,8 +74,8 @@ export class AuthController {
   @ApiBearerAuth()
   @Get('/me')
   @UseGuards(JwtAuthGuard)
-  getCurrentUser(@Request() req) {
-    return req.user;
+  async getCurrentUser(@Request() req) {
+    return await this.authService.getMe(req.user);
   }
 
   @ApiOperation({ summary: 'User logout' })

@@ -7,9 +7,9 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from 'nestjs-redis';
 import * as uuid from 'uuid';
+import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-import databaseConstants from 'database/database.constants';
 import { UserModel } from 'database/schemas/user/user.model';
 import { TokenResponse } from 'models';
 
@@ -21,7 +21,7 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly redisService: RedisService,
-    @Inject(databaseConstants.repositoryNameFor.User)
+    @InjectModel('User')
     private userModel: Model<UserModel>,
   ) {}
 
@@ -103,7 +103,7 @@ export class AuthService {
   }
 
   async register(userObject) {
-    const { passwordConfirmation, ...newUser } = userObject;
+    const { passwordConfirmation, year, ...newUser } = userObject;
 
     if (newUser.password !== passwordConfirmation) {
       throw new BadRequestException('user.passwordConfirmation');
@@ -116,5 +116,21 @@ export class AuthService {
 
     await this.userModel.create(newUser);
     return 'user.created';
+  }
+
+  async getMe({ _id }) {
+    const selectedFields = [
+      'username',
+      'statusText',
+      'nameColor',
+      'nameFont',
+      'textColor',
+      'textFont',
+      'soundNotification',
+      'soundVolume',
+      'selfTargetMessageTypes',
+      'minutesOnline',
+    ].join(' ');
+    return await this.userModel.findById(_id).select(selectedFields);
   }
 }

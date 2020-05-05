@@ -6,7 +6,7 @@ import { ObjectID } from 'mongodb';
 import { jwtConstants } from '../../config/jwt';
 
 type payloadJwt = {
-  id: string;
+  _id: string;
   rememberMe: boolean;
 };
 
@@ -21,9 +21,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: payloadJwt) {
-    if (!ObjectID.isValid(payload.id)) {
+    if (!ObjectID.isValid(payload._id)) {
       throw new ForbiddenException();
     }
-    return new ObjectID(payload.id);
+    return new ObjectID(payload._id);
   }
 }

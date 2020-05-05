@@ -4,7 +4,6 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthModel } from 'app/shared/models/auth.model';
 
 import { AuthConstants } from '../auth.constants';
-import { TokensModel } from 'app/shared/models/tokens.model';
 
 @Injectable({
   providedIn: 'root',

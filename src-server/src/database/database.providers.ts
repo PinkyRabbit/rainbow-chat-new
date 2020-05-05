@@ -21,4 +21,10 @@ export const databaseProviders = [
       connection.model('User', UserSchema),
     inject: [databaseConstants.repositoryNameFor.Connection],
   },
+  // {
+  //   provide: databaseConstants.repositoryNameFor.Settings,
+  //   useFactory: (connection: mongoose.Connection) =>
+  //     connection.model('Settings', SettingsSchema),
+  //   inject: [databaseConstants.repositoryNameFor.Connection],
+  // },
 ];

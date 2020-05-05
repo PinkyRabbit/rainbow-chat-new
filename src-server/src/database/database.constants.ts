@@ -1,6 +1,7 @@
 export default {
   repositoryNameFor: {
     Connection: 'DATABASE_CONNECTION',
-    User: 'USERS_REPOSITORY',
+    User: 'UserModel',
+    // Settings: 'SettingsModel',
   },
 };
