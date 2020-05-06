@@ -6,11 +6,11 @@ import { MeModel } from 'app/shared/models/me.model';
 
 export const initialState: MeModel = {
   _id: null,
-  username: 'user',
-  nameColor: '34,78,75',
+  username: 'Unknown user',
+  nameColor: '255,255,255',
   nameFont: 'font-1',
-  textColor: '160,100,75',
-  textFont: 'font-2',
+  textColor: '255,255,255',
+  textFont: 'font-1',
   soundVolume: 100,
   soundNotification: 'sound-1',
   statusText: '',
@@ -20,6 +20,7 @@ export const initialState: MeModel = {
 
 const reducer = createReducer(
   initialState,
+  on(UserActions.reset, () => Object.assign({}, initialState)),
 
   // me
   on(UserActions.getMe, (state) => state),

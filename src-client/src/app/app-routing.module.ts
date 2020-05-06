@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 // import { AuthGuard } from './guards';
 import { Error404Component } from './core/pages/errors/error404/error404.component';
 import { HomeComponent } from './core/pages/home/home.component';
-// import { ChatComponent } from './core/pages/chat/chat.component';
+import { ChatComponent } from './core/pages/chat/chat.component';
 // import { EditUserComponent } from './core/pages/user/edit/edit-user.component';
 // import { Error401Component } from './core/pages/errors/error401/error401.component';
 import { TermsOfUseComponent } from './core/pages/static/terms-of-use/terms-of-use.component';
@@ -17,14 +17,13 @@ const routes: Routes = [
     pathMatch: 'full',
     component: EditUserComponent,
   },
+  */
   {
-    canActivate: [AuthGuard],
     // canActivateChild: [AuthGuard],
     path: 'chat/:chatSlug',
     pathMatch: 'full',
     component: ChatComponent,
   },
-    */
   {
     path: 'registration',
     pathMatch: 'full',

@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthModel } from 'app/shared/models/auth.model';
 
 import { AuthConstants } from '../auth.constants';
+import { TokensModel } from 'app/shared/models/tokens.model';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +21,13 @@ export class TokenService {
 
   getRefreshToken(): string {
     return localStorage.getItem(this.refreshTokenKey);
+  }
+
+  getTokens() {
+    return new TokensModel({
+      token: this.getAuthToken(),
+      refreshToken: this.getRefreshToken(),
+    });
   }
 
   getDecodedAuthToken(): AuthModel {
@@ -39,10 +47,12 @@ export class TokenService {
     localStorage.removeItem(this.refreshTokenKey);
   }
 
+  isAllTokensExists() {
+    return !!this.getAuthToken() && !!this.getRefreshToken();
+  }
+
   isAuthTokenExpired(): boolean {
-    if (!this.getAuthToken()) {
-      return false;
-    }
-    return this.jwtHelper.isTokenExpired(this.getAuthToken());
+    const authToken = this.getAuthToken();
+    return !authToken || this.jwtHelper.isTokenExpired(authToken);
   }
 }

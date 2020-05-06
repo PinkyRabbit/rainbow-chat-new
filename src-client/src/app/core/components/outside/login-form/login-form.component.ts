@@ -1,8 +1,10 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
+import { AuthService } from 'app/shared/modules/auth/services/auth.service';
+import { SubSink } from 'subsink';
 
-import { login as actionLogin } from 'app/shared/modules/auth/store/auth.actions';
+// import { login as actionLogin } from 'app/shared/modules/auth/store/auth.actions';
 
 // import { AuthService } from 'app/services/auth/auth.service';
 
@@ -11,7 +13,8 @@ import { login as actionLogin } from 'app/shared/modules/auth/store/auth.actions
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent implements OnInit, OnDestroy {
+  private subs = new SubSink();
   // @Output() isLoaderEnabled: EventEmitter<any> = new EventEmitter<any>();
 
   user = {
@@ -21,13 +24,20 @@ export class LoginFormComponent implements OnInit {
   };
   loginError = '';
 
-  constructor(private router: Router, private store: Store) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   @HostBinding('class.has-text-centered')
   ngOnInit(): void {}
 
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
   onSubmit() {
-    this.store.dispatch(actionLogin(this.user));
+    this.subs.sink = this.authService.login(this.user).subscribe(
+      (_) => console.log('успех'),
+      (err) => console.log(err)
+    );
   }
 
   /*

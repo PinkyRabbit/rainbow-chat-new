@@ -1,19 +1,73 @@
 import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { HttpClient } from '@angular/common/http';
+
+import { environment } from 'environments/environment';
+
+import { TokenService } from './token.service';
+import { TokensModel } from 'app/shared/models/tokens.model';
+import { LoginModel } from 'app/shared/models/login.model';
+import { map, tap, switchMap, switchMapTo, catchError } from 'rxjs/operators';
+import * as UserActions from '../../user/store/user.actions';
+import { of, EMPTY, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  private apiUrl = environment.apiUrl;
 
-  // generateUser(decodedToken: AuthTokenDecoded): AuthUser | null {
-  //   return !!decodedToken
-  //     ? new AuthUser({
-  //         id: decodedToken.id,
-  //         rememberMe: decodedToken.rememberMe,
-  //       })
-  //     : null;
-  // }
+  constructor(
+    private readonly httpClient: HttpClient,
+    private readonly tokenService: TokenService,
+    private readonly store: Store
+  ) {}
+
+  login(credentials: LoginModel) {
+    const loginUrl = `${this.apiUrl}/auth/login`;
+
+    return this.httpClient.post<TokensModel>(loginUrl, credentials).pipe(
+      map((response) => new TokensModel(response)),
+      tap((tokens) => this.tokenService.setAuthToken(tokens.token)),
+      tap((tokens) => this.tokenService.setRefreshToken(tokens.refreshToken)),
+      tap(() => this.store.dispatch(UserActions.getMe()))
+    );
+  }
+
+  logout() {
+    const logoutUrl = `${this.apiUrl}/auth/logout`;
+    this.resetStore();
+    const refreshToken = this.tokenService.getRefreshToken();
+    if (!refreshToken) {
+      return EMPTY;
+    }
+    this.tokenService.deleteTokens();
+    return this.httpClient.post<string>(logoutUrl, { refreshToken });
+  }
+
+  refresh() {
+    const refreshToken = this.tokenService.getRefreshToken();
+    const { _id, rememberMe } = this.tokenService.getDecodedAuthToken();
+    this.tokenService.deleteTokens();
+    const refreshUrl = `${this.apiUrl}/auth/refresh/${_id}?rememberMe=${rememberMe}`;
+    return this.httpClient.post(refreshUrl, { refreshToken }).pipe(
+      map((response) => new TokensModel(response)),
+      tap((tokens) => this.tokenService.setAuthToken(tokens.token)),
+      tap((tokens) => this.tokenService.setRefreshToken(tokens.refreshToken)),
+      map((tokens) => tokens.token)
+    );
+  }
+
+  isAuthorized(): boolean {
+    return (
+      !!this.tokenService.getAuthToken() &&
+      !!this.tokenService.getRefreshToken()
+    );
+  }
+
+  private resetStore() {
+    this.store.dispatch(UserActions.reset());
+  }
 }
 /*
 import { HttpClient } from '@angular/common/http';
@@ -135,5 +189,4 @@ export class AuthService {
         })
       : null;
   }
-}
-*/
+  */

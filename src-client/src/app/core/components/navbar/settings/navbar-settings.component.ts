@@ -1,34 +1,51 @@
-import { Component, OnInit, HostBinding, Input } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostBinding,
+  Input,
+  OnDestroy,
+  DoCheck,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
-// import { AuthService } from 'app/services/auth/auth.service';
+import { AuthService } from 'app/shared/modules/auth/services/auth.service';
+import { SubSink } from 'subsink';
+import { Store } from '@ngrx/store';
+import { selectUser } from 'app/shared/modules/user/store/user.selectors';
+import { MeModel } from 'app/shared/models/me.model';
 
 @Component({
   selector: '[navbar-settings]',
   templateUrl: './navbar-settings.component.html',
   styleUrls: ['navbar-settings.component.scss'],
 })
-export class NavbarSettingsComponent implements OnInit {
+export class NavbarSettingsComponent implements OnInit, DoCheck, OnDestroy {
+  private subs = new SubSink();
+  user: MeModel;
+
   @Input() isOnTablet: boolean;
 
-  user = {
-    _id: '123',
-    username: 'Mikita Melnikau',
-    nameColor: '339,81,85',
-    nameFont: 'font-1',
-    textColor: '122,37,84',
-    textFont: 'font-2',
-  };
-
   constructor(
-    private router: Router
-  ) // private readonly authService: AuthService
-  {}
+    private router: Router,
+    private store: Store,
+    private readonly authService: AuthService
+  ) {}
 
   @HostBinding('class.navbar-item')
   @HostBinding('class.has-dropdown')
   @HostBinding('class.is-hoverable')
   ngOnInit() {}
+
+  ngDoCheck() {
+    this.store.select(selectUser).subscribe((user: MeModel) => {
+      this.user = user;
+      console.log(`this.user._id = ${!!this.user._id}`);
+    });
+  }
+
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
 
   pickHlsColor(value) {
     const n = value.split(',');
@@ -36,8 +53,10 @@ export class NavbarSettingsComponent implements OnInit {
   }
 
   logout(event) {
-    // event.preventDefault();
-    // this.authService.logout();
-    // this.router.navigate(['/']);
+    event.preventDefault();
+    this.subs.sink = this.authService.logout().subscribe(
+      (_) => this.router.navigate(['/']),
+      (err) => console.log(err)
+    );
   }
 }

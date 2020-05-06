@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { EMPTY, of } from 'rxjs';
-import { map, mergeMap, catchError, exhaustMap, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { map, catchError, exhaustMap, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
-import { TokensModel } from 'app/shared/models/tokens.model';
+import { MeModel } from 'app/shared/models/me.model';
 
 import * as UserActions from './user.actions';
 import { UserHttpService } from '../services/user-http.service';
-import { MeModel } from 'app/shared/models/me.model';
 
 @Injectable()
 export class UserEffects {

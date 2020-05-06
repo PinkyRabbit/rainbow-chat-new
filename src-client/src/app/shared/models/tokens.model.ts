@@ -2,8 +2,8 @@ export class TokensModel {
   token: string;
   refreshToken: string;
 
-  deserialize(input: any) {
-    Object.assign(this, input);
-    return this;
+  constructor(input: any) {
+    this.token = input.token;
+    this.refreshToken = input.refreshToken;
   }
 }

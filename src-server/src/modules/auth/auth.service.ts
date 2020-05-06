@@ -1,8 +1,7 @@
 import {
   Injectable,
-  Inject,
   BadRequestException,
-  ForbiddenException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from 'nestjs-redis';
@@ -95,7 +94,7 @@ export class AuthService {
       .get(AuthService.REFRESH_TOKEN_PREFIX + token);
 
     if (!savedUserId || savedUserId !== userId) {
-      throw new ForbiddenException();
+      throw new UnauthorizedException();
     }
 
     await this.revokeRefreshToken(token);

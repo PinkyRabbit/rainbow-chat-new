@@ -11,6 +11,7 @@ import {
   switchMapTo,
   concatMapTo,
   mapTo,
+  concatMap,
 } from 'rxjs/operators';
 
 import { TokensModel } from 'app/shared/models/tokens.model';
@@ -29,7 +30,7 @@ export class AuthEffects {
       // mergeMap((payload) => this.makeLoginRequest(payload)),
       exhaustMap((payload) =>
         this.authHttpService.login(payload).pipe(
-          map((response) => new TokensModel().deserialize(response)),
+          map((response) => new TokensModel(response)),
           tap((tokens) => this.tokenService.setAuthToken(tokens.token)),
           tap((tokens) =>
             this.tokenService.setRefreshToken(tokens.refreshToken)
@@ -44,6 +45,38 @@ export class AuthEffects {
       )
     );
   });
+
+  refresh$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(AuthActions.refresh),
+      exhaustMap(() => of(this.tokenService.getTokens())),
+      exhaustMap((tokens) =>
+        this.authHttpService.refresh(tokens).pipe(
+          map((response) => new TokensModel(response)),
+          tap((newTokens) => this.tokenService.setAuthToken(newTokens.token)),
+          tap((newTokens) =>
+            this.tokenService.setRefreshToken(newTokens.refreshToken)
+          ),
+          map(() => AuthActions.refreshSuccess()),
+          catchError(() => of(AuthActions.refreshError()))
+        )
+      )
+      //   map((response) => new TokensModel().deserialize(response)),
+      //   tap((tokens) => this.tokenService.setAuthToken(tokens.token)),
+      //   tap((tokens) =>
+      //     this.tokenService.setRefreshToken(tokens.refreshToken)
+      //   ),
+      //   map(tokens => tokens.token)
+      //   catchError(() => of(AuthActions.refreshError()))
+      // ))
+      //   mergeMap(() => this.moviesService.getAll()
+      //     .pipe(
+      //       map(movies => ({ type: '[Movies API] Movies Loaded Success', payload: movies })),
+      //       catchError(() => EMPTY)
+      //     ))
+      // )
+    )
+  );
 
   constructor(
     private actions$: Actions,

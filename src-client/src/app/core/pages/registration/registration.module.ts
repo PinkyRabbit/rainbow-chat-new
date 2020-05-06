@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 
@@ -12,7 +11,7 @@ import { OutsideModule } from 'app/core/layouts/outside.module';
 // import { AuthService } from 'app/services/auth/auth.service';
 
 @NgModule({
-  imports: [CommonModule, FormsModule, HttpClientModule, OutsideModule],
+  imports: [CommonModule, FormsModule, OutsideModule],
   declarations: [RegistrationComponent, RegistrationFormComponent],
   providers: [Title],
   // providers: [AuthService],

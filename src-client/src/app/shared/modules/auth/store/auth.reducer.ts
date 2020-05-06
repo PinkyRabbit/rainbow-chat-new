@@ -19,7 +19,12 @@ const reducer = createReducer(
     _id: result._id,
     rememberMe: result.rememberMe,
   })),
-  on(AuthActions.loginError, (state) => state)
+  on(AuthActions.loginError, (state) => state),
+
+  // refresh
+  on(AuthActions.refresh, (state) => state),
+  on(AuthActions.refreshSuccess, (state) => state),
+  on(AuthActions.refreshError, (state) => state)
 );
 
 export function AuthReducer(state: AuthModel | undefined, action: Action) {

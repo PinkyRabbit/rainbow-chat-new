@@ -84,7 +84,6 @@ export class AuthController {
   async logout(@Body(AuthRefreshValidationPipe) body: AuthRefreshDTO) {
     const { refreshToken } = body;
     await this.authService.revokeRefreshToken(refreshToken);
-    console.log('logout');
     return stringToResponseObject('user.logout');
   }
 

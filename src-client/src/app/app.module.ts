@@ -1,13 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppStoreModule } from './app-store.module';
-import { AuthInterceptor } from './shared/modules/auth/auth.interceptor';
 import { CoreModule } from './core/core.module';
 import { NavbarModule } from './core/components/navbar/navbar.module';
 import { LoaderComponent } from './core/components/loader/loader.component';
@@ -21,17 +19,10 @@ const COMPONENTS = [NavbarModule];
     CoreModule,
     AppRoutingModule,
     AppStoreModule,
-    HttpClientModule,
     AngularSvgIconModule.forRoot(),
     ...COMPONENTS,
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true,
-    },
-  ],
+  providers: [],
   declarations: [AppComponent, LoaderComponent],
   bootstrap: [AppComponent],
 })

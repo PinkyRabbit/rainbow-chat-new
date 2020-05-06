@@ -11,3 +11,8 @@ export const loginSuccess = createAction(
   props<AuthModel>()
 );
 export const loginError = createAction('[Auth] Login Fail');
+
+// Login
+export const refresh = createAction('[Auth] Refresh');
+export const refreshSuccess = createAction('[Auth] Refresh Success');
+export const refreshError = createAction('[Auth] Refresh Fail');
