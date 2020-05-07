@@ -21,7 +21,7 @@ import { MeModel } from 'app/shared/models/me.model';
 })
 export class NavbarSettingsComponent implements OnInit, DoCheck, OnDestroy {
   private subs = new SubSink();
-  user: MeModel;
+  // user: MeModel;
 
   @Input() isOnTablet: boolean;
 
@@ -37,10 +37,10 @@ export class NavbarSettingsComponent implements OnInit, DoCheck, OnDestroy {
   ngOnInit() {}
 
   ngDoCheck() {
-    this.store.select(selectUser).subscribe((user: MeModel) => {
-      this.user = user;
-      console.log(`this.user._id = ${!!this.user._id}`);
-    });
+    // this.store.select(selectUser).subscribe((user: MeModel) => {
+    //   this.user = user;
+    // console.log(`this.user._id = ${!!this.user._id}`);
+    // });
   }
 
   ngOnDestroy() {

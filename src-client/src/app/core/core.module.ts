@@ -23,6 +23,6 @@ const PAGES = [
 @NgModule({
   imports: [CommonModule, RouterModule, ...PAGES],
   declarations: [],
-  exports: [],
+  bootstrap: [],
 })
 export class CoreModule {}

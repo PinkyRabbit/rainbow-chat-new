@@ -32,6 +32,7 @@ export class NavbarComponent implements OnInit {
   @HostBinding('class.navbar')
   @HostBinding('class.is-fixed-top')
   ngOnInit() {
+    console.log('ngOnInit AppComponent');
     this.isOnTablet = this.isOnTabletFunc();
   }
 

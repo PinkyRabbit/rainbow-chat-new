@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit {
   constructor(private titleService: Title) {}
 
   ngOnInit() {
+    console.log('ngOnInit HomeComponent');
     this.titleService.setTitle('Главная ✔ Rainbow chat');
   }
 }

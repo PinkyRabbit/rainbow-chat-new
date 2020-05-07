@@ -87,7 +87,6 @@ export class AuthInterceptor implements HttpInterceptor {
   private refreshAndGetToken(): Observable<string> {
     this.isRefreshing = true;
     return this.authService.refresh().pipe(
-      tap(() => console.log('refresh ends')),
       exhaustMap(() => this.getAuthTokenFromStore$()),
       finalize(() => (this.isRefreshing = false))
     );

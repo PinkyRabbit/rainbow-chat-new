@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { NavbarComponent } from './navbar.component';
@@ -10,7 +11,7 @@ import { NavbarChatsComponent } from './chats/navbar-chats.component';
 import { NavbarNotificationsComponent } from './notifications/navbar-notifications.component';
 
 @NgModule({
-  imports: [CommonModule, AngularSvgIconModule],
+  imports: [RouterModule, CommonModule, AngularSvgIconModule],
   declarations: [
     NavbarComponent,
     NavbarSettingsComponent,
