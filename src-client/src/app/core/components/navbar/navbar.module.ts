@@ -1,24 +1,41 @@
 import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { AngularSvgIconModule } from 'angular-svg-icon';
+import { ColorPickerModule } from 'ngx-color-picker';
+
+import { ChatSingleMessageModule } from 'app/core/pages/chat/messages/message/chat-single-message.module';
+import { ChatUserBoxModule } from 'app/core/pages/chat/users/chat-user-box/chat-user-box.module';
 
 import { NavbarComponent } from './navbar.component';
-import { NavbarSettingsComponent } from './settings/navbar-settings.component';
-import { NavbarSettingsChangeSoundComponent } from './settings/change-sound/change-sound.component';
-import { NavbarSettingsChangeFontComponent } from './settings/change-font/change-font.component';
+import { NavbarSettingsComponent } from './user/navbar-user.component';
 import { NavbarChatsComponent } from './chats/navbar-chats.component';
 import { NavbarNotificationsComponent } from './notifications/navbar-notifications.component';
+import { ModalSettingsComponent } from './user/modal-settings/modal-settings.component';
+import { UserBoxSettingsComponent } from './user/modal-settings/user-box-settings/user-box-settings.component';
+import { MessageSettingsComponent } from './user/modal-settings/message-settings/message-settings.component';
+import { AvatarSettingsComponent } from './user/modal-settings/avatar-settings/avatar-settings.component';
 
 @NgModule({
-  imports: [RouterModule, CommonModule, AngularSvgIconModule],
+  imports: [
+    RouterModule,
+    CommonModule,
+    BrowserAnimationsModule,
+    AngularSvgIconModule,
+    ColorPickerModule,
+    ChatSingleMessageModule,
+    ChatUserBoxModule,
+  ],
   declarations: [
     NavbarComponent,
     NavbarSettingsComponent,
-    NavbarSettingsChangeSoundComponent,
-    NavbarSettingsChangeFontComponent,
     NavbarChatsComponent,
     NavbarNotificationsComponent,
+    ModalSettingsComponent,
+    UserBoxSettingsComponent,
+    MessageSettingsComponent,
+    AvatarSettingsComponent,
   ],
   exports: [NavbarComponent],
   bootstrap: [NavbarComponent],

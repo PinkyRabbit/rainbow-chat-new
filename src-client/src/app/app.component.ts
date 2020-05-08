@@ -9,7 +9,10 @@ import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { SubSink } from 'subsink';
 import { Store, select } from '@ngrx/store';
+
 import { selectUserId } from './shared/modules/user/store/user.selectors';
+import { TokenService } from './shared/modules/auth/services/token.service';
+import { getMe } from './shared/modules/user/store/user.actions';
 
 @Component({
   selector: '#root',
@@ -31,13 +34,15 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
   constructor(
     private location: Location,
     private router: Router,
-    private store: Store
+    private store: Store,
+    private tokenService: TokenService
   ) {}
 
   @HostBinding('class.hidden') isHidden: boolean;
   ngOnInit() {
     console.log('ngOnInit AppComponent');
     this.fixLocation();
+    this.loginUserOnInit();
   }
 
   ngDoCheck() {
@@ -46,6 +51,12 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+  }
+
+  loginUserOnInit() {
+    if (this.tokenService.isAllTokensExists()) {
+      this.store.dispatch(getMe());
+    }
   }
 
   fixLocation() {
@@ -63,6 +74,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
       (userId) => {
         if (this.userId !== userId) {
           this.userId = userId;
+          this.marginTop = 0;
           this.isNavbarVisible = !!userId;
 
           if (this.isNavbarVisible) {
@@ -70,7 +82,7 @@ export class AppComponent implements OnInit, DoCheck, OnDestroy {
               const navbarHeight = document.getElementById('navbar')
                 .offsetHeight;
               this.marginTop = navbarHeight;
-            }, 0);
+            }, 100);
           }
         }
       },

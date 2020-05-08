@@ -4,6 +4,17 @@
 @import "~bulma-extensions/bulma-switch/src/sass/index";
 @import "~bulma-extensions/bulma-tooltip/src/sass/index";
 @import "~bulma-extensions/bulma-calendar/src/sass/index";
+// fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Jura:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Cormorant:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+SC:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Infant:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Spectral+SC:400,400i,700,700i&display=swap&subset=cyrillic");
 
 html,
 body {
@@ -62,4 +73,35 @@ body {
   a {
     color: #f9cc32 !important;
   }
+}
+
+.font-1 {
+  font-family: "Montserrat", sans-serif;
+}
+.font-2 {
+  font-family: "Open Sans", sans-serif;
+}
+.font-3 {
+  font-family: "Merriweather", serif;
+}
+.font-4 {
+  font-family: "Playfair Display", serif;
+}
+.font-5 {
+  font-family: "EB Garamond", serif;
+}
+.font-6 {
+  font-family: "Jura", sans-serif;
+}
+.font-7 {
+  font-family: "Cormorant", serif;
+}
+.font-8 {
+  font-family: "Alegreya SC", serif;
+}
+.font-9 {
+  font-family: "Cormorant Infant", serif;
+}
+.font-10 {
+  font-family: "Spectral SC", serif;
 }

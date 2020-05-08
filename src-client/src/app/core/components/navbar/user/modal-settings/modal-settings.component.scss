@@ -1,0 +1,33 @@
+:host {
+  .modal-card-head,
+  .modal-card-foot {
+    background-color: #2e3752;
+    color: #7ac7cb;
+    border-color: #25272b;
+  }
+  .modal-card-body {
+    background-color: #313443;
+    color: #b1ff99;
+
+    .tabs {
+      ul {
+        border-bottom-color: #24262f;
+
+        li {
+          a,
+          a:hover {
+            border-bottom-color: #24262f;
+            color: #ad8673;
+          }
+        }
+
+        li.is-active {
+          a {
+            border-bottom-color: #c3c477;
+            color: #e3e474;
+          }
+        }
+      }
+    }
+  }
+}

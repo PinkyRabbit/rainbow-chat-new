@@ -13,11 +13,12 @@ import { UserModel } from 'app/shared/models/user.model';
 
 @Component({
   selector: 'span[user-in-message]',
-  template: `{{ user.username }}`,
+  template: `{{ user.username }}{{ withComma ? ', ' : '' }}`,
   styleUrls: ['user-in-message.component.scss'],
 })
 export class UserInMessageComponent implements OnInit {
   @Input() user: UserModel;
+  @Input() withComma = false;
   @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
 
   constructor(private router: Router) {}

@@ -8,7 +8,7 @@ export class MeModel {
   textFont: string;
   soundNotification: string;
   soundVolume: number;
-  selfTargetMessageTypes: string;
+  messageBorderType: string;
   statusText: string;
   minutesOnline: number;
 
@@ -21,7 +21,7 @@ export class MeModel {
     this.textFont = input.textFont;
     this.soundNotification = input.soundNotification;
     this.soundVolume = input.soundVolume;
-    this.selfTargetMessageTypes = input.selfTargetMessageTypes;
+    this.messageBorderType = input.messageBorderType;
     this.statusText = input.statusText;
     this.minutesOnline = input.minutesOnline;
   }

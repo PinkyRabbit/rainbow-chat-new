@@ -1,0 +1,146 @@
+<div class="chat-like-msg">
+  <p class="chat-message" [msg]="testMessage">
+    Loading chat message component...
+  </p>
+</div>
+<br />
+<h4>Юзернейм:</h4>
+<div class="field has-addons">
+  <div class="control is-expanded">
+    <div class="select is-fullwidth">
+      <select name="nameFont">
+        <option
+          *ngFor="let opt of fontOptions"
+          [className]="opt.key"
+          [value]="opt.key"
+        >
+          <!-- [selected]="opt.selected == true" -->
+          {{ opt.value }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <div class="control">
+    <input value="nameColor" name="nameColor" type="hidden" />
+    <a
+      class="button"
+      [(colorPicker)]="nameColor"
+      [style.color]="nameColor"
+      [cpColorMode]="'color'"
+      [cpOutputFormat]="'hsla'"
+      [cpAlphaChannel]="'disabled'"
+      [cpFallbackColor]="'#f1c68e'"
+      [cpPosition]="'bottom-left'"
+      [cpDisableInput]="true"
+      [(cpToggle)]="changeNameColorDialog"
+    >
+      Цвет
+    </a>
+  </div>
+</div>
+<!--
+        (colorPickerOpen)            // Current color value, send when dialog is opened (value: string).
+        (colorPickerClose)           // Current color value, send when dialog is closed (value: string).
+
+        (colorPickerChange)          // Changed color value, send when color is changed (value: string).
+        (colorPickerCancel)          // Color select canceled, send when Cancel button is pressed (void).
+        (colorPickerSelect)          // Selected color value, send when OK button is pressed (value: string).
+
+        (cpToggleChange)             // Status of the dialog, send when dialog is opened / closed (open: boolean).
+
+        (cpInputChange)              // Input name and its value, send when user changes color through inputs
+                                     // ({input: string, value: number | string, color: string})
+
+        (cpSliderChange)             // Slider name and its value, send when user changes color through slider
+                                     //   ({slider: string, value: number | string, color: string})
+        (cpSliderDragStart)          // Slider name and current color, send when slider dragging starts (mousedown,touchstart)
+                                     //   ({slider: string, color: string})
+        (cpSliderDragEnd)            // Slider name and current color, send when slider dragging ends (mouseup,touchend)
+                                     //   ({slider: string, color: string})
+
+        (cpCmykColorChange)          // Outputs the color as CMYK string if CMYK is enabled (value: string).
+
+        (cpPresetColorsChange)   -->
+<h4>Ник:</h4>
+<div class="field has-addons">
+  <div class="control is-expanded">
+    <div class="select is-fullwidth">
+      <select name="textFont">
+        <option
+          *ngFor="let opt of fontOptions"
+          [className]="opt.key"
+          [value]="opt.key"
+        >
+          <!-- [selected]="opt.selected == true" -->
+          {{ opt.value }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <div class="control">
+    <input value="nameColor" name="nameColor" type="hidden" />
+    <a
+      class="button"
+      [(colorPicker)]="textColor"
+      [style.color]="textColor"
+      [cpColorMode]="'color'"
+      [cpOutputFormat]="'hsla'"
+      [cpAlphaChannel]="'disabled'"
+      [cpFallbackColor]="'#f1c68e'"
+      [cpPosition]="'bottom-left'"
+      [cpDisableInput]="true"
+      [(cpToggle)]="changeTextColorDialog"
+    >
+      Цвет
+    </a>
+  </div>
+</div>
+<h4>Выделение:</h4>
+<div class="field">
+  <div class="select is-fullwidth">
+    <select name="messageBorderType">
+      <option
+        *ngFor="let opt of borderOptions"
+        [className]="opt.key"
+        [value]="opt.key"
+      >
+        <!-- [selected]="opt.selected == true" -->
+        {{ opt.value }}</option
+      >
+    </select>
+  </div>
+</div>
+<h4>Оповещение:</h4>
+<div class="field has-addons">
+  <div class="control is-expanded">
+    <div class="select is-fullwidth">
+      <select name="nameFont">
+        <option
+          *ngFor="let opt of soundOptions"
+          [className]="opt.key"
+          [value]="opt.key"
+        >
+          <!-- [selected]="opt.selected == true" -->
+          {{ opt.value }}</option
+        >
+      </select>
+    </div>
+  </div>
+  <div class="control">
+    <button class="button" (click)="selectedSound.sound.play()">Play</button>
+  </div>
+  <div class="control">
+    <div class="select">
+      <select name="nameFont">
+        <option
+          *ngFor="let opt of soundVolumeOptions"
+          [className]="opt.key"
+          [value]="opt.key"
+        >
+          <!-- [selected]="opt.selected == true" -->
+          {{ opt.value }}</option
+        >
+      </select>
+    </div>
+  </div>
+</div>

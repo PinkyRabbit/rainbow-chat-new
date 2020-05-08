@@ -21,7 +21,7 @@ export class ChatMessagesComponent implements OnInit {
     nameFont: 'font-1',
     textColor: '160,100,75',
     textFont: 'font-2',
-    avatarSmall: '',
+    avatar: '',
   };
   private hisFriend: UserModel = {
     _id: '2',
@@ -30,7 +30,7 @@ export class ChatMessagesComponent implements OnInit {
     nameFont: 'font-1',
     textColor: '351,100,86',
     textFont: 'font-2',
-    avatarSmall: '',
+    avatar: '',
   };
   private itsChuksTurn = true;
 

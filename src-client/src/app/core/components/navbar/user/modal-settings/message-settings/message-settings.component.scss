@@ -1,0 +1,36 @@
+:host {
+  .chat-like-msg {
+    background-color: #272a35;
+    padding: 10px;
+  }
+
+  .select select,
+  .textarea,
+  .input {
+    background-color: #2e3752;
+    border-color: #272a35;
+  }
+
+  .select select:hover,
+  .select option,
+  .textarea:hover,
+  .input:hover {
+    border-color: #3f8a80;
+  }
+
+  .select option:hover,
+  .select option:focus {
+    background-color: #3f8a80;
+  }
+
+  .select:not(.is-multiple):not(.is-loading)::after {
+    border-color: #3f8a80;
+  }
+
+  .control a.button,
+  .control button.button {
+    font-weight: bold;
+    border-color: #1e2438;
+    background-color: #272a35;
+  }
+}

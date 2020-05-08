@@ -14,7 +14,7 @@ export const initialState: MeModel = {
   soundVolume: 100,
   soundNotification: 'sound-1',
   statusText: '',
-  selfTargetMessageTypes: null,
+  messageBorderType: null,
   minutesOnline: 0,
 };
 
@@ -35,7 +35,7 @@ const reducer = createReducer(
     soundVolume: result.soundVolume,
     soundNotification: result.soundNotification,
     statusText: result.statusText,
-    selfTargetMessageTypes: result.selfTargetMessageTypes,
+    selfTargetMessageTypes: result.messageBorderType,
   })),
   on(UserActions.getMeError, (state) => state)
 );

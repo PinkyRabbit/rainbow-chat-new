@@ -27,7 +27,7 @@ export class ModalAvatarComponent implements OnInit {
     nameFont: 'font-1',
     textColor: '160,100,75',
     textFont: 'font-2',
-    avatarSmall: '',
+    avatar: '',
   };
 
   @HostBinding('class.is-active')
@@ -45,7 +45,7 @@ export class ModalAvatarComponent implements OnInit {
   getUserboxUser(): UserModel {
     return {
       ...this.chuckNorris,
-      avatarSmall: this.croppedImage,
+      avatar: this.croppedImage,
     };
   }
 

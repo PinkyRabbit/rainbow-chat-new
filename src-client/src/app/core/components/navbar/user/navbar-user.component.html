@@ -2,20 +2,26 @@
   <figure class="image is-32x32px">
     <img src="https://picsum.photos/32" />
   </figure>
-  <!-- <span
+  <span
     [style.color]="pickHlsColor(user.nameColor)"
     [className]="user.nameFont"
     >{{ user.username }}</span
-  > -->
+  >
 </a>
 <div class="navbar-dropdown is-right">
-  <span navbar-settings-change-sound
-    >Loading navbar-settings-change-sound...</span
-  >
-  <span navbar-settings-change-font
-    >Loading navbar-settings-change-font...</span
-  >
-  <span class="navbar-item">Ваши друзья</span>
+  <a class="navbar-item" (click)="openSettings()">Настройки</a>
+  <!-- <span class="navbar-item">Ваши друзья</span> -->
   <span class="navbar-item">Ваш профиль</span>
   <a class="navbar-item" (click)="logout($event)">Выйти</a>
+</div>
+<div
+  modal-settings
+  [@openCloseSettingsModal]="
+    showSettingsModal ? 'openSettingsModal' : 'closeSettingsModal'
+  "
+  *ngIf="showSettingsModal"
+  (saveSettings)="updateSettings($event)"
+  [user]="user"
+>
+  Loading modal-avatar...
 </div>

@@ -6,5 +6,15 @@ export class UserModel {
   nameFont: string;
   textColor: string;
   textFont: string;
-  avatarSmall: string;
+  avatar: string;
+
+  constructor(input: any) {
+    this._id = input._id;
+    this.username = input.username;
+    this.nameColor = input.nameColor;
+    this.nameFont = input.nameFont;
+    this.textColor = input.textColor;
+    this.textFont = input.textFont;
+    this.avatar = input.avatar;
+  }
 }
