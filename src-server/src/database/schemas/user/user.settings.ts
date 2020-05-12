@@ -34,7 +34,7 @@ export default {
     required: true,
     default: 100,
   },
-  selfTargetMessageTypes: {
+  messageBorderType: {
     type: String,
     required: false,
     lowercase: true,

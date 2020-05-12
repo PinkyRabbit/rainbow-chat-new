@@ -1,6 +1,9 @@
 import { Document, Schema } from 'mongoose';
 
-import { comparePasswordFunction } from './user.types';
+import {
+  comparePasswordFunction,
+  extractUserForBoxFunction,
+} from './user.methods';
 
 enum Sex {
   male = 0,
@@ -57,4 +60,5 @@ export interface UserModel extends Document {
   updatedAt?: Date;
 
   comparePassword: comparePasswordFunction;
+  extractUserForBox: extractUserForBoxFunction;
 }

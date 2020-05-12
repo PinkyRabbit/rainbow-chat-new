@@ -1,18 +1,29 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 import { UserModel } from 'app/shared/models/user.model';
 import { ChatMessageModel } from 'app/shared/models/chat-message.model';
+import { SubSink } from 'subsink';
+import { ChatMessagesService } from 'app/shared/modules/chat/messages/messages.service';
 
 @Component({
   selector: '#chat-messages',
   templateUrl: './chat-messages.component.html',
   styleUrls: ['chat-messages.component.scss'],
 })
-export class ChatMessagesComponent implements OnInit {
+export class ChatMessagesComponent implements OnInit, OnDestroy {
   @Input() baseStyles: any;
   @Output() addUsernameToMessage: EventEmitter<any> = new EventEmitter<any>();
+
+  private subs = new SubSink();
 
   private chuckNorris: UserModel = {
     _id: '1',
@@ -36,28 +47,26 @@ export class ChatMessagesComponent implements OnInit {
 
   messages: ChatMessageModel[] = [];
 
-  constructor(private router: Router, private http: HttpClient) {}
-
   ngOnInit() {
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.addRandomJoke();
-    // this.fakeChatMessaging();
+    this.subs.sink = this.chatMessagesService.roomMessage.subscribe();
   }
 
+  ngOnDestroy() {
+    this.subs.unsubscribe();
+  }
+
+  private onNewMessage(msg) {
+    // this.messages.push({
+    //   _id: id || Date.now().toString(),
+    //   date,
+    //   message: `${to.username}, ${value}`,
+    //   isBanned: false,
+    //   from,
+    //   to: [to],
+    // });
+  }
+
+  /*
   private randomSeconds() {
     return Math.round(Math.random() * 10000);
   }
@@ -98,8 +107,15 @@ export class ChatMessagesComponent implements OnInit {
       (error) => console.log(error)
     );
   }
+  */
 
   clickOnUserInsideMessage(username) {
     this.addUsernameToMessage.emit(username);
   }
+
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private chatMessagesService: ChatMessagesService
+  ) {}
 }

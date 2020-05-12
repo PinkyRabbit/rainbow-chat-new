@@ -2,9 +2,10 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { isEmail } from 'validator';
 
-import { comparePasswordFunction } from './user.types';
+// import { comparePasswordFunction, getBoxUserById } from './user.types';
 import userInfo from './user.info';
 import userSettings from './user.settings';
+import { comparePassword, extractUserForBox } from './user.methods';
 
 // mongoose.set('debug', true);
 
@@ -80,10 +81,7 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-const comparePassword: comparePasswordFunction = function(candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
-
 UserSchema.methods.comparePassword = comparePassword;
+UserSchema.methods.extractUserForBox = extractUserForBox;
 
 export default UserSchema;

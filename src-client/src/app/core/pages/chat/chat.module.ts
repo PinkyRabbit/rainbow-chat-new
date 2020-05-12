@@ -18,6 +18,7 @@ import { ChatUsersComponent } from './users/chat-users.component';
 import { ChatInputComponent } from './chat-input/chat-input.component';
 import { ChatSingleMessageModule } from './messages/message/chat-single-message.module';
 import { ChatUserBoxModule } from './users/chat-user-box/chat-user-box.module';
+import { ChatMessagesService } from 'app/shared/modules/chat/messages/messages.service';
 
 @NgModule({
   imports: [
@@ -35,7 +36,7 @@ import { ChatUserBoxModule } from './users/chat-user-box/chat-user-box.module';
     ChatUsersComponent,
     ChatInputComponent,
   ],
-  providers: [],
+  providers: [ChatMessagesService],
   bootstrap: [ChatComponent],
 })
 export class ChatModule {}

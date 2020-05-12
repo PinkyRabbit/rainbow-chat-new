@@ -130,6 +130,10 @@ export class AuthService {
       'selfTargetMessageTypes',
       'minutesOnline',
     ].join(' ');
-    return await this.userModel.findById(_id).select(selectedFields);
+    const user = await this.userModel.findById(_id).select(selectedFields);
+    return {
+      user,
+      chats: [],
+    };
   }
 }
