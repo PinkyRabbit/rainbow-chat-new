@@ -133,7 +133,7 @@ export class AuthService {
     const user = await this.userModel.findById(_id).select(selectedFields);
     return {
       user,
-      rooms: [],
+      chats: [],
     };
   }
 }

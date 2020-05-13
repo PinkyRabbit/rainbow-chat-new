@@ -9,13 +9,16 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from '../environments/environment';
 import { UserReducer } from './shared/modules/user/store/user.reducer';
 import { UserEffects } from './shared/modules/user/store/user.effects';
+import { RoomsReducer } from './shared/modules/rooms/store/rooms.reducer';
+import { RoomsEffects } from './shared/modules/rooms/store/rooms.effects';
 import { AuthInterceptor } from './shared/interceptors/auth.interceptor';
 
 const rootReducer = {
   user: UserReducer,
+  rooms: RoomsReducer,
 };
 
-const effects = [UserEffects];
+const effects = [UserEffects, RoomsEffects];
 
 @NgModule({
   imports: [
