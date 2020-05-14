@@ -9,6 +9,7 @@ import {
   switchMap,
   concatMap,
   tap,
+  switchMapTo,
 } from 'rxjs/operators';
 import { of } from 'rxjs';
 
@@ -27,10 +28,9 @@ export class RoomsEffects {
       ofType(RoomsActions.joinRandomRoomOnStart),
       exhaustMap(() =>
         this.roomsHttpService.getRandom().pipe(
-          map((response) => response.toString()),
-          switchMap((roomId) => [
+          switchMap((response) => [
             RoomsActions.joinRandomRoomOnStartSuccess(),
-            RoomsActions.joinRoomsOnStart({ rooms: [new RoomId(roomId)] }),
+            RoomsActions.joinRoomsOnStart({ rooms: [new RoomId(response)] }),
           ]),
           catchError(() => of(RoomsActions.joinRandomRoomOnStartError()))
         )
@@ -41,26 +41,47 @@ export class RoomsEffects {
   joinRoomsOnStart$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RoomsActions.joinRoomsOnStart),
-      concatMap((payload) => payload.rooms),
-      exhaustMap((room) =>
-        of(RoomsActions.joinRoom(room)).pipe(
-          map(() => RoomsActions.joinRoomsOnStartSuccess()),
-          catchError(() => of(RoomsActions.joinRoomsOnStartError()))
-        )
+      tap((payload) =>
+        console.log(`joinRoomsOnStart$ = ${JSON.stringify(payload)}`)
       ),
-      tap(() =>
-        this.store
-          .select(selectFirstRoom)
-          .pipe(tap((room) => this.router.navigate([`/chat/${room.slug}`])))
-      )
+      concatMap((payload) => payload.rooms),
+      switchMap((room) => of(RoomsActions.joinRoom(room))),
+      // exhaustMap((room) =>
+      //   of(RoomsActions.joinRoom(room)).pipe(
+      //     tap(() => console.log('join room request ended')),
+      //     map(() => RoomsActions.joinRoomsOnStartSuccess()),
+      //     catchError(() => of(RoomsActions.joinRoomsOnStartError()))
+      //   )
+      // ),
+      // exhaustMap((room) =>
+      //   of(RoomsActions.joinRoom(room)).pipe(
+      //     tap(() => console.log('join room request ended')),
+      //     map(() => RoomsActions.joinRoomsOnStartSuccess()),
+      //     catchError(() => of(RoomsActions.joinRoomsOnStartError()))
+      //   )
+      // ),
+      // tap(() =>
+      //   this.store
+      //     .select(selectFirstRoom)
+      //     .pipe(tap((room) => this.router.navigate([`/chat/${room.slug}`])))
+      // ),
+      // map(() => RoomsActions.joinRoomsOnStartSuccess()),
+      catchError(() => of(RoomsActions.joinRoomsOnStartError()))
     );
   });
 
   joinRoom$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(RoomsActions.joinRoom),
+      tap((payload) => console.log(`joinRoom$ = ${JSON.stringify(payload)}`)),
+      tap(({ roomId }) => console.log(`roomId = ${roomId}}`)),
       exhaustMap(({ roomId }) =>
         this.roomsHttpService.getRoom(roomId).pipe(
+          tap((response) =>
+            console.log(
+              `roomsHttpService.getRoom = ${JSON.stringify(response)}`
+            )
+          ),
           map((response) => this.createNewRoomObject(response)),
           map((formatedRoom) => RoomsActions.joinRoomSuccess(formatedRoom)),
           catchError(() => of(RoomsActions.joinRoomError()))
@@ -71,6 +92,7 @@ export class RoomsEffects {
 
   private createNewRoomObject(response): RoomModel {
     const { users: notFormatedUsers, room } = response;
+    console.log(`notFormatedUsers.length = ${notFormatedUsers.length}`);
     const users = notFormatedUsers.map((user) => new UserForBox(user));
     return new RoomModel({
       ...room,

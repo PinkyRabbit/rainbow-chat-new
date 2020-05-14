@@ -17,8 +17,8 @@ export class UserEffects {
       ofType(UserActions.getMe),
       exhaustMap(() =>
         this.userHttpService.getMe().pipe(
-          map((response) => ({
-            userSettings: new MeModel(response),
+          map((response: any) => ({
+            userSettings: new MeModel(response.user),
             rooms: this.extractRooms(response).map((room) => new RoomId(room)),
           })),
           switchMap(({ userSettings, rooms }) => {

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { SubSink } from 'subsink';
 
 import { UserRegistrationModel } from 'app/shared/models/user-registration.model';
+import { FormBuilder, Validators } from '@angular/forms';
 
 // import { AuthService } from 'app/services/auth/auth.service';
 // import { environment } from 'environments/environment';
@@ -20,17 +21,13 @@ import { UserRegistrationModel } from 'app/shared/models/user-registration.model
   styleUrls: ['registration-form.component.scss'],
 })
 export class RegistrationFormComponent implements OnInit, OnDestroy {
+  registrationForm;
+  isPasswordVisible = false;
+  errorInPasswords = false;
   private subs = new SubSink();
   readonly sexValues = ['Мальчик', 'Девочка'];
   user = new UserRegistrationModel();
   registrationRequest;
-
-  constructor(
-    private router: Router // private httpAuthService: HttpAuthService
-  ) {
-    this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
-    this.onError = this.onError.bind(this);
-  }
 
   @HostBinding('class.columns')
   ngOnInit() {}
@@ -39,8 +36,17 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     this.subs.unsubscribe();
   }
 
-  onSubmit() {
-    alert('onSubmit');
+  onSubmit(data) {
+    this.errorInPasswords = false;
+    if (data.password !== data.passwordConfirmation) {
+      this.registrationForm.patchValue({
+        password: '',
+        passwordConfirmation: '',
+      });
+      this.errorInPasswords = true;
+      return false;
+    }
+    console.log(data);
     // this.subs.sink = this.httpAuthService.$registration(this.user).subscribe(
     //   (result) => console.log(result),
     //   (error) => console.log(error)
@@ -66,14 +72,45 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     // }
   }
 
-  private onError(err) {
-    // this.loaderOff.emit(null);
-    // if (typeof err === 'string') {
-    //   err = JSON.parse(err);
-    // }
-    // const { error } = err;
-    // console.log(error);
-    // console.log(typeof error);
-    // alert(error.message || JSON.stringify(error));
+  // private httpAuthService: HttpAuthService
+  constructor(private router: Router, private formBuilder: FormBuilder) {
+    // this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
+    // this.onError = this.onError.bind(this);
+
+    this.registrationForm = this.formBuilder.group({
+      username: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(2),
+          Validators.maxLength(30),
+        ],
+      ],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30),
+        ],
+      ],
+      passwordConfirmation: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(6),
+          Validators.maxLength(30),
+        ],
+      ],
+      year: [
+        null,
+        [Validators.required, Validators.min(1940), Validators.max(2008)],
+      ],
+      gender: [
+        null,
+        [Validators.required, Validators.min(0), Validators.max(1)],
+      ],
+    });
   }
 }

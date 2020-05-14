@@ -17,7 +17,7 @@ import {
 import { JwtAuthGuard } from 'guards/jwt-auth.guard';
 import { fiAvatar } from 'util/interceptors';
 
-import { UserUploadService } from './user-upload.service';
+import { UserUploadService } from '../services/user-upload.service';
 import { AvatarUploadDTO } from '../dto/avatar.upload.dto';
 import { UserAvatarValidationPipe } from '../pipes/user-avatar.validation.pipe';
 import { swFile, swSchema } from 'util/swagger/constants.file';

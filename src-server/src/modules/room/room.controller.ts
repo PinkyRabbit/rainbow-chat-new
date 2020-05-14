@@ -1,4 +1,4 @@
-import { Controller, Get, UseGuards, Request } from '@nestjs/common';
+import { Controller, Get, UseGuards, Request, Param } from '@nestjs/common';
 import { ApiOperation, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from 'guards/jwt-auth.guard';
@@ -15,14 +15,15 @@ export class RoomController {
   @Get('/random')
   @UseGuards(JwtAuthGuard)
   async getCurrentUser(@Request() req) {
-    return await this.roomService.getRandomRoom(req.user);
+    return await this.roomService.getRandomRoom();
+    // return await this.roomService.getRandomRoom(req.user);
   }
 
   @ApiOperation({ summary: 'Join room return room + users' })
   @ApiBearerAuth()
   @Get('/join/:roomId')
   @UseGuards(JwtAuthGuard)
-  async joinRoom(@Request() req) {
-    return await this.roomService.joinRoom(req.user);
+  async joinRoom(@Request() req, @Param('roomId') roomId: string) {
+    return await this.roomService.joinRoom(req.user, roomId);
   }
 }

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { RedisService } from 'nestjs-redis';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
@@ -13,21 +13,28 @@ export class RoomService {
     private userModel: Model<UserModel>,
   ) {}
 
-  getRandomRoom(userId) {
+  getRandomRoom() {
+    // getRandomRoom(userId) {
     // get user tags
     // if tags not exists - get location
     // if no location - pick most popular
-    return {
-      _id: 'main-hardcoded',
-      name: 'Чатик',
-      slug: 'main',
-      logo: 'http://file.mobilmusic.ru/b7/3f/84/1411287-128.jpg',
-      description:
-        'Главный чат сайта. Комнаты доробатываются и скоро появятся, а, пока что, так.',
-    };
+
+    // return {
+    //   _id: ,
+    //   name: 'Чатик',
+    //   slug: 'main',
+    //   logo: 'http://file.mobilmusic.ru/b7/3f/84/1411287-128.jpg',
+    //   description:
+    //     'Главный чат сайта. Комнаты доробатываются и скоро появятся, а, пока что, так.',
+    // };
+
+    return { roomId: 'main-hardcoded' };
   }
 
-  async joinRoom(userId) {
+  async joinRoom(userId: string, roomId: string) {
+    if (roomId !== 'main-hardcoded') {
+      throw new NotFoundException();
+    }
     // pick room by id (hardcoded)
     const room = {
       _id: 'main-hardcoded',
@@ -41,14 +48,17 @@ export class RoomService {
     // add user to room users
     const fullUser = await this.userModel.findOne({ _id: userId });
     const user = await fullUser.extractUserForBox();
+    await this.redisService.getClient().del(`${redisRoom}`);
     await this.redisService
       .getClient()
       .sadd(`${redisRoom}`, JSON.stringify(user));
     // get users list
     const users = await this.redisService
       .getClient()
-      .sscan(redisRoom, 0)
+      .sscan(redisRoom, 2)
       .then(users => users.map(user => JSON.parse(user.toString())));
+
+    console.log(users);
 
     return {
       room,

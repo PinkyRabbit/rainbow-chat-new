@@ -2,3 +2,7 @@
 :host .radio {
   color: #99ebff;
 }
+:host .icon {
+  pointer-events: auto;
+  cursor: pointer;
+}

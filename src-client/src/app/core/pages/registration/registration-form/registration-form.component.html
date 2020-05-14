@@ -1,97 +1,122 @@
 <div class="column is-one-third">
-  <form #registrationFrom="ngForm" (ngSubmit)="onSubmit()">
+  <form
+    [formGroup]="registrationForm"
+    (ngSubmit)="onSubmit(registrationForm.value)"
+  >
     <div class="field">
       <label class="label" for="username">Ваш псевдоним (логин)</label>
       <div class="control">
         <input
-          [(ngModel)]="user.username"
-          name="username"
+          formControlName="username"
+          id="username"
           class="input"
           type="text"
           placeholder="Введите логин..."
           autocomplete="off"
-          required
           autofocus
         />
       </div>
     </div>
     <div class="field">
-      <label class="label" for="password">Ваш пароль</label>
-      <div class="control">
+      <label
+        class="label"
+        for="password"
+        [class.has-text-warning]="errorInPasswords"
+        >Ваш пароль</label
+      >
+      <div class="control has-icons-right">
         <input
-          [(ngModel)]="user.password"
-          name="password"
+          formControlName="password"
+          id="password"
           class="input"
-          type="password"
-          required
+          [class.is-warning]="errorInPasswords"
+          [attr.type]="isPasswordVisible ? 'text' : 'password'"
         />
+        <span
+          *ngIf="!isPasswordVisible"
+          class="icon is-small is-right"
+          (click)="isPasswordVisible = true"
+        >
+          <svg-icon
+            [src]="'/assets/svg/invisible.svg'"
+            [svgStyle]="{ 'width.px': 25, 'height.px': 25, 'marginTop.px': 2 }"
+          ></svg-icon>
+        </span>
       </div>
     </div>
     <div class="field">
-      <label class="label" for="passwordConfirmation"
+      <label
+        class="label"
+        for="passwordConfirmation"
+        [class.has-text-warning]="errorInPasswords"
         >Ещё разок для верности</label
       >
-      <div class="control">
+      <div class="control has-icons-right">
         <input
-          [(ngModel)]="user.passwordConfirmation"
-          name="passwordConfirmation"
+          formControlName="passwordConfirmation"
+          id="passwordConfirmation"
           class="input"
-          type="password"
-          required
+          [class.is-warning]="errorInPasswords"
+          [attr.type]="isPasswordVisible ? 'text' : 'password'"
         />
+        <span
+          *ngIf="!isPasswordVisible"
+          class="icon is-small is-right"
+          (click)="isPasswordVisible = true"
+        >
+          <svg-icon
+            [src]="'/assets/svg/invisible.svg'"
+            [svgStyle]="{ 'width.px': 25, 'height.px': 25, 'marginTop.px': 2 }"
+          >
+          </svg-icon>
+        </span>
       </div>
+    </div>
+    <div
+      *ngIf="errorInPasswords"
+      class="notification is-warning is-light has-text-weight-bold"
+    >
+      <p>Вы ошиблись при вводе пароля</p>
     </div>
     <div class="field">
       <label class="label" for="email">Электронная почта (email)</label>
       <div class="control">
-        <input
-          [(ngModel)]="user.email"
-          name="email"
-          class="input"
-          type="text"
-          required
-        />
+        <input formControlName="email" id="email" class="input" type="text" />
       </div>
     </div>
     <div class="field">
       <label class="label" for="year">Ваш год рождения</label>
       <div class="control">
-        <input
-          [(ngModel)]="user.year"
-          name="year"
-          class="input"
-          type="text"
-          required
-        />
+        <input formControlName="year" id="year" class="input" type="text" />
       </div>
     </div>
     <div class="field">
       <div class="control is-size-5 has-text-centered">
         <label class="radio">
           <input
-            [(ngModel)]="user.gender"
+            formControlName="gender"
             [value]="0"
             [checked]="user.gender == 0"
-            name="gender"
             type="radio"
-            required
           />
           Мальчик
         </label>
         <label class="radio">
           <input
-            [(ngModel)]="user.gender"
+            formControlName="gender"
             [value]="1"
             [checked]="user.gender == 1"
-            name="gender"
             type="radio"
-            required
           />
           Девочка
         </label>
       </div>
     </div>
-    <button class="button is-fullwidth is-success" type="submit">
+    <button
+      class="button is-fullwidth is-success"
+      type="submit"
+      [disabled]="!registrationForm.valid"
+    >
       Зарегистрироваться
     </button>
   </form>
