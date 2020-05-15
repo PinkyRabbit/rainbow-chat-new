@@ -1,2 +1,34 @@
 @charset "utf-8";
+
+$black: hsl(60, 37%, 100%);
+$black-bis: hsl(60, 37%, 98%);
+$black-ter: hsl(60, 37%, 96%);
+$grey-darker: hsl(60, 37%, 86%);
+$grey-dark: hsl(60, 37%, 71%);
+$grey: hsl(60, 37%, 48%);
+$grey-light: hsl(60, 37%, 34%);
+$grey-lighter: hsl(60, 37%, 27%);
+$grey-lightest: hsl(60, 37%, 19%);
+$white-ter: hsl(234, 18%, 34%);
+$white-bis: hsl(233, 17%, 27%);
+$white: hsl(232, 15%, 19%);
+
+$orange: hsl(30, 91%, 69%);
+$yellow: hsl(61, 100%, 87%);
+$green: hsl(140, 53%, 58%);
+$turquoise: hsl(226, 27%, 52%);
+$cyan: hsl(191, 97%, 77%);
+$blue: hsl(326, 100%, 84%);
+$purple: hsl(265, 89%, 78%);
+$red: hsl(10, 77%, 68%);
+
+$box-shadow: 0 0.5em 1em -0.125em rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(0, 0, 0, 0.2);
+$card-shadow: $box-shadow;
+$navbar-dropdown-boxed-shadow: $box-shadow;
+$panel-shadow: $box-shadow;
+
+$input-color: $grey-darker;
+$input-background-color: $white-ter;
+$input-border-color: $grey-dark;
+
 @import "../node_modules/bulma/bulma.sass";
