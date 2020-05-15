@@ -13,9 +13,13 @@
           type="text"
           placeholder="Введите логин..."
           autocomplete="off"
+          [class.is-danger]="username.errors.usernameTaken"
           autofocus
         />
       </div>
+      <p *ngIf="username.errors.usernameTaken" class="has-text-link">
+        Уже занято другим пользователем
+      </p>
     </div>
     <div class="field">
       <label

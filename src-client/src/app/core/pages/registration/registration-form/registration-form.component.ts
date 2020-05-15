@@ -7,10 +7,13 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { SubSink } from 'subsink';
 
+import { environment } from 'environments/environment';
 import { UserRegistrationModel } from 'app/shared/models/user-registration.model';
-import { FormBuilder, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
 
 // import { AuthService } from 'app/services/auth/auth.service';
 // import { environment } from 'environments/environment';
@@ -25,6 +28,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
   isPasswordVisible = false;
   errorInPasswords = false;
   private subs = new SubSink();
+  private apiUrl = environment.apiUrl;
   readonly sexValues = ['Мальчик', 'Девочка'];
   user = new UserRegistrationModel();
   registrationRequest;
@@ -72,8 +76,25 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
     // }
   }
 
-  // private httpAuthService: HttpAuthService
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  validateUsernameIsNotTaken(control: AbstractControl) {
+    const { value } = control;
+    if (value.length < 2 || value.length > 30) {
+      return null;
+    }
+    return this.http
+      .get(`${this.apiUrl}/search/user/exists?s=${value}`)
+      .pipe(map((response: any) => ({ usernameTaken: response })));
+  }
+
+  get username() {
+    return this.registrationForm.get('username');
+  }
+
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private http: HttpClient
+  ) {
     // this.onSuccessUserCreation = this.onSuccessUserCreation.bind(this);
     // this.onError = this.onError.bind(this);
 
@@ -85,6 +106,7 @@ export class RegistrationFormComponent implements OnInit, OnDestroy {
           Validators.minLength(2),
           Validators.maxLength(30),
         ],
+        this.validateUsernameIsNotTaken.bind(this),
       ],
       email: ['', [Validators.required, Validators.email]],
       password: [
