@@ -6,6 +6,7 @@
 @import "~bulma-extensions/bulma-switch/src/sass/index";
 @import "~bulma-extensions/bulma-tooltip/src/sass/index";
 @import "~bulma-extensions/bulma-calendar/src/sass/index";
+// @import "~bulma-extensions/bulma-pageloader/src/sass/index";
 // fonts
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i&display=swap&subset=cyrillic");
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap&subset=cyrillic");
@@ -22,6 +23,9 @@ html,
 body {
   background-color: #272a35;
   color: #c3c3c3;
+}
+#root {
+  position: relative;
 }
 .navbar-dropdown a {
   color: #e5e5ff;

@@ -10,6 +10,7 @@ import { AppStoreModule } from './app-store.module';
 import { CoreModule } from './core/core.module';
 import { NavbarModule } from './core/components/navbar/navbar.module';
 import { LoaderComponent } from './core/components/loader/loader.component';
+import { SettingsService } from './shared/services/settings/settings.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
 
@@ -26,7 +27,7 @@ const COMPONENTS = [NavbarModule];
     SocketIoModule.forRoot(config),
     ...COMPONENTS,
   ],
-  providers: [],
+  providers: [SettingsService],
   declarations: [AppComponent, LoaderComponent],
   bootstrap: [AppComponent],
 })

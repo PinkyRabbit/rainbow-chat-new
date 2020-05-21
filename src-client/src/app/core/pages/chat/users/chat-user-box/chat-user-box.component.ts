@@ -8,7 +8,8 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { UserModel } from 'app/shared/models/user.model';
+import { UserForBox } from 'app/shared/models/user-for-box.model';
+import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
 
 @Component({
   selector: 'div[chat-user-box]',
@@ -16,10 +17,24 @@ import { UserModel } from 'app/shared/models/user.model';
   styleUrls: ['chat-user-box.component.scss'],
 })
 export class ChatUserBoxComponent implements OnInit {
-  @Input() user: UserModel;
-  @Output() selectUserForInput: EventEmitter<any> = new EventEmitter<any>();
+  @Input() user: UserForBox;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private usernameToMessageService: UsernameToMessageService
+  ) {}
+
+  get userPublicInfo() {
+    const infoKeys = ['age', 'city'];
+    return infoKeys
+      .filter((key) => this.user[key])
+      .map((key) => this.user[key])
+      .join(', ');
+  }
+
+  get usernameClasses() {
+    return `username ${this.user.nameFont}`;
+  }
 
   @HostBinding('class.box')
   @HostBinding('class.is-size-7')
@@ -27,6 +42,11 @@ export class ChatUserBoxComponent implements OnInit {
   ngOnInit() {}
 
   selectUsername() {
-    this.selectUserForInput.emit(this.user.username);
+    this.usernameToMessageService.selectUsername(this.user.username);
+  }
+
+  pickHlsColor(value) {
+    const n = value.split(',');
+    return `hsl(${n[0]}, ${n[1]}%, ${n[2]}%)`;
   }
 }

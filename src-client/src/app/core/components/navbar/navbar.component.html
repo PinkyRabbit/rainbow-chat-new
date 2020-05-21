@@ -1,11 +1,13 @@
-<div class="navbar-brand" (window:resize)="onResize($event)">
+<!-- <div class="navbar-brand" (window:resize)="onResize($event)"> -->
+<div class="navbar-brand">
   <a class="navbar-item" [routerLink]="['/']" alt="На главную">
     <img src="/assets/logo-nav.png" alt="Logo" width="112" height="28" />
   </a>
+  <!-- Notifications -->
   <a
     role="button"
     class="navbar-burger"
-    [hidden]="!isOnTablet"
+    [hidden]="!settings.isOnTablet"
     (click)="onClickMenuButton($event, 'notifications')"
   >
     <svg-icon
@@ -19,16 +21,17 @@
         'active-svg': !hasUpdatesIn.notifications && buttons.notifications
       }"
       [svgStyle]="{
-        'width.px': 30,
-        'height.px': 30
+        'width.px': iconSize,
+        'height.px': iconSize
       }"
     ></svg-icon>
   </a>
+  <!-- Chats -->
   <a
     role="button"
     class="navbar-burger"
     (click)="onClickMenuButton($event, 'chats')"
-    [hidden]="!isOnTablet"
+    [hidden]="!settings.isOnTablet"
   >
     <svg-icon
       [src]="
@@ -38,14 +41,14 @@
         'not-active-svg': !hasUpdatesIn.chats && !buttons.chats,
         'active-svg': !hasUpdatesIn.chats && buttons.chats
       }"
-      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
     ></svg-icon>
   </a>
   <a
     role="button"
     class="navbar-burger"
     (click)="onClickMenuButton($event, 'settings')"
-    [hidden]="!isOnTablet"
+    [hidden]="!settings.isOnTablet"
   >
     <svg-icon
       [src]="
@@ -54,14 +57,15 @@
           : '/assets/svg/settings.svg'
       "
       [ngClass]="{ 'not-active-svg': !buttons.settings }"
-      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
     ></svg-icon>
   </a>
+  <!-- Users -->
   <a
     role="button"
     class="navbar-burger"
+    [class.is-hidden]="!settings.isOnTablet"
     (click)="onClickMenuButton($event, 'users')"
-    [hidden]="!isOnTablet"
   >
     <svg-icon
       [src]="
@@ -73,7 +77,7 @@
         'not-active-svg': !hasUpdatesIn.users && !buttons.users,
         'active-svg': !hasUpdatesIn.users && buttons.users
       }"
-      [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
     ></svg-icon>
   </a>
 </div>
@@ -81,8 +85,8 @@
   <div class="navbar-start">
     <div
       navbar-chats
-      [hidden]="isOnTablet && !buttons.chats"
-      [isOnTablet]="isOnTablet"
+      [hidden]="settings.isOnTablet && !buttons.chats"
+      [isOnTablet]="settings.isOnTablet"
       [src]="
         hasUpdatesIn.chats ? '/assets/svg/chat.svg' : '/assets/svg/chat-b.svg'
       "
@@ -97,8 +101,8 @@
   <div class="navbar-end">
     <div
       navbar-notifications
-      [hidden]="isOnTablet && !buttons.notifications"
-      [isOnTablet]="isOnTablet"
+      [hidden]="settings.isOnTablet && !buttons.notifications"
+      [isOnTablet]="settings.isOnTablet"
       [src]="
         hasUpdatesIn.notifications
           ? '/assets/svg/notification.svg'
@@ -113,8 +117,8 @@
     </div>
     <div
       navbar-user
-      [hidden]="isOnTablet && !buttons.settings"
-      [isOnTablet]="isOnTablet"
+      [hidden]="settings.isOnTablet && !buttons.settings"
+      [isOnTablet]="settings.isOnTablet"
     >
       Loading navbar-settings...
     </div>

@@ -1,13 +1,27 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  HostBinding,
+  OnDestroy,
+  Input,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { SubSink } from 'subsink';
+
+import { SettingsModel } from 'app/shared/services/settings/settings.model';
+
+import { NavbarUserControlSerivce } from './navbar-user-control.service';
 
 @Component({
   selector: 'nav[#navbar]',
   templateUrl: './navbar.component.html',
   styleUrls: ['navbar.component.scss'],
 })
-export class NavbarComponent implements OnInit {
-  isOnTablet = false;
+export class NavbarComponent implements OnInit, OnDestroy {
+  @Input() settings: SettingsModel;
+
+  private subs = new SubSink();
+
   isMenuActive = false;
   hasUpdatesIn = {
     notifications: false,
@@ -21,44 +35,59 @@ export class NavbarComponent implements OnInit {
     users: false,
   };
 
-  constructor(private router: Router) {}
+  public get iconSize() {
+    if (this.settings.windowWidth < 300) {
+      return 15;
+    }
+    if (this.settings.windowWidth < 500) {
+      return 20;
+    }
+    return 30;
+  }
+
+  constructor(
+    private router: Router,
+    private navbarUserControlSerivce: NavbarUserControlSerivce
+  ) {}
 
   @HostBinding('attr.role')
   ariaRole = 'navigation';
-
   @HostBinding('attr.aria-label')
   ariaLabel = 'main navigation';
-
-  @HostBinding('class.navbar')
   @HostBinding('class.is-fixed-top')
+  @HostBinding('class.navbar')
   ngOnInit() {
-    console.log('ngOnInit AppComponent');
-    this.isOnTablet = this.isOnTabletFunc();
+    this.subs.sink = this.navbarUserControlSerivce.userTabDisabled$.subscribe(
+      (isUserTabDisabled) => {
+        const isUserTabEnabled = !isUserTabDisabled;
+        console.log(
+          `NavbarComponent -> this.buttons.users !== isUserTabEnabled = ${
+            this.buttons.users !== isUserTabEnabled
+          }`
+        );
+        if (this.buttons.users !== isUserTabEnabled) {
+          this.buttons.users = isUserTabEnabled;
+        }
+      }
+    );
+    // this.isOnTablet = this.isOnTabletFunc();
   }
 
-  onResize(e) {
-    setTimeout(() => {
-      this.isOnTablet = this.isOnTabletFunc();
-    }, 500);
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
-  isOnTabletFunc() {
-    const windowWidth =
-      document.body.clientWidth ||
-      document.documentElement.clientWidth ||
-      window.innerWidth;
-
-    return windowWidth < 1010;
-  }
-
-  onHover(e, type) {
-    if (!this.isOnTablet) {
+  public onHover(e, type) {
+    if (!this.settings.isOnTablet) {
       this.onClickMenuButton(e, type);
     }
   }
 
   onClickMenuButton(e, type) {
     const typeState = this.buttons[type];
+    if (type === 'users') {
+      this.navbarUserControlSerivce.changeUserTabStatus(typeState);
+    }
     if (typeState) {
       this.isMenuActive = false;
       this.buttons[type] = false;
@@ -74,8 +103,11 @@ export class NavbarComponent implements OnInit {
       users: false,
     };
 
-    this.isMenuActive = true;
     this.buttons[type] = true;
+    if (type !== 'users') {
+      this.isMenuActive = true;
+    }
+
     return true;
   }
 }

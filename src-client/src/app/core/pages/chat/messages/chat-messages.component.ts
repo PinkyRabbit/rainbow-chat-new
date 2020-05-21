@@ -21,13 +21,23 @@ import { ChatMessagesService } from 'app/shared/modules/chat/messages/messages.s
 })
 export class ChatMessagesComponent implements OnInit, OnDestroy {
   @Input() baseStyles: any;
-  @Output() addUsernameToMessage: EventEmitter<any> = new EventEmitter<any>();
+
+  /*
+https://stackoverflow.com/a/54162804/7196144
+
+import { ScrollDispatcher } from '@angular/cdk/scrolling';
+
+  constructor(private scrollDispatcher: ScrollDispatcher) {
+    this.scrollDispatcher.scrolled().subscribe(x => console.log('I am scrolling'));
+  }
+  */
 
   private subs = new SubSink();
 
   private chuckNorris: UserModel = {
     _id: '1',
     username: 'Chuck Norris',
+    firstName: 'Chuck',
     nameColor: '34,78,75',
     nameFont: 'font-1',
     textColor: '160,100,75',
@@ -37,6 +47,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   private hisFriend: UserModel = {
     _id: '2',
     username: 'to',
+    firstName: 'Firend',
     nameColor: '60,100,50',
     nameFont: 'font-1',
     textColor: '351,100,86',
@@ -48,7 +59,7 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
   messages: ChatMessageModel[] = [];
 
   ngOnInit() {
-    this.subs.sink = this.chatMessagesService.roomMessage.subscribe();
+    // this.subs.sink = this.chatMessagesService.roomMessage.subscribe();
   }
 
   ngOnDestroy() {
@@ -108,10 +119,6 @@ export class ChatMessagesComponent implements OnInit, OnDestroy {
     );
   }
   */
-
-  clickOnUserInsideMessage(username) {
-    this.addUsernameToMessage.emit(username);
-  }
 
   constructor(
     private router: Router,

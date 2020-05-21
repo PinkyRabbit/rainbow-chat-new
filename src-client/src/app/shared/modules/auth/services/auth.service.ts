@@ -9,6 +9,7 @@ import { TokensModel } from 'app/shared/models/tokens.model';
 import { LoginModel } from 'app/shared/models/login.model';
 import { map, tap, switchMap, switchMapTo, catchError } from 'rxjs/operators';
 import * as UserActions from '../../user/store/user.actions';
+import * as RoomsActions from '../../rooms/store/rooms.actions';
 import { of, EMPTY, throwError } from 'rxjs';
 
 @Injectable({
@@ -67,6 +68,7 @@ export class AuthService {
 
   private resetStore() {
     this.store.dispatch(UserActions.reset());
+    this.store.dispatch(RoomsActions.reset());
   }
 }
 /*

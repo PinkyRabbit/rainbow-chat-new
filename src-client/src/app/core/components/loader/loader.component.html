@@ -1,11 +1,5 @@
-<div
-  class="loader-wrapper"
-  [ngStyle]="this.sliderStyles"
-  [class.slideInLeft]="isActive"
-  [class.slideOutRight]="!isActive"
-  [class.is-hidden]="!isActive"
->
-  <div class="content">
+<div class="loader-wrapper column" [style.height.px]="loaderHeight">
+  <div class="content" [style.paddingTop.px]="loaderHeight / 5">
     <div>
       <h1 class="glow">{{ title || "" }}</h1>
     </div>

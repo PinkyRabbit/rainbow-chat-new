@@ -9,6 +9,7 @@ import { ChatComponent } from './core/pages/chat/chat.component';
 // import { Error401Component } from './core/pages/errors/error401/error401.component';
 import { TermsOfUseComponent } from './core/pages/static/terms-of-use/terms-of-use.component';
 import { RegistrationComponent } from './core/pages/registration/registration.component';
+import { ChatRouterComponent } from './core/components/chat-router/chat-router.component';
 
 const routes: Routes = [
   /*
@@ -18,6 +19,12 @@ const routes: Routes = [
     component: EditUserComponent,
   },
   */
+  {
+    // canActivateChild: [AuthGuard],
+    path: 'chat',
+    pathMatch: 'full',
+    component: ChatRouterComponent,
+  },
   {
     // canActivateChild: [AuthGuard],
     path: 'chat/:chatSlug',

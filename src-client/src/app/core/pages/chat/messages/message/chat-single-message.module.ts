@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 
+import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
+
 import { ChatSingleMessageComponent } from './chat-single-message.component';
 import { UserInMessageComponent } from './user-in-message/user-in-message.component';
 import { TextInMessageComponent } from './text-in-message/text-in-message.component';
@@ -17,6 +19,7 @@ const components = [
 @NgModule({
   imports: [],
   declarations: [...components],
+  providers: [UsernameToMessageService],
   exports: [...components],
 })
 export class ChatSingleMessageModule {}

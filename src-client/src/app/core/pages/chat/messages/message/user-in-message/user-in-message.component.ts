@@ -10,6 +10,7 @@ import {
 import { Router } from '@angular/router';
 
 import { UserModel } from 'app/shared/models/user.model';
+import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
 
 @Component({
   selector: 'span[user-in-message]',
@@ -19,9 +20,11 @@ import { UserModel } from 'app/shared/models/user.model';
 export class UserInMessageComponent implements OnInit {
   @Input() user: UserModel;
   @Input() withComma = false;
-  @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private usernameToMessageService: UsernameToMessageService
+  ) {}
 
   @HostBinding('style.color') color: string;
   @HostBinding('class.font-1') isFont1: boolean;
@@ -67,7 +70,7 @@ export class UserInMessageComponent implements OnInit {
   }
 
   onClick(e) {
-    this.leftClickOnUsername.emit(this.user.username);
+    this.usernameToMessageService.selectUsername(this.user.username);
   }
 
   onRightClick(e) {

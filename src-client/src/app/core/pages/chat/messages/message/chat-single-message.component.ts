@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ChatMessageModel } from 'app/shared/models/chat-message.model';
+import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
 
 @Component({
   selector: '.chat-message',
@@ -9,11 +10,8 @@ import { ChatMessageModel } from 'app/shared/models/chat-message.model';
 })
 export class ChatSingleMessageComponent implements OnInit {
   @Input() msg: ChatMessageModel;
-  @Output() clickOnUserInsideMessage: EventEmitter<any> = new EventEmitter<
-    any
-  >();
 
-  constructor() {}
+  constructor(private usernameToMessageService: UsernameToMessageService) {}
 
   ngOnInit() {}
 
@@ -23,6 +21,6 @@ export class ChatSingleMessageComponent implements OnInit {
   }
 
   leftClickOnUsername(username) {
-    this.clickOnUserInsideMessage.emit(username);
+    this.usernameToMessageService.selectUsername(username);
   }
 }

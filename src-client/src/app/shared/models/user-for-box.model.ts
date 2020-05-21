@@ -4,39 +4,43 @@ enum Sex {
 }
 
 enum Roles {
-  'super_admin',
-  'admin',
-  'moderator',
-  'user',
+  'super_admin' = 777,
+  'admin' = 2,
+  'moderator' = 1,
+  'user' = 0,
 }
 
 export class UserForBox {
   // tslint:disable-next-line:variable-name
   readonly _id: string;
+  readonly firstName: string;
   readonly username: string;
-  role: Roles;
-  readonly avatar: string;
-  readonly country: string;
-  readonly city: string;
-  sex: Sex;
-  readonly statusText: string;
   readonly nameColor: string;
   readonly nameFont: string;
-  readonly textColor: string;
-  readonly textFont: string;
+  readonly statusText: string;
+  readonly avatar: string;
+  // enums
+  role: Roles;
+  sex: Sex;
+  // info
+  readonly age: string;
+  readonly country: string;
+  readonly city: string;
 
   constructor(input: any) {
     this._id = input._id;
-    this.username = input.name;
-    this.role = input.role;
-    this.avatar = input.avatar;
-    this.country = input.country;
-    this.city = input.city;
-    this.sex = input.sex;
-    this.statusText = input.statusText;
+    this.firstName = input.firstName;
+    this.username = input.username;
     this.nameColor = input.nameColor;
     this.nameFont = input.nameFont;
-    this.textColor = input.textColor;
-    this.textFont = input.textFont;
+    this.statusText = input.statusText;
+    this.avatar = input.avatar;
+    // enums
+    this.sex = input.sex;
+    this.role = input.role;
+    // info
+    this.age = input.age;
+    this.country = input.country;
+    this.city = input.city;
   }
 }

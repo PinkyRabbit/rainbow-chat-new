@@ -39,7 +39,7 @@ export class RoomService {
     const room = {
       _id: 'main-hardcoded',
       name: 'Чатик',
-      slug: 'main',
+      slug: 'main-room',
       logo: 'http://file.mobilmusic.ru/b7/3f/84/1411287-128.jpg',
       description:
         'Главный чат сайта. Комнаты доробатываются и скоро появятся, а, пока что, так.',
@@ -55,10 +55,8 @@ export class RoomService {
     // get users list
     const users = await this.redisService
       .getClient()
-      .sscan(redisRoom, 2)
+      .smembers(redisRoom)
       .then(users => users.map(user => JSON.parse(user.toString())));
-
-    console.log(users);
 
     return {
       room,

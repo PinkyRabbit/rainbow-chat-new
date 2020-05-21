@@ -1,6 +1,7 @@
 export class UserModel {
   // tslint:disable-next-line: variable-name
   _id: string;
+  firstName: string;
   username: string;
   nameColor: string;
   nameFont: string;
@@ -10,6 +11,7 @@ export class UserModel {
 
   constructor(input: any) {
     this._id = input._id;
+    this.firstName = input.firstName;
     this.username = input.username;
     this.nameColor = input.nameColor;
     this.nameFont = input.nameFont;

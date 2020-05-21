@@ -1,13 +1,14 @@
-<div id="hide-users-button" [hidden]="!isUserOnTablet"></div>
 <div
-  id="users-wrapper"
-  [ngStyle]="baseStyles"
-  (window:resize)="onInitAndOnResize($event)"
->
+  id="hide-users-button"
+  [class.is-hidden]="!settings.isOnTablet"
+  (click)="hideUsersBar()"
+></div>
+<div class="users-wrapper">
+  <!-- [ngClass]="'animate__animated animate__backInLeft'" -->
   <div
     *ngFor="let user of chatUsers; let i = index"
     [user]="user"
-    (selectUserForInput)="selectUserForInput($event)"
+    [style.display]="'block'"
     chat-user-box
   >
     Loading chat-user-box...

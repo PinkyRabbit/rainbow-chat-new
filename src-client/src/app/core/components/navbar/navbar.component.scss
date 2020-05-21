@@ -3,10 +3,18 @@
   box-shadow: 0 10px 6px -6px #1c1e28;
 }
 
+.navbar-brand {
+  display: flex;
+  justify-content: space-around;
+  max-width: 100%;
+}
+
 .navbar-burger {
   display: flex !important;
   align-items: center;
   justify-content: center;
+  margin-left: inherit;
+  width: inherit;
 }
 
 [hidden] {

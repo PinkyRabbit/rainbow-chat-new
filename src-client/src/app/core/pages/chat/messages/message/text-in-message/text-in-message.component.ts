@@ -3,10 +3,7 @@ import {
   OnInit,
   Input,
   ViewChild,
-  ViewContainerRef,
   ComponentFactoryResolver,
-  Output,
-  EventEmitter,
 } from '@angular/core';
 
 import { UserModel } from 'app/shared/models/user.model';
@@ -23,12 +20,11 @@ import { TextNodeComponent } from './text-node';
 export class TextInMessageComponent implements OnInit {
   @Input() message: string;
   @Input() users: UserModel[];
-  @Output() leftClickOnUsername: EventEmitter<any> = new EventEmitter<any>();
   @ViewChild(ChunkInMessageDirective, { static: true })
   chunkOfMessage: ChunkInMessageDirective;
 
   constructor(private componentFactoryResolver: ComponentFactoryResolver) {
-    this.clickOnUsernameInMessage = this.clickOnUsernameInMessage.bind(this);
+    // this.clickOnUsernameInMessage = this.clickOnUsernameInMessage.bind(this);
   }
 
   ngOnInit() {
@@ -69,9 +65,9 @@ export class TextInMessageComponent implements OnInit {
         );
         (userInMessageComponentRef.instance as UserInMessageComponent).user =
           users[userIndex];
-        (userInMessageComponentRef.instance as UserInMessageComponent).leftClickOnUsername.subscribe(
-          this.clickOnUsernameInMessage
-        );
+        // (userInMessageComponentRef.instance as UserInMessageComponent).leftClickOnUsername.subscribe(
+        //   this.clickOnUsernameInMessage
+        // );
         // component.instance.onRemove.subscribe(this.onRemove);
 
         // const factory = this.resolver.resolveComponentFactory<TestQuestionInSliderComponent>(TestQuestionInSliderComponent);
@@ -107,7 +103,7 @@ export class TextInMessageComponent implements OnInit {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 
-  clickOnUsernameInMessage(username) {
-    this.leftClickOnUsername.emit(username);
-  }
+  // clickOnUsernameInMessage(username) {
+  //   this.leftClickOnUsername.emit(username);
+  // }
 }

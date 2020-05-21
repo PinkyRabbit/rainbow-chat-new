@@ -1,25 +1,18 @@
-<nav id="navbar">Navbar loading...</nav>
-<div
-  id="chat-main-block"
+<main
   class="columns is-gapless is-paddingless is-marginless"
-  (window:resize)="onInitAndOnResize($event)"
+  [style.position]="'relative'"
 >
-  <div
-    class="column"
-    id="chat-messages"
-    [baseStyles]="getStyles()"
-    (addUsernameToMessage)="addUsernameToMessage($event)"
-  >
+  <div id="chat-messages" class="column" [style.height.px]="maxChatSize">
     Loading chat-messages...
   </div>
   <div
     id="chat-users"
-    [baseStyles]="getStyles()"
-    (addUsernameToMessage)="addUsernameToMessage($event)"
+    [settings]="settings"
+    class="column"
+    [style.height.px]="maxChatSize"
   >
     Loading chat-users...
   </div>
-</div>
-<div id="text-input">
-  Loading text-input...
-</div>
+</main>
+<!-- [user]="user" -->
+<footer id="text-input">Loading text-input...</footer>

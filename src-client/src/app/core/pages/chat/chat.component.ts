@@ -1,55 +1,72 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChatInputComponent } from './chat-input/chat-input.component';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  AfterViewInit,
+} from '@angular/core';
+import { SubSink } from 'subsink';
+
+import { SettingsService } from 'app/shared/services/settings/settings.service';
+import { SettingsModel } from 'app/shared/services/settings/settings.model';
 
 @Component({
   selector: '#chat',
   templateUrl: './chat.component.html',
   styleUrls: ['chat.component.scss'],
 })
-export class ChatComponent implements OnInit {
-  @ViewChild(ChatInputComponent) input: ChatInputComponent;
+export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
+  private subs = new SubSink();
+  private inputHeight = 0;
+  public settings: SettingsModel = {
+    windowWidth: 1400,
+    windowHeight: 900,
+    navbarHeight: 0,
+    isOnTablet: false,
+  };
 
-  maxChatSize = 0;
-  paddingTop = 0;
+  get maxChatSize() {
+    return this.settings
+      ? this.settings.windowHeight -
+          this.settings.navbarHeight -
+          this.inputHeight
+      : 0;
+  }
 
-  constructor() {}
+  constructor(private settingsService: SettingsService) {}
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.getInputHeight();
+  }
 
   ngOnInit() {
-    this.onInitAndOnResize(null);
+    this.subscribeToSettings();
   }
 
-  ngOnResize() {
-    this.onInitAndOnResize(null);
+  ngAfterViewInit() {
+    this.getInputHeight();
   }
 
-  private getWindowHeigh() {
-    const doc = document;
-    const docElem = doc.documentElement;
-    const body = doc.getElementsByTagName('body')[0];
-    return window.innerHeight || docElem.clientHeight || body.clientHeight;
+  ngOnDestroy() {
+    this.subs.unsubscribe();
   }
 
-  onInitAndOnResize(e) {
-    this.maxChatSize = 0;
+  private getInputHeight() {
+    this.inputHeight = 0;
     setTimeout(() => {
-      const navbarHeight = document.getElementById('navbar').offsetHeight;
-      const inputHeight = document.getElementById('text-input').offsetHeight;
-      const windowHeight = this.getWindowHeigh();
-      this.paddingTop = navbarHeight;
-      this.maxChatSize = windowHeight - navbarHeight - inputHeight;
+      this.inputHeight = document.getElementById('text-input').offsetHeight;
     }, 500);
   }
 
-  // https://stackoverflow.com/questions/43009619/google-cloud-speech-api-word-hints
-  // https://cloud.google.com/speech-to-text/docs/basics#phrase-hints
-  getStyles() {
-    return {
-      'margin-top': `${this.paddingTop}px`,
-      height: `${this.maxChatSize}px`,
-    };
-  }
-
-  addUsernameToMessage(username) {
-    this.input.addUsernameToInput(username);
+  private subscribeToSettings() {
+    this.subs.sink = this.settingsService.getSettings$.subscribe((settings) => {
+      if (
+        !this.settings ||
+        JSON.stringify(settings) !== JSON.stringify(this.settings)
+      ) {
+        this.settings = settings;
+      }
+    });
   }
 }

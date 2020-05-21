@@ -1,85 +1,52 @@
-import { Subscription } from 'rxjs';
 import {
   Component,
   OnInit,
-  HostListener,
-  AfterViewInit,
+  HostBinding,
+  Input,
+  Output,
+  EventEmitter,
   OnChanges,
-  OnDestroy,
 } from '@angular/core';
 
-import { LoaderService } from './loader.service';
-
 @Component({
-  selector: 'div[#loader]',
+  selector: 'div[loader]',
   templateUrl: './loader.component.html',
   styleUrls: ['loader.component.scss'],
 })
-export class LoaderComponent
-  implements OnInit, AfterViewInit, OnChanges, OnDestroy {
-  title: string;
-  isActive: boolean;
-  tooltip: string;
-  sliderStyles = {};
+export class LoaderComponent implements OnInit, OnChanges {
+  @Input() pageIsLoading: boolean;
+  @Input() title: string;
+  @Input() tooltip: string;
+  @Input() timeout: number;
+  @Input() loaderHeight: number;
+  @Output() disableLoader: EventEmitter<any> = new EventEmitter<any>();
 
-  private subscription: Subscription;
+  constructor() {}
 
-  constructor(private loaderService: LoaderService) {
-    this.tooltip =
-      'Будьте вежливыми и терпиливыми с вашими собеседниками, и узнаете много интересного и нового. Помните, каждый человек - как книга.';
+  public set isActive(value: boolean) {
+    this._on = value;
+    this._off = !value;
   }
 
+  @HostBinding('class.animate__flipInY')
+  // @HostBinding('class.animate__fadeIn')
+  _on: boolean;
+  @HostBinding('class.animate__fadeOut')
+  _off: boolean;
+  @HostBinding('class.animate__animated')
   ngOnInit() {
-    this.isActive = false;
+    this.isActive = true;
   }
 
-  ngAfterViewInit() {
-    this.calculateLoaderStyles();
-  }
-
-  ngOnChanges(changes) {
-    console.log(changes);
-    // isHidden() {
-    //   if (this.isActive) {
-    //     return false;
-    //   }
-
-    //   setTimeout(() => {
-    //     return true;
-    //   }, 300);
-    // }
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
-
-  @HostListener('window:resize')
-  private calculateLoaderStyles() {
-    this.sliderStyles = {
-      'height.px': this.getPageHeight(),
-      'paddingTop.px': this.getWindowHeigh() / 4,
-    };
-  }
-
-  private getPageHeight() {
-    const body = document.body;
-    const html = document.documentElement;
-
-    return Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-  }
-
-  private getWindowHeigh() {
-    return (
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight
-    );
+  ngOnChanges(changes: any) {
+    const timeoutIn = this.timeout - 1000;
+    if (changes.pageIsLoading) {
+      setTimeout(() => {
+        this.isActive = false;
+        setTimeout(() => {
+          this.disableLoader.emit();
+        }, 1000);
+      }, timeoutIn);
+    }
   }
 }

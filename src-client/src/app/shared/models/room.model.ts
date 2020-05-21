@@ -12,6 +12,7 @@ export class RoomModel {
   constructor(input: any) {
     this._id = input._id;
     this.name = input.name;
+    this.slug = input.slug;
     this.logo = input.logo;
     this.description = input.description;
     this.users = input.users;

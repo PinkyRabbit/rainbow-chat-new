@@ -20,6 +20,7 @@ const reducer = createReducer(
   // join room
   on(RoomsAction.joinRoom, (state) => state),
   on(RoomsAction.joinRoomSuccess, (state, newRoom) => {
+    state = state.slice();
     const oldIndex = state.findIndex((room) => room._id === newRoom._id);
     if (oldIndex === -1) {
       state.push(newRoom);
