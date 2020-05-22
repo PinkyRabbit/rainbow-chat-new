@@ -4,10 +4,12 @@ import {
   HostBinding,
   Input,
   ElementRef,
+  AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import { SubSink } from 'subsink';
 
-import { MeModel } from 'app/shared/models/me.model';
+import { UserForBox } from 'app/shared/models/user-for-box.model';
 import { ChatMessagesService } from 'app/shared/modules/chat/messages/messages.service';
 import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
 
@@ -16,18 +18,28 @@ import { UsernameToMessageService } from 'app/shared/services/username-to-messag
   templateUrl: './chat-input.component.html',
   styleUrls: ['chat-input.component.scss'],
 })
-export class ChatInputComponent implements OnInit {
-  @Input() user: MeModel;
+export class ChatInputComponent implements OnInit, AfterViewInit, OnDestroy {
+  @Input() chatUsers: UserForBox[];
+  @Input() roomSlug: string;
 
   private subs = new SubSink();
   private input;
-  message = '';
+  public message: string;
+  public isMessageSend: boolean;
 
   constructor(
+    private el: ElementRef,
     private chatMessagesService: ChatMessagesService,
-    private usernameToMessageService: UsernameToMessageService,
-    private el: ElementRef
+    private usernameToMessageService: UsernameToMessageService
   ) {}
+
+  @HostBinding('class.field')
+  @HostBinding('class.has-addons')
+  ngOnInit() {
+    this.isMessageSend = false;
+    this.message = '';
+    this.subscribeToNewUser();
+  }
 
   ngAfterViewInit() {
     const hostElem = this.el.nativeElement;
@@ -37,12 +49,6 @@ export class ChatInputComponent implements OnInit {
   // https://stackoverflow.com/questions/43009619/google-cloud-speech-api-word-hints
   // https://cloud.google.com/speech-to-text/docs/basics#phrase-hints
   // https://css-tricks.com/textarea-tricks/
-
-  @HostBinding('class.field')
-  @HostBinding('class.has-addons')
-  ngOnInit() {
-    this.subscribeToNewUser();
-  }
 
   ngOnDestroy() {
     this.subs.unsubscribe();
@@ -80,6 +86,47 @@ export class ChatInputComponent implements OnInit {
 
   sendMessage(e) {
     e.preventDefault();
-    // return this.messagesService.sendMessage('123');
+    const message = this.message.replace(/\s+/g, ' ').trim();
+    if (!message.length) {
+      return false;
+    }
+    this.isMessageSend = true;
+    const usersInMessage = [];
+    let messageForPlaceholders = message;
+    this.chatUsers
+      .sort((a, b) => b.username.length - a.username.length)
+      .forEach((user, index) => {
+        const usernameRegexp = new RegExp(
+          this.escapeRegExp(user.username),
+          'g'
+        );
+        if (usernameRegexp.test(messageForPlaceholders)) {
+          usersInMessage.push(user._id);
+          messageForPlaceholders = messageForPlaceholders.replace(
+            usernameRegexp,
+            `%%${index}%%`
+          );
+        }
+      });
+
+    this.subs.sink = this.chatMessagesService
+      .sendMessageToRoom(this.roomSlug, {
+        message,
+        usersInMessage,
+      })
+      .subscribe(
+        (_) => {
+          this.isMessageSend = false;
+          this.message = '';
+        },
+        (error) => {
+          this.isMessageSend = false;
+          console.log(error);
+        }
+      );
+  }
+
+  private escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 }

@@ -5,10 +5,15 @@ import {
   HostListener,
   AfterViewInit,
 } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { SubSink } from 'subsink';
 
-import { SettingsService } from 'app/shared/services/settings/settings.service';
 import { SettingsModel } from 'app/shared/services/settings/settings.model';
+import { UserForBox } from 'app/shared/models/user-for-box.model';
+import { SettingsService } from 'app/shared/services/settings/settings.service';
+import { pickUsersInTheRoom } from 'app/shared/modules/rooms/store/rooms.selectors';
+import { deepCompareTwoArraysOfObjects } from 'app/shared/helpers';
 
 @Component({
   selector: '#chat',
@@ -24,6 +29,8 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     navbarHeight: 0,
     isOnTablet: false,
   };
+  public chatUsers: UserForBox[] = [];
+  public roomSlug: string;
 
   get maxChatSize() {
     return this.settings
@@ -33,7 +40,11 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
       : 0;
   }
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(
+    private router: Router,
+    private store: Store,
+    private settingsService: SettingsService
+  ) {}
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
@@ -42,6 +53,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit() {
     this.subscribeToSettings();
+    this.subscribeToUsersInStore();
   }
 
   ngAfterViewInit() {
@@ -68,5 +80,30 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         this.settings = settings;
       }
     });
+  }
+
+  private subscribeToUsersInStore() {
+    const { url } = this.router;
+    const chatSlugWithQuery = url.replace('/chat/', '').toLowerCase();
+    this.roomSlug = /^[0-9a-z-]+/.exec(chatSlugWithQuery)[0];
+    this.subs.sink = this.store
+      .select(pickUsersInTheRoom, this.roomSlug)
+      .subscribe(
+        (users) => {
+          if (deepCompareTwoArraysOfObjects(this.chatUsers, users)) {
+            // this.chatUsers = users;
+            const fakeUsers = [];
+            const [user] = users;
+            for (let i = 0; i < 49; i++) {
+              fakeUsers.push(user);
+            }
+            this.chatUsers = fakeUsers;
+          }
+        },
+        (error) => {
+          this.chatUsers = [];
+          console.log(error);
+        }
+      );
   }
 }

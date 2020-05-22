@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { AngularSvgIconModule } from 'angular-svg-icon';
 
 import { InsideModule } from 'app/core/layouts/inside.module';
@@ -20,6 +21,7 @@ import { ChatInputComponent } from './chat-input/chat-input.component';
     RouterModule,
     InsideModule,
     CommonModule,
+    FormsModule,
     AngularSvgIconModule,
     ChatSingleMessageModule,
     ChatUserBoxModule,

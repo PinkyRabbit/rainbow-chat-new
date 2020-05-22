@@ -7,12 +7,14 @@
   </div>
   <div
     id="chat-users"
-    [settings]="settings"
     class="column"
     [style.height.px]="maxChatSize"
+    [settings]="settings"
+    [chatUsers]="chatUsers"
   >
     Loading chat-users...
   </div>
 </main>
-<!-- [user]="user" -->
-<footer id="text-input">Loading text-input...</footer>
+<footer id="text-input" [chatUsers]="chatUsers" [roomSlug]="roomSlug">
+  Loading text-input...
+</footer>

@@ -18,20 +18,27 @@
     type="text"
     placeholder="Введите текст сообщения..."
     autocomplete="off"
-    [value]="message"
+    [(ngModel)]="message"
+    [disabled]="isMessageSend"
     required
     autofocus
   />
 </p>
 
 <p class="control">
-  <button class="button" type="submit" (click)="sendMessage($event)">
+  <button
+    class="button"
+    type="submit"
+    [class.is-loading]="isMessageSend"
+    (click)="sendMessage($event)"
+  >
     <svg-icon
       [src]="'/assets/svg/send.svg'"
       [svgStyle]="{
         'width.px': 24,
         'height.px': 24
       }"
+      [class.invisible]="isMessageSend"
     ></svg-icon>
   </button>
 </p>
