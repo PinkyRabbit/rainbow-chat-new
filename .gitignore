@@ -8,3 +8,7 @@ server/
 **/.env
 .env
 environments/
+**/z1/
+**/z2/
+**/z3/
+**/old/

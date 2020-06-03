@@ -1,0 +1,126 @@
+<!-- <div class="navbar-brand" (window:resize)="onResize($event)"> -->
+<div class="navbar-brand">
+  <a class="navbar-item" [routerLink]="['/']" alt="На главную">
+    <img src="/assets/logo-nav.png" alt="Logo" width="112" height="28" />
+  </a>
+  <!-- Notifications -->
+  <a
+    role="button"
+    class="navbar-burger"
+    [hidden]="!settings.isOnTablet"
+    (click)="onClickMenuButton($event, 'notifications')"
+  >
+    <svg-icon
+      [src]="
+        hasUpdatesIn.notifications
+          ? '/assets/svg/notification.svg'
+          : '/assets/svg/notification-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.notifications && !buttons.notifications,
+        'active-svg': !hasUpdatesIn.notifications && buttons.notifications
+      }"
+      [svgStyle]="{
+        'width.px': iconSize,
+        'height.px': iconSize
+      }"
+    ></svg-icon>
+  </a>
+  <!-- Chats -->
+  <a
+    role="button"
+    class="navbar-burger"
+    (click)="onClickMenuButton($event, 'chats')"
+    [hidden]="!settings.isOnTablet"
+  >
+    <svg-icon
+      [src]="
+        hasUpdatesIn.chats ? '/assets/svg/chat.svg' : '/assets/svg/chat-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.chats && !buttons.chats,
+        'active-svg': !hasUpdatesIn.chats && buttons.chats
+      }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
+    ></svg-icon>
+  </a>
+  <a
+    role="button"
+    class="navbar-burger"
+    (click)="onClickMenuButton($event, 'settings')"
+    [hidden]="!settings.isOnTablet"
+  >
+    <svg-icon
+      [src]="
+        buttons.settings
+          ? '/assets/svg/settings-b.svg'
+          : '/assets/svg/settings.svg'
+      "
+      [ngClass]="{ 'not-active-svg': !buttons.settings }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
+    ></svg-icon>
+  </a>
+  <!-- Users -->
+  <a
+    role="button"
+    class="navbar-burger"
+    [class.is-hidden]="!settings.isOnTablet"
+    (click)="onClickMenuButton($event, 'users')"
+  >
+    <svg-icon
+      [src]="
+        hasUpdatesIn.users
+          ? '/assets/svg/speaking.svg'
+          : '/assets/svg/speaking-b.svg'
+      "
+      [ngClass]="{
+        'not-active-svg': !hasUpdatesIn.users && !buttons.users,
+        'active-svg': !hasUpdatesIn.users && buttons.users
+      }"
+      [svgStyle]="{ 'width.px': iconSize, 'height.px': iconSize }"
+    ></svg-icon>
+  </a>
+</div>
+<div class="navbar-menu" [ngClass]="{ 'is-active': isMenuActive }">
+  <div class="navbar-start">
+    <div
+      navbar-chats
+      [hidden]="settings.isOnTablet && !buttons.chats"
+      [isOnTablet]="settings.isOnTablet"
+      [src]="
+        hasUpdatesIn.chats ? '/assets/svg/chat.svg' : '/assets/svg/chat-b.svg'
+      "
+      [isSvgActive]="!hasUpdatesIn.chats && buttons.chats"
+      [isSvgNotActive]="!hasUpdatesIn.chats && !buttons.chats"
+      (mouseenter)="onHover($event, 'chats')"
+      (mouseleave)="onHover($event, 'chats')"
+    >
+      Loading navbar-chats...
+    </div>
+  </div>
+  <div class="navbar-end">
+    <div
+      navbar-notifications
+      [hidden]="settings.isOnTablet && !buttons.notifications"
+      [isOnTablet]="settings.isOnTablet"
+      [src]="
+        hasUpdatesIn.notifications
+          ? '/assets/svg/notification.svg'
+          : '/assets/svg/notification-b.svg'
+      "
+      [isSvgActive]="!hasUpdatesIn.notifications && buttons.notifications"
+      [isSvgNotActive]="!hasUpdatesIn.notifications && !buttons.notifications"
+      (mouseenter)="onHover($event, 'notifications')"
+      (mouseleave)="onHover($event, 'notifications')"
+    >
+      Loading navbar-notifications...
+    </div>
+    <div
+      navbar-user
+      [hidden]="settings.isOnTablet && !buttons.settings"
+      [isOnTablet]="settings.isOnTablet"
+    >
+      Loading navbar-settings...
+    </div>
+  </div>
+</div>

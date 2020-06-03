@@ -1,0 +1,44 @@
+<p class="control">
+  <button class="button">
+    <svg-icon
+      [src]="'/assets/smileys/smileys-4/svg/040-happy-9.svg'"
+      [svgStyle]="{
+        'width.px': 24,
+        'height.px': 24
+      }"
+    ></svg-icon>
+  </button>
+</p>
+
+<p class="control is-expanded">
+  <!-- [(ngModel)]="message" -->
+  <input
+    name="message"
+    class="input"
+    type="text"
+    placeholder="Введите текст сообщения..."
+    autocomplete="off"
+    [(ngModel)]="message"
+    [disabled]="isMessageSend"
+    required
+    autofocus
+  />
+</p>
+
+<p class="control">
+  <button
+    class="button"
+    type="submit"
+    [class.is-loading]="isMessageSend"
+    (click)="sendMessage($event)"
+  >
+    <svg-icon
+      [src]="'/assets/svg/send.svg'"
+      [svgStyle]="{
+        'width.px': 24,
+        'height.px': 24
+      }"
+      [class.invisible]="isMessageSend"
+    ></svg-icon>
+  </button>
+</p>

@@ -32,6 +32,7 @@ import { swPuserId } from 'util/swagger/constants.params';
 import { TokenResponse } from 'models';
 import { AuthTokenResponseDTO } from './dto/auth.token-response.dto';
 import { AuthRegisterDTO } from './dto/auth.register.dto';
+import { stringToResponseObject } from 'util/helpers/string-to-response-object';
 
 @Controller('auth')
 @ApiTags('Authorization')
@@ -73,8 +74,8 @@ export class AuthController {
   @ApiBearerAuth()
   @Get('/me')
   @UseGuards(JwtAuthGuard)
-  getCurrentUser(@Request() req) {
-    return req.user;
+  async getCurrentUser(@Request() req) {
+    return await this.authService.getMe(req.user);
   }
 
   @ApiOperation({ summary: 'User logout' })
@@ -83,7 +84,7 @@ export class AuthController {
   async logout(@Body(AuthRefreshValidationPipe) body: AuthRefreshDTO) {
     const { refreshToken } = body;
     await this.authService.revokeRefreshToken(refreshToken);
-    return 'user.logout';
+    return stringToResponseObject('user.logout');
   }
 
   @ApiOperation({ summary: 'User register' })
@@ -91,6 +92,6 @@ export class AuthController {
   @Post('/register')
   async register(@Body(AuthRegisterValidationPipe) newUser: AuthRegisterDTO) {
     await this.authService.register(newUser);
-    return 'user.created';
+    return stringToResponseObject('user.created');
   }
 }

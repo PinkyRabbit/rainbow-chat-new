@@ -1,0 +1,33 @@
+<div
+  class="media user-small"
+  [class.border-male]="user.sex === 0"
+  [class.border-female]="user.sex === 1"
+  [class.border-left-admin]="user.role === 2 || user.role === 777"
+  [class.border-left-moderator]="user.role === 1"
+>
+  <div class="media-left">
+    <figure
+      class="image is-64x64"
+      [class.border-for-admin]="user.role === 2 || user.role === 777"
+      [class.border-for-moderator]="user.role === 1"
+    >
+      <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image" />
+    </figure>
+  </div>
+  <div class="media-content">
+    <div class="content">
+      <p class="is-size-6" *ngIf="!!user.firstName">
+        <strong>{{ user.firstName }}</strong>
+      </p>
+      <p
+        (click)="selectUsername()"
+        [className]="usernameClasses"
+        [style.color]="pickHlsColor(user.nameColor)"
+      >
+        @{{ user.username }}
+      </p>
+      <p *ngIf="!!userPublicInfo">{{ userPublicInfo }}</p>
+      <p *ngIf="!!user.statusText">{{ user.statusText }}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<main
+  class="columns is-gapless is-paddingless is-marginless"
+  [style.position]="'relative'"
+>
+  <div
+    id="chat-messages"
+    class="column"
+    [style.height.px]="maxChatSize"
+    [messages]="messages"
+  >
+    Loading chat-messages...
+  </div>
+  <div
+    id="chat-users"
+    class="column"
+    [style.height.px]="maxChatSize"
+    [settings]="settings"
+    [chatUsers]="chatUsers"
+  >
+    Loading chat-users...
+  </div>
+</main>
+<footer id="text-input" [chatUsers]="chatUsers" [roomSlug]="roomSlug">
+  Loading text-input...
+</footer>

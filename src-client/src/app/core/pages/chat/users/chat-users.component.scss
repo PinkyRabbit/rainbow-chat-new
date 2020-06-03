@@ -1,0 +1,40 @@
+:host {
+  .users-wrapper {
+    background-color: #323443;
+    max-height: 100%;
+    overflow-y: auto;
+  }
+
+  .users-wrapper::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    background-color: #272a35;
+  }
+
+  .users-wrapper::-webkit-scrollbar {
+    width: 10px;
+    background-color: #272a35;
+  }
+
+  .users-wrapper::-webkit-scrollbar-thumb {
+    background-color: #313646;
+    border: 1px solid #1c1e28;
+  }
+
+  #hide-users-button {
+    width: 30%;
+    height: 100%;
+  }
+}
+
+:host.is-users-on-tablet {
+  z-index: 10;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+
+  .users-wrapper {
+    width: 70%;
+  }
+}

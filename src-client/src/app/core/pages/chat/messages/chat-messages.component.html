@@ -1,0 +1,9 @@
+<div id="chat-wrapper" [ngStyle]="baseStyles">
+  <p
+    *ngFor="let message of messages; let i = index"
+    class="chat-message"
+    [msg]="message"
+  >
+    Chat message is loading...
+  </p>
+</div>

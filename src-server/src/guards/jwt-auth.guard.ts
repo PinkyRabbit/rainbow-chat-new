@@ -19,25 +19,4 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
     }
     return user;
   }
-  /*
-  async canActivate(context: ExecutionContext): Promise<boolean> {
-    // tslint:disable-next-line
-    const result = (await super.canActivate(context)) as boolean;
-    const request = context.switchToHttp().getRequest();
-    await super.logIn(request);
-    return result;
-  }
-
-  handleRequest(err, userId, info) {
-    // tslint:disable-next-line
-    if (err) {
-      throw err;
-    }
-    if (!userId) {
-      throw new UnauthorizedException();
-    }
-
-    return userId;
-  }
-  */
 }

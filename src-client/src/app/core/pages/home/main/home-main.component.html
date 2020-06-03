@@ -1,0 +1,7 @@
+<section class="section" id="section-bricks">
+  <div *ngIf="!userId" app-main-unauthorized>
+    Loading app-main-unauthorized...
+  </div>
+  <div *ngIf="!!userId" app-main-logged-in>app-main-logged-in...</div>
+  <div id="stars">Loading stars...</div>
+</section>

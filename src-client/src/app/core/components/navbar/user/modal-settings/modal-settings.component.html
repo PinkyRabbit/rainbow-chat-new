@@ -1,0 +1,45 @@
+<div class="modal-background" (click)="stopEditSettings()"></div>
+<div class="modal-card">
+  <header class="modal-card-head">
+    <p class="modal-card-title">Настройки пользователя</p>
+    <button
+      class="delete"
+      aria-label="close"
+      (click)="stopEditSettings()"
+    ></button>
+  </header>
+  <section class="modal-card-body">
+    <div class="tabs">
+      <ul>
+        <li [class.is-active]="activeTab === 1" (click)="changeActiveTabTo(1)">
+          <a>Сообщения</a>
+        </li>
+        <li [class.is-active]="activeTab === 2" (click)="changeActiveTabTo(2)">
+          <a>Пользователь</a>
+        </li>
+        <li [class.is-active]="activeTab === 3" (click)="changeActiveTabTo(3)">
+          <a>Аватар</a>
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <div message-settings *ngIf="activeTab === 1" [user]="user">
+        Loading message-settings...
+      </div>
+      <div user-box-settings *ngIf="activeTab === 2" [user]="user">
+        Loading user-box-settings...
+      </div>
+      <div avatar-settings *ngIf="activeTab === 3">
+        Loading avatar-settings...
+      </div>
+    </div>
+  </section>
+  <footer
+    class="modal-card-foot has-text-centered"
+    (click)="stopEditSettings()"
+  >
+    <div class="content">
+      <h2>Применить</h2>
+    </div>
+  </footer>
+</div>

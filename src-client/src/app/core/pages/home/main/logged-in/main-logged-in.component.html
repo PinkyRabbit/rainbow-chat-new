@@ -1,0 +1,31 @@
+<div class="container">
+  <header app-outside-page-header [title]="pageTitle">
+    Loading app-outside-page-header...
+  </header>
+
+  <main class="columns is-multiline">
+    <div class="column is-one-third">
+      <div class="content">
+        <div class="notification is-info">
+          <p>
+            Эта страница сейчас в разработке. Она будет отвечать за поиск и
+            подбор чатов для пользователя. Пока что просто знайте, что со
+            временем она тут появится.
+          </p>
+        </div>
+        <a
+          class="button is-info is-inverted is-large is-fullwidth"
+          routerLink="/chat/main"
+          alt="Вернуться в чатик"
+          >Вернуться в чат</a
+        >
+      </div>
+    </div>
+
+    <div class="column is-two-thirds">
+      <figure class="image" id="main-logo">
+        <img src="/assets/beta8.png" alt="beta" />
+      </figure>
+    </div>
+  </main>
+</div>

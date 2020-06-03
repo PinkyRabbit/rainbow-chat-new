@@ -1,13 +1,16 @@
 import { Module } from '@nestjs/common';
 
 import { AwsModule } from 'services/aws/aws.module';
+import { DatabaseModule } from 'database/database.module';
 
-import { UserUploadController } from './upload/user-upload.controller';
-import { UserUploadService } from './upload/user-upload.service';
+import { UserUploadController } from './controllers/user-upload.controller';
+import { UserSearchController } from './controllers/user-search.controller';
+import { UserUploadService } from './services/user-upload.service';
+import { UserSearchService } from './services/user-search.service';
 
 @Module({
-  imports: [AwsModule],
-  controllers: [UserUploadController],
-  providers: [UserUploadService],
+  imports: [DatabaseModule, AwsModule],
+  controllers: [UserUploadController, UserSearchController],
+  providers: [UserUploadService, UserSearchService],
 })
 export class UserModule {}

@@ -1,13 +1,31 @@
+@charset "utf-8";
+
 @import "styles-overwrite-bulma.scss";
+@import "styles.animations.css";
 @import "~bulma";
 @import "~bulma-extensions/bulma-switch/src/sass/index";
 @import "~bulma-extensions/bulma-tooltip/src/sass/index";
 @import "~bulma-extensions/bulma-calendar/src/sass/index";
+// @import "~bulma-extensions/bulma-pageloader/src/sass/index";
+// fonts
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Merriweather:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Jura:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Cormorant:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Alegreya+SC:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Cormorant+Infant:400,400i,700,700i&display=swap&subset=cyrillic");
+@import url("https://fonts.googleapis.com/css?family=Spectral+SC:400,400i,700,700i&display=swap&subset=cyrillic");
 
 html,
 body {
   background-color: #272a35;
   color: #c3c3c3;
+}
+#root {
+  position: relative;
 }
 .navbar-dropdown a {
   color: #e5e5ff;
@@ -32,4 +50,60 @@ body {
   .navbar-menu.is-active {
     background: #1c202b;
   }
+}
+.bg-bricks {
+  display: block;
+  background: url("/assets/beg-crop-1200.jpg") top left / 100% auto repeat-y;
+  color: #fafbfb;
+  padding-bottom: 0;
+
+  h1 {
+    color: #a0afde;
+  }
+
+  .button {
+    font-weight: bold;
+  }
+
+  .notification.is-primary {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    box-shadow: inset 0 0 10px #050731;
+    background-color: #212859;
+
+    a {
+      color: #f9cc32 !important;
+    }
+  }
+}
+
+.font-1 {
+  font-family: "Montserrat", sans-serif;
+}
+.font-2 {
+  font-family: "Open Sans", sans-serif;
+}
+.font-3 {
+  font-family: "Merriweather", serif;
+}
+.font-4 {
+  font-family: "Playfair Display", serif;
+}
+.font-5 {
+  font-family: "EB Garamond", serif;
+}
+.font-6 {
+  font-family: "Jura", sans-serif;
+}
+.font-7 {
+  font-family: "Cormorant", serif;
+}
+.font-8 {
+  font-family: "Alegreya SC", serif;
+}
+.font-9 {
+  font-family: "Cormorant Infant", serif;
+}
+.font-10 {
+  font-family: "Spectral SC", serif;
 }

@@ -2,56 +2,61 @@ import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { isEmail } from 'validator';
 
-import { comparePasswordFunction } from './user.types';
+// import { comparePasswordFunction, getBoxUserById } from './user.types';
+import userInfo from './user.info';
+import userSettings from './user.settings';
+import { comparePassword, extractUserForBox } from './user.methods';
+
+// mongoose.set('debug', true);
 
 const UserSchema = new mongoose.Schema(
   {
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-      lowercase: true,
-      trim: true,
-      validate: [isEmail, 'Invalid email'],
-    },
     username: {
       type: String,
       required: true,
       unique: true,
       trim: true,
     },
+    email: {
+      type: String,
+      required: true,
+      lowercase: true,
+      trim: true,
+      validate: [isEmail, 'Invalid email'],
+    },
     password: {
       type: String,
       select: false,
       required: true,
     },
-    firstName: String,
-    lastName: String,
-    gender: {
-      type: String,
-      enum: ['male', 'female'],
-      default: 'male',
-    },
-    year: {
-      type: Number,
-      required: false,
-    },
-    country: String,
-    city: String,
-    phone: String,
     role: {
       type: String,
       required: true,
-      enum: [
-        'super_admin',
-        'admin',
-        'moderator',
-        'diamond_user',
-        'user',
-        'not_verified_user',
-      ],
+      enum: ['super_admin', 'admin', 'moderator', 'user'],
       default: 'user',
     },
+    isEmailVerified: {
+      type: Boolean,
+      default: false,
+    },
+    minutesOnline: {
+      type: Number,
+      default: 0,
+    },
+    lastOnline: {
+      type: Date,
+      default: Date.now,
+    },
+    blockedUntil: {
+      type: Date,
+      default: null,
+    },
+    premiumUntil: {
+      type: Date,
+      default: null,
+    },
+    ...userInfo,
+    ...userSettings,
   },
   { timestamps: true },
 );
@@ -76,10 +81,7 @@ UserSchema.pre('save', function(next) {
   });
 });
 
-const comparePassword: comparePasswordFunction = function(candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
-};
-
 UserSchema.methods.comparePassword = comparePassword;
+UserSchema.methods.extractUserForBox = extractUserForBox;
 
 export default UserSchema;
