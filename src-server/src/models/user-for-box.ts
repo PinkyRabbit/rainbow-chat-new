@@ -23,6 +23,4 @@ export interface UserForBox {
   readonly statusText: string;
   readonly nameColor: string;
   readonly nameFont: string;
-  readonly textColor: string;
-  readonly textFont: string;
 }

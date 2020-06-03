@@ -18,3 +18,13 @@ export const pickUsersInTheRoom = createSelector(
     return room ? room.users : null;
   }
 );
+
+export const pickMessagesInTheRoom = createSelector(
+  selectRoomsState,
+  (rooms, roomSlug) => {
+    const room: RoomModel = rooms.find(
+      (roomInState) => roomInState.slug === roomSlug
+    );
+    return room ? room.messages : [];
+  }
+);

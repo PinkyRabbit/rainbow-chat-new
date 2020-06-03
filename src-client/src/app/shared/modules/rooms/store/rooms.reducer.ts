@@ -29,7 +29,19 @@ const reducer = createReducer(
     }
     return state;
   }),
-  on(RoomsAction.joinRoomError, (state) => state)
+  on(RoomsAction.joinRoomError, (state) => state),
+  // add message to room
+  on(RoomsAction.addRoomMessage, (state, { roomSlug, message }) => {
+    state = state.slice();
+    const roomIndex = state.findIndex((room) => room.slug === roomSlug);
+    if (roomIndex !== -1) {
+      state[roomIndex].messages.push(message);
+      if (state[roomIndex].messages.length > 100) {
+        state[roomIndex].messages.shift();
+      }
+    }
+    return state;
+  })
 );
 
 export function RoomsReducer(state: RoomModel[] | undefined, action: Action) {

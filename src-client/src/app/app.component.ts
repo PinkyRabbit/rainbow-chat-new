@@ -22,6 +22,8 @@ import { TokenService } from './shared/modules/auth/services/token.service';
 import { getMe } from './shared/modules/user/store/user.actions';
 import { SettingsService } from './shared/services/settings/settings.service';
 import { SettingsModel } from './shared/services/settings/settings.model';
+import { Socket } from 'ngx-socket-io';
+import { SocketIoService } from './shared/services/socket-io.service';
 
 @Component({
   selector: '#root',
@@ -77,12 +79,14 @@ export class AppComponent implements OnInit, OnDestroy {
     private router: Router,
     private store: Store,
     private tokenService: TokenService,
-    private settingsService: SettingsService
+    private settingsService: SettingsService,
+    private socketIoService: SocketIoService
   ) {}
 
   @HostBinding('class.hidden') isHidden: boolean;
   ngOnInit() {
     console.log('ngOnInit AppComponent');
+    this.socketIoService.disconnect();
     this.fixLocation();
     this.addLoaderWhenRouting();
     this.addNavbar();
@@ -126,6 +130,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.subs.unsubscribe();
+    this.socketIoService.disconnect();
   }
 
   loginUserOnInit() {

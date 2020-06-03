@@ -15,6 +15,6 @@ export class RoomsHttpService {
   }
 
   getRoom(roomId: string) {
-    return this.http.get(`${this.apiUrl}/room/join/${roomId}`);
+    return this.http.get(`${this.apiUrl}/room/${roomId}/join`);
   }
 }

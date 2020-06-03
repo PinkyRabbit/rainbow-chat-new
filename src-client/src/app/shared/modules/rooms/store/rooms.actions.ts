@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 import { RoomId } from 'app/shared/models/common.models';
 import { RoomModel } from 'app/shared/models/room.model';
+import { ChatMessageModel } from 'app/shared/models/chat-message.model';
 
 export const reset = createAction('[Rooms] Reset');
 // get random room id
@@ -32,3 +33,8 @@ export const joinRoomSuccess = createAction(
   props<RoomModel>()
 );
 export const joinRoomError = createAction('[Rooms] Join room Fail');
+// add room message
+export const addRoomMessage = createAction(
+  '[Rooms] Add room message',
+  props<{ roomSlug: string; message: ChatMessageModel }>()
+);

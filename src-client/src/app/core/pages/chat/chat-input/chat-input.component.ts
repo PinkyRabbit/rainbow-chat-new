@@ -12,6 +12,7 @@ import { SubSink } from 'subsink';
 import { UserForBox } from 'app/shared/models/user-for-box.model';
 import { ChatMessagesService } from 'app/shared/modules/chat/messages/messages.service';
 import { UsernameToMessageService } from 'app/shared/services/username-to-message.service';
+import { Socket } from 'ngx-socket-io';
 
 @Component({
   selector: 'footer[#text-input]',
@@ -29,6 +30,7 @@ export class ChatInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
   constructor(
     private el: ElementRef,
+    private socket: Socket,
     private chatMessagesService: ChatMessagesService,
     private usernameToMessageService: UsernameToMessageService
   ) {}
@@ -86,6 +88,7 @@ export class ChatInputComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sendMessage(e) {
     e.preventDefault();
+
     const message = this.message.replace(/\s+/g, ' ').trim();
     if (!message.length) {
       return false;

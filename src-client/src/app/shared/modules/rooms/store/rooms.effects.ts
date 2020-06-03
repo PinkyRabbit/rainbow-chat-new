@@ -9,7 +9,6 @@ import {
   concatMap,
   tap,
   merge,
-  first,
   switchMapTo,
 } from 'rxjs/operators';
 import { of } from 'rxjs';
@@ -20,6 +19,8 @@ import { RoomId } from 'app/shared/models/common.models';
 
 import * as RoomsActions from './rooms.actions';
 import { RoomsHttpService } from '../services/rooms-http.service';
+import { Socket } from 'ngx-socket-io';
+import { SocketIoService } from 'app/shared/services/socket-io.service';
 
 @Injectable()
 export class RoomsEffects {
@@ -42,6 +43,7 @@ export class RoomsEffects {
     return this.actions$.pipe(
       ofType(RoomsActions.joinRoomsOnStart),
       concatMap((payload) => payload.rooms),
+      tap(() => this.socketIoService.connect),
       switchMap((room) =>
         of(RoomsActions.joinRoom(room)).pipe(
           merge(
@@ -64,6 +66,9 @@ export class RoomsEffects {
         this.roomsHttpService.getRoom(roomId).pipe(
           map((response) => this.createNewRoomObject(response)),
           map((formatedRoom) => RoomsActions.joinRoomSuccess(formatedRoom)),
+          tap((formatedRoom) =>
+            this.socketIoService.joinRoom(formatedRoom.slug)
+          ),
           catchError(() => of(RoomsActions.joinRoomError()))
         )
       )
@@ -82,6 +87,7 @@ export class RoomsEffects {
   constructor(
     private actions$: Actions,
     private roomsHttpService: RoomsHttpService,
-    private router: Router
+    private router: Router,
+    private socketIoService: SocketIoService // private socket: Socket
   ) {}
 }

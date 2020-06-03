@@ -2,7 +2,12 @@
   class="columns is-gapless is-paddingless is-marginless"
   [style.position]="'relative'"
 >
-  <div id="chat-messages" class="column" [style.height.px]="maxChatSize">
+  <div
+    id="chat-messages"
+    class="column"
+    [style.height.px]="maxChatSize"
+    [messages]="messages"
+  >
     Loading chat-messages...
   </div>
   <div

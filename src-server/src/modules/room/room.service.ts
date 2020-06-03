@@ -1,16 +1,27 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { RedisService } from 'nestjs-redis';
 import { InjectModel } from '@nestjs/mongoose';
+import { ObjectID } from 'mongodb';
 import { Model } from 'mongoose';
 
 import { UserModel } from 'database/schemas/user/user.model';
+import { MessageModel } from 'database/schemas/message/message.model';
+import { SocketIoGateway } from 'socket-io/socket-io.gateway';
+
+interface NewMessage {
+  message: string;
+  usersInMessage: string[];
+}
 
 @Injectable()
 export class RoomService {
   constructor(
     private readonly redisService: RedisService,
+    private readonly socketIoGateway: SocketIoGateway,
     @InjectModel('User')
     private userModel: Model<UserModel>,
+    @InjectModel('Message')
+    private messageModel: Model<MessageModel>,
   ) {}
 
   getRandomRoom() {
@@ -48,7 +59,7 @@ export class RoomService {
     // add user to room users
     const fullUser = await this.userModel.findOne({ _id: userId });
     const user = await fullUser.extractUserForBox();
-    await this.redisService.getClient().del(`${redisRoom}`);
+    // await this.redisService.getClient().del(`${redisRoom}`);
     await this.redisService
       .getClient()
       .sadd(`${redisRoom}`, JSON.stringify(user));
@@ -62,5 +73,57 @@ export class RoomService {
       room,
       users,
     };
+  }
+
+  async sendMessage(
+    userId: string,
+    roomSlug: string,
+    newMessageObject: NewMessage,
+  ) {
+    const message = {
+      roomSlug,
+      user: this.toObjectId(userId),
+      message: newMessageObject.message,
+      usersInMessage: newMessageObject.usersInMessage.map(userId =>
+        this.toObjectId(userId),
+      ),
+    };
+    const newMessage = await this.messageModel.create(message);
+    // const messageInstance = new this.messageModel();
+    // messageInstance.sta
+    // const getMessageForResponse = await this.messageModel.statics.someStatic()
+    const messageForResponse = await this.messageModel
+      .findOne({ _id: newMessage._id })
+      .populate(['user', 'usersInMessage']);
+    // io.to('some room').emit('some event');
+
+    const { roomSlug: excessSlugProp, ...messageObject } = messageForResponse;
+    this.socketIoGateway.sendToRoom(`${roomSlug}`, messageObject);
+
+    /*
+      .then(message => ({
+        room: `message.room`,
+        user: message.user
+        // readonly room: Schema.Types.ObjectId;
+        // readonly user: Schema.Types.ObjectId;
+        // readonly message: string;
+        // readonly usersInMessage: Schema.Types.ObjectId[];
+      }))
+    */
+
+    // console.log(getMessageForResponse);
+    // send message to database
+    // add message to redis
+    // const { room, ...messageObjectWithUsers } = getMessageForResponse;
+    this.redisService
+      .getClient()
+      .lpush(`room:${roomSlug}`, JSON.stringify(messageObject));
+    // clear redis if needed
+    // emit to socket
+    return true;
+  }
+
+  private toObjectId(value) {
+    return new ObjectID(value);
   }
 }

@@ -12,8 +12,12 @@ import { SubSink } from 'subsink';
 import { SettingsModel } from 'app/shared/services/settings/settings.model';
 import { UserForBox } from 'app/shared/models/user-for-box.model';
 import { SettingsService } from 'app/shared/services/settings/settings.service';
-import { pickUsersInTheRoom } from 'app/shared/modules/rooms/store/rooms.selectors';
+import {
+  pickUsersInTheRoom,
+  pickMessagesInTheRoom,
+} from 'app/shared/modules/rooms/store/rooms.selectors';
 import { deepCompareTwoArraysOfObjects } from 'app/shared/helpers';
+import { ChatMessageModel } from 'app/shared/models/chat-message.model';
 
 @Component({
   selector: '#chat',
@@ -30,6 +34,7 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
     isOnTablet: false,
   };
   public chatUsers: UserForBox[] = [];
+  public messages: ChatMessageModel[] = [];
   public roomSlug: string;
 
   get maxChatSize() {
@@ -102,6 +107,17 @@ export class ChatComponent implements OnInit, AfterViewInit, OnDestroy {
         },
         (error) => {
           this.chatUsers = [];
+          console.log(error);
+        }
+      );
+
+    this.subs.sink = this.store
+      .select(pickMessagesInTheRoom, this.roomSlug)
+      .subscribe(
+        (messages) => {
+          this.messages = messages;
+        },
+        (error) => {
           console.log(error);
         }
       );

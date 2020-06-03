@@ -11,6 +11,7 @@ import { CoreModule } from './core/core.module';
 import { NavbarModule } from './core/components/navbar/navbar.module';
 import { LoaderComponent } from './core/components/loader/loader.component';
 import { SettingsService } from './shared/services/settings/settings.service';
+import { SocketIoService } from './shared/services/socket-io.service';
 
 const config: SocketIoConfig = { url: 'http://localhost:8988', options: {} };
 
@@ -27,7 +28,7 @@ const COMPONENTS = [NavbarModule];
     SocketIoModule.forRoot(config),
     ...COMPONENTS,
   ],
-  providers: [SettingsService],
+  providers: [SettingsService, SocketIoService],
   declarations: [AppComponent, LoaderComponent],
   bootstrap: [AppComponent],
 })

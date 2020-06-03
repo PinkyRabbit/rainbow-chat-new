@@ -1,9 +1,19 @@
-import { Controller, Get, UseGuards, Request, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  UseGuards,
+  Request,
+  Param,
+  Post,
+  Body,
+} from '@nestjs/common';
 import { ApiOperation, ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
 import { JwtAuthGuard } from 'guards/jwt-auth.guard';
 
 import { RoomService } from './room.service';
+import { RoomMessageValidationPipe } from './pipes/room-message.validation.pipe';
+import { NewMessageDTO } from './dto/new-message.dto';
 
 @ApiTags('Rooms')
 @Controller('room')
@@ -21,9 +31,21 @@ export class RoomController {
 
   @ApiOperation({ summary: 'Join room return room + users' })
   @ApiBearerAuth()
-  @Get('/join/:roomId')
+  @Get('/:roomId/join')
   @UseGuards(JwtAuthGuard)
   async joinRoom(@Request() req, @Param('roomId') roomId: string) {
     return await this.roomService.joinRoom(req.user, roomId);
+  }
+
+  @ApiOperation({ summary: 'Send message to room' })
+  @ApiBearerAuth()
+  @Post('/:roomSlug/message')
+  @UseGuards(JwtAuthGuard)
+  async sendMessage(
+    @Request() req,
+    @Param('roomSlug') roomSlug: string,
+    @Body(RoomMessageValidationPipe) newMessage: NewMessageDTO,
+  ) {
+    return await this.roomService.sendMessage(req.user, roomSlug, newMessage);
   }
 }
