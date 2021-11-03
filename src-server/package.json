@@ -57,7 +57,7 @@
     "rxjs": "^6.5.4",
     "swagger-ui-express": "^4.1.4",
     "uuid": "^7.0.3",
-    "validator": "^13.0.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^7.0.0",
