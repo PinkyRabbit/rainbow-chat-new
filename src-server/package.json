@@ -45,7 +45,7 @@
     "connect-mongo": "^3.2.0",
     "dotenv": "^8.2.0",
     "helmet": "^3.22.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongoose": "^5.9.12",
     "mongoose-data-seed": "^2.1.6",
     "nestjs-redis": "^1.2.7",
